@@ -150,3 +150,161 @@
             <div style="font-size: 0.9rem; line-height: 1.75; color: #cbd5e1; display: flex; flex-direction: column; gap: 14px; margin-bottom: 24px;">
                 <p>1. <strong>看住狀態欄</strong>：身心健康度低於 35% 畫面會進入眩暈狀態，低於 20% 將面臨身心崩潰。隨時留意每日平均工時與當月實拿薪資。</p>
                 <p>2. <strong>把證據放進背包</strong>：特定核心事件中的文字紀錄、不合理通聯與連署書，是月底翻盤與開啟 Good Ending 的唯一鑰匙。</p>
+                <p>3. <strong>自我照顧也有代價</strong>：尋求工會與諮商資源能顯著回補身心健康，但因耗費了工作進度，當日的積壓會導致【每日平均工時】暴增！</p>
+            </div>
+            <button class="btn-primary" onclick="startGame()">我明白了，打卡上班</button>
+        </div>
+
+        <!-- 遊戲本體面板（原先漏掉這層外框導致整個架構破裂，已補上） -->
+        <div id="gamePlayScreen" class="hidden" style="display: flex; flex-direction: column; gap: 20px; width: 100%;">
+            <div class="status-bar">
+                <div class="status-item">
+                    <span class="status-label">階段</span>
+                    <span id="phaseLabel" class="status-value" style="color: #38bdf8;">意識覺醒</span>
+                </div>
+                <div class="status-item">
+                    <span class="status-label">時間天數</span>
+                    <span id="dayLabel" class="status-value">第 1 天 / 30</span>
+                </div>
+                <div class="status-item">
+                    <span class="status-label">身心健康</span>
+                    <span id="healthLabel" class="status-value" style="color: var(--color-success);">100%</span>
+                </div>
+                <div class="status-item">
+                    <span class="status-label">平均工時</span>
+                    <span id="hoursLabel" class="status-value">8h</span>
+                </div>
+                <div class="status-item">
+                    <span class="status-label">實拿薪資</span>
+                    <span id="salaryLabel" class="status-value">$38,898</span>
+                </div>
+            </div>
+
+            <div class="main-stage">
+                <div class="dialogue-box">
+                    <div id="speakerTag" class="dialogue-speaker">系統提示</div>
+                    <div id="dialogueText" class="dialogue-text"></div>
+                    <div id="optionsContainer" class="options-container"></div>
+                </div>
+
+                <div class="sidebar">
+                    <div class="side-card">
+                        <div class="side-card-title">自保證據背包 (<span id="bagCount">0</span>)</div>
+                        <div id="bagContent" style="color: var(--color-muted); font-size: 0.85rem;">尚無實質證據。</div>
+                    </div>
+                    <div class="side-card">
+                        <div class="side-card-title">即時行動日誌</div>
+                        <div id="logContent" style="font-size: 0.8rem; color: var(--color-muted); max-height: 100px; overflow-y: auto; line-height: 1.5;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 結算成就面板 -->
+        <div id="endingScreen" class="screen-panel hidden">
+            <div id="captureArea" class="ending-card-wrapper">
+                <div style="font-size: 0.7rem; text-align: center; color: var(--color-muted); letter-spacing: 1px; margin-bottom: 4px;">社工勞權爭取模擬器</div>
+                <div id="endingTitle" class="ending-title"></div>
+                
+                <div class="ending-grid">
+                    <div class="ending-grid-item"><span style="font-size: 0.7rem; color: var(--color-muted);">最終實拿薪資</span><span id="endSalary" style="font-weight: 700;"></span></div>
+                    <div class="ending-grid-item"><span style="font-size: 0.7rem; color: var(--color-muted);">每日平均工時</span><span id="endHours" style="font-weight: 700; color: var(--color-warning);"></span></div>
+                    <div class="ending-grid-item"><span style="font-size: 0.7rem; color: var(--color-muted);">剩餘健康續航</span><span id="endHealth" style="font-weight: 700;"></span></div>
+                    <div class="ending-grid-item"><span style="font-size: 0.7rem; color: var(--color-muted);">流失補休時數</span><span id="endLostHours" style="font-weight: 700; color: var(--color-danger);">24 小時</span></div>
+                </div>
+
+                <div class="real-data-box">
+                    <div style="font-weight: 700; margin-bottom: 6px; color: var(--color-danger); letter-spacing: 0.5px;">【真實台灣社工生存數據】</div>
+                    <p>• 起薪僵化：2016年新進社工約$33,000，至2026年僅緩慢調整至$38,898，十年漲幅不到 $6,000。</p>
+                    <p style="margin: 3px 0;">• 集體過勞：根據職場統計調查，高達 78.18% 的基層社工處於中度以上過勞環境。</p>
+                    <p>• 心理危機：67.27% 的專業社工因高壓環境擁有中度以上替代性創傷。</p>
+                    <div style="font-size: 0.65rem; color: var(--color-muted); text-align: right; margin-top: 4px;">來源：衛福部統計與各社福人員薪資調查資料</div>
+                </div>
+
+                <div id="endingNarration" class="final-narration"></div>
+            </div>
+            <button class="btn-primary" onclick="downloadCard()">下載我的社工勞權結算圖</button>
+            <button class="btn-secondary" onclick="window.location.reload()">重新打卡上班</button>
+        </div>
+    </div>
+
+    <script>
+        let state = { currentDay: 1, health: 100, avgHours: 8.0, salary: 38898, awaken: 0, evidence: [], log: [] };
+        let proceedCallback = null;
+
+        // 浮空動畫觸發
+        function floatText(text, type, e) {
+            const el = document.createElement('div');
+            el.className = 'floating-indicator';
+            el.innerText = text;
+            if (type === 'down') el.style.color = 'var(--color-danger)';
+            if (type === 'up') el.style.color = 'var(--color-success)';
+            if (type === 'warn') el.style.color = 'var(--color-warning)';
+            
+            let posX = e ? e.clientX : window.innerWidth / 2;
+            let posY = e ? e.clientY : window.innerHeight / 2;
+            el.style.left = `${posX - 40}px`; el.style.top = `${posY - 20}px`;
+            document.body.appendChild(el);
+            setTimeout(() => el.remove(), 1400);
+        }
+
+        function pushLog(txt) {
+            state.log.unshift(`[第${state.currentDay}天] ${txt}`);
+            const box = document.getElementById('logContent');
+            box.innerHTML = state.log.map(l => `<div>${l}</div>`).join('');
+        }
+
+        function updateStatus() {
+            document.getElementById('dayLabel').innerText = `第 ${state.currentDay} 天 / 30`;
+            document.getElementById('healthLabel').innerText = `${state.health}%`;
+            document.getElementById('hoursLabel').innerText = `${state.avgHours.toFixed(1)}h`;
+            document.getElementById('salaryLabel').innerText = `$${state.salary.toLocaleString()}`;
+            document.getElementById('bagCount').innerText = state.evidence.length;
+            
+            const bag = document.getElementById('bagContent');
+            if (state.evidence.length === 0) bag.innerText = "尚無實質證據。";
+            else bag.innerHTML = state.evidence.map(item => `<div class="evidence-item">${item}</div>`).join('');
+
+            if (state.currentDay <= 10) document.getElementById('phaseLabel').innerText = "意識覺醒";
+            else if (state.currentDay <= 20) document.getElementById('phaseLabel').innerText = "證據蒐集";
+            else document.getElementById('phaseLabel').innerText = "採取行動";
+
+            const body = document.getElementById('gameBody');
+            if (state.health < 35) {
+                body.classList.add('dizzy-mode');
+                document.getElementById('healthLabel').style.color = 'var(--color-danger)';
+            } else {
+                body.classList.remove('dizzy-mode');
+                document.getElementById('healthLabel').style.color = 'var(--color-success)';
+            }
+            if (state.health < 20) body.classList.add('danger-border');
+            else body.classList.remove('danger-border');
+        }
+
+        // 核心 9 大情境事件庫
+        const timelineEvents = {
+            1: {
+                speaker: "主管",
+                text: "因為政府委託案方案的經費撥款通常年底才下來，為了機構永續經營，大家每個月從薪水自動回捐 3,000 元給機構做公益喔。大家都有簽，相信你也能共體時艱吧？",
+                options: [
+                    { text: "含淚吞下，在樂捐同意書上簽字", resolve: (e) => {
+                        state.salary -= 3000; state.health -= 20; state.awaken -= 10;
+                        floatText("身心健康 ▼", "down", e); floatText("薪資倒扣 ▼", "down", e);
+                        pushLog("簽署了不合理的回捐同意書。"); nextStep();
+                    }},
+                    { text: "委婉拒絕簽署", resolve: (e) => {
+                        state.avgHours += 1.0; state.health -= 15; state.awaken += 30;
+                        floatText("平均工時 ▲", "warn", e); floatText("權益覺醒 ▲", "up", e);
+                        pushLog("拒絕簽署回捐，隨後被分配了更多困難業務。"); nextStep();
+                    }}
+                ]
+            },
+            5: {
+                speaker: "社會局方案承辦",
+                text: "上個月報支的交通差旅核銷被退件了。承辦要求你必須補上『你的機車車牌與個案家大門牌同框的清晰合照』。督導表示機構沒有多餘預算，要你自己想辦法。",
+                options: [
+                    { text: "自吞車資差旅費，直接放棄這次核銷", resolve: (e) => {
+                        state.salary -= 500; state.health -= 10; state.awaken += 10;
+                        floatText("實拿薪資 ▼", "down", e); pushLog("放棄核銷，自行貼補公務差旅費。"); nextStep();
+                    }},
+                    { text: "硬著頭皮去個案家門口拍攝車牌補件", resolve: (e) => {
