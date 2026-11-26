@@ -237,36 +237,29 @@
         </div>
 
         <!-- 高級毛玻璃結算成就面板 -->
-        <div id="endingScreen" class="screen-panel hidden">
-        <!-- 高級毛玻璃結算成就面板 -->
-        <div id="endingScreen" class="screen-panel hidden" style="background: transparent; border: none; box-shadow: none; backdrop-filter: none; -webkit-backdrop-filter: none;">
-            <div id="captureArea" class="ending-card-wrapper">
-                <div style="font-size: 0.78rem; text-align: center; color: var(--color-muted); letter-spacing: 2px; margin-bottom: 4px; font-weight: 700; text-transform: uppercase;">LABOR RIGHTS SIMULATION / 結算成就卡</div>
+        <div id="endingScreen"             <div id="captureArea" class="ending-card-wrapper">
+                <div style="font-size: 0.75rem; text-align: center; color: var(--color-muted); letter-spacing: 1.5px; margin-bottom: 6px; font-weight: 700; text-transform: uppercase;">LABOR RIGHTS SIMULATION / 結算成就卡</div>
                 <div id="endingTitle" class="ending-title"></div>
-                
-                <!-- 【全新美編】結局專屬對應之 2D 卡通情境插畫展示盒（解決黑背景與下載失效關鍵） -->
-                <div id="endingAvatar" class="ending-avatar-box"></div>
-
                 <div class="ending-grid">
-                    <div class="ending-grid-item"><span style="font-size: 0.75rem; color: var(--color-muted); font-weight: 700;">最終實拿薪資</span><span id="endSalary" style="font-weight: 700; font-size: 1.2rem; color: #1e293b;"></span></div>
-                    <div class="ending-grid-item"><span style="font-size: 0.75rem; color: var(--color-muted); font-weight: 700;">每日平均工時</span><span id="endHours" style="font-weight: 700; font-size: 1.2rem; color: #d97706;"></span></div>
-                    <div class="ending-grid-item"><span style="font-size: 0.75rem; color: var(--color-muted); font-weight: 700;">剩餘健康續航</span><span id="endHealth" style="font-weight: 700; font-size: 1.2rem;"></span></div>
-                    <div class="ending-grid-item"><span style="font-size: 0.75rem; color: var(--color-muted); font-weight: 700;">被流失補休時數</span><span style="font-weight: 700; font-size: 1.2rem; color: var(--color-danger);">24 小時</span></div>
+                    <div class="ending-grid-item"><span style="font-size: 0.72rem; color: var(--color-muted); font-weight: 700;">最終實拿薪資</span><span id="endSalary" style="font-weight: 700; font-size: 1.15rem; color: #1e293b;"></span></div>
+                    <div class="ending-grid-item"><span style="font-size: 0.72rem; color: var(--color-muted); font-weight: 700;">每日平均工時</span><span id="endHours" style="font-weight: 700; font-size: 1.15rem; color: #d97706;"></span></div>
+                    <div class="ending-grid-item"><span style="font-size: 0.72rem; color: var(--color-muted); font-weight: 700;">剩餘健康續航</span><span id="endHealth" style="font-weight: 700; font-size: 1.15rem;"></span></div>
+                    <div class="ending-grid-item"><span style="font-size: 0.72rem; color: var(--color-muted); font-weight: 700;">被流失補休時數</span><span style="font-weight: 700; font-size: 1.15rem; color: var(--color-danger);">24 小時</span></div>
                 </div>
                 <div class="real-data-box">
-                    <div style="font-weight: 700; margin-bottom: 8px; color: var(--color-danger); letter-spacing: 0.5px; font-size: 0.92rem;">【真實台灣社工生存數據環境】</div>
-                    <p style="margin: 4px 0; text-align: justify;">• <strong>起薪僵化：</strong>2016 年新進社工約 $33,000，至 2026 年僅緩慢調整至約 $38,898，十年專業薪資成長停滯，追不上通膨與高壓職安風險。</p>
-                    <p style="margin: 4px 0; text-align: justify;">• <strong>集體過勞：</strong>根據工會職場統計，台灣高達 78.18% 的基層社工長期處於中度以上慢性過勞環境，自主加班已成常態。</p>
-                    <p style="margin: 4px 0; text-align: justify;">• <strong>心理創傷：</strong>67.27% 的專業社工因長期接觸社會重案與不合理制度指責，背負著中度以上的「替代性創傷」與精神消耗。</p>
+                    <div style="font-weight: 700; margin-bottom: 8px; color: var(--color-danger); letter-spacing: 0.5px; font-size: 0.85rem;">【真實台灣社工生存數據環境】</div>
+                    <p style="margin: 3px 0; text-align: justify;">• <strong>起薪僵化：</strong>2016 年新進社工約 $33,000，至 2026 年僅緩慢調整至約 $38,898，十年專業薪資成長停滯，追不上通膨與高壓職安風險。</p>
+                    <p style="margin: 3px 0; text-align: justify;">• <strong>集體過勞：</strong>根據工會職場統計，台灣高達 78.18% 的基層社工長期處於中度以上慢性過勞環境，自主加班已成常態。</p>
+                    <p style="margin: 3px 0; text-align: justify;">• <strong>心理創傷：</strong>67.27% 的專業社工因長期接觸社會重案與不合理制度指責，背負著中度以上的「替代性創傷」與精神消耗。</p>
                     <div style="font-size: 0.65rem; color: var(--color-muted); text-align: right; margin-top: 6px;">數據來源：社工職業工會與社福人員薪資勞動調查資料</div>
                 </div>
                 <div id="endingNarration" class="final-narration"></div>
             </div>
-            <button class="btn-primary" style="margin-top: 24px;" onclick="downloadCard()">下載我的社工勞權結算圖 📸</button>
+            <button class="btn-primary" style="margin-top: 20px;" onclick="downloadCard()">下載我的社工勞權結算圖 📸</button>
             <button class="btn-secondary" onclick="window.location.reload()">重新打卡上班 🔄</button>
         </div>
     </div>
-    <script>
+    <script>class="screen-panel hidden">
 
         let state = { currentDay: 1, health: 100, avgHours: 8.0, salary: 38898, awaken: 0, evidence: [], log: [] };
         let proceedCallback = null;
