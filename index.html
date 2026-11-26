@@ -4,13 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>是人，是工具，更是工具人──社工的勞動權益之路</title>
-    <!-- 【一鍵除錯】引入真正具備實質路徑的正確 CDN 功能庫與繁體字型，消滅按鈕卡死與黑畫面 -->
+    <!-- 【一鍵除錯】引入真正有效的繁體中文字型與 html2canvas 結算卡片截圖下載庫 -->
     <link href="https://googleapis.com" rel="stylesheet">
     <script src="https://cloudflare.com"></script>
     <style>
         :root {
             --bg-main: #f5eedf; /* 初始溫馨大愛暖杏色底色 */
-            --bg-card: rgba(255, 255, 255, 0.75); /* 【視覺美編】調降不透明度，釋放強大毛玻璃通透感 */
+            --bg-card: rgba(255, 255, 255, 0.72); /* 【視覺美編】調降不透明度，釋放強大毛玻璃通透感 */
             --border-neon: rgba(217, 119, 6, 0.15); 
             --border-neon-active: rgba(217, 119, 6, 0.6); 
             --color-text: #3e322d; /* 溫潤焙茶褐文字，比死黑更有故事感 */
@@ -29,13 +29,13 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            /* 滿版防變形機制：自動裁切並完美適應電腦寬螢幕、手機直橫幅比例 */
+            /* 滿版防變形機制：自動裁切並適應電腦、手機直橫幅比例 */
             background-size: cover;
             background-position: center center;
             background-repeat: no-repeat;
             background-attachment: fixed;
             overflow-x: hidden;
-            /* 【修復單薄背景】首頁預載滿版高質感溫馨辦公室場景插畫網址 */
+            /* 【優化預載】首頁一打開直接滿版展現溫馨辦公室場景插畫，並提供換場時 0.5 秒淡入淡出 */
             background-image: url('https://unsplash.com');
             transition: filter 0.5s ease, background-color 0.5s ease, background-image 0.5s ease;
         }
@@ -64,7 +64,7 @@
 
         .game-container { width: 100%; max-width: 1000px; padding: 16px; display: flex; flex-direction: column; gap: 20px; }
         
-        /* 高級毛玻璃 Glassmorphism 面板與柔和陰影 */
+        /* 高級毛玻璃 Glassmorphism 面板 */
         .screen-panel { 
             background: var(--bg-card); 
             border: 1px solid var(--border-neon); 
@@ -181,11 +181,11 @@
     <div class="game-container">
         <!-- 修正過後的超美觀主頁面面板 -->
         <div id="homeScreen" class="screen-panel">
-            <h1 style="font-size: 1.6rem; text-align: center; margin-bottom: 20px; font-weight: 700; color: #b45309; line-height: 1.4;">是人，是工具，更是工具人──社工的勞動權益之路</h1>
+            <h1 style="font-size: 1.6rem; text-align: center; margin-bottom: 20px; font-weight: 700; color: #b45309; line-height: 1.4;">是人，是工具，幕後功臣──社工的勞動權益之路</h1>
             <p style="line-height: 1.8; color: var(--color-text); margin-bottom: 28px; text-align: justify; font-size: 1rem; letter-spacing: 0.5px;">
                 哇！你是社工ㄟ，你一定很有愛心齁💖(*´∀｀)<br>
                 只有你知道，不成正比的工作量與待遇早就讓你失去了尊嚴與生活品質。<br><br>
-                這30天內，你会遇到各樣的事件🎲，請做出自己的判斷！<br>
+                這30天內，你會遇到各樣的事件🎲，請做出自己的判斷！<br>
                 你會選擇妥協，淪為換完就丟的低成本工具，還是一位有尊嚴有底線的「人」呢？
             </p>
             <button class="btn-primary" onclick="showTutorial()">進入職場</button>
@@ -230,6 +230,7 @@
                     <span id="salaryLabel" class="status-value" style="font-size: 0.95rem;">$38,898</span>
                 </div>
             </div>
+
             <div class="main-stage">
                 <!-- 線性對話框 -->
                 <div class="dialogue-box">
@@ -498,7 +499,7 @@
                     { text: "選擇吞下去，默默把證據銷毀繼續當聽話的齒輪 ⚙️", resolve: (e) => {
                         endGame("wheel");
                     }},
-                    { text: "啟動三管齊下合法抗爭：結合證據向衛福部申訴平臺舉報並向勞工局申請爭議調解 ⚖️", resolve: (e) => {
+                    { text: "啟動三管齊下合法抗爭：結合證據向衛衛福部申訴平臺舉報並向勞工局申請爭議調解 ⚖️", resolve: (e) => {
                         if (state.evidence.includes("機構集體連署書") && state.evidence.length >= 3) {
                             endGame("good");
                         } else {
@@ -540,10 +541,10 @@
             if (day === 1) {
                 document.body.style.backgroundImage = "url('https://unsplash.com')"; 
             } else if (day === 11) {
-                // 階段二背景：老舊公寓與生鏽鐵門，暗示高風險訪視的職安壓迫
+                // 階段二背景：昏暗、凌亂的老舊公寓與老舊生鏽鐵門，渲染職安與精神上的高壓
                 document.body.style.backgroundImage = "url('https://unsplash.com')"; 
             } else if (day === 18 || day === 20) {
-                // 階段三背景：深夜空無一人、僅剩筆電殘白冷光發亮的核銷加班地獄
+                // 階段三背景：深夜空無一人、唯有桌上筆電慘白冷光發亮的血汗加班地獄
                 document.body.style.backgroundImage = "url('https://unsplash.com')"; 
             }
 
@@ -569,7 +570,7 @@
             const screen = document.getElementById('overlayScreen');
             const idx = Math.floor(Math.random() * continuousDamages.length);
             
-            // 【翻頁日曆控制】動態換日並補齊雙位數零
+            // 【玩家指定：日曆翻頁控制】動態換日並補齊雙位數零，提供清楚日期辨識
             document.getElementById('calendarDayLabel').innerText = state.currentDay < 10 ? `0${state.currentDay}` : state.currentDay;
             document.getElementById('overlayText').innerText = continuousDamages[idx];
             screen.classList.add('active');
@@ -594,7 +595,7 @@
         function endGame(endingType) {
             document.getElementById('gamePlayScreen').classList.add('hidden');
             document.getElementById('endingScreen').classList.remove('hidden');
-            document.body.style.filter = "none"; // 結算卡片恢復全彩
+            document.body.style.filter = "none"; // 結算卡片恢復全彩便於觀看與截圖
             document.body.style.backgroundImage = "none";
             document.body.style.backgroundColor = "#f1e9db";
 
@@ -610,7 +611,7 @@
                 narration.innerText = "恭喜你，你透過智慧與集體串聯，成功擺脫了這個吃人體制的詛咒！在工會的強力培力與協調下，勞工局裁定機構回捐及未給付加班費違法，機構被迫全額退還你被倒扣的薪資。同時，你利用中央平臺舉報，迫使體制正式面對剝削。你用行動證明了：勞權爭取不是個人英雄主義。唯有保障社工，才能真正守護案主！";
             } else if (endingType === 'collapse' || state.health <= 0) {
                 title.innerText = "【BAD ENDING 🚑 倒在辦公桌前的燃燒殆盡】"; title.className = "ending-title bad";
-                narration.innerText = "你終究是被這個吃人的體制，壓得喘不過氣了。在長期高壓與過勞、且缺乏合理防護與自我照顧的惡劣環境下，你默默燃燒了自己，直到健康歸零。當你倒下送往醫院時，機構的齒輪依然冷酷地在轉動，明天就會有下一個帶著大愛熱情的新人進來填補空缺。這樣的詛咒，不該由你一個人承受。別讓大愛成為剥削的羞布。";
+                narration.innerText = "你終究是被這個吃人的體制，壓得喘不過氣了。在長期高壓與過勞、且缺乏合理防護與自我照顧的惡劣環境下，你默默燃燒了自己，直到健康歸零。當你倒下送往醫院時，機構的齒輪依然冷酷地在转動，明天就會有下一個帶著大愛熱情的新人進來填補空缺。這樣的詛咒，不該由你一個人承受。別讓大愛成為剥削的羞布。";
             } else if (endingType === 'wheel') {
                 title.innerText = "【BAD ENDING ⚙️ 體制內的溫順血汗齒輪】"; title.className = "ending-title bad";
                 narration.innerText = "你選擇了全盤隱忍。你成為了主管眼中『有大愛、懂得共體時艱』的乖員工。薪水被強迫回捐扣除、每日被迫無薪自主加班，身體與精神逐漸變得千瘡百孔。你只能不斷催眠自己這一切都是為了個案好。然而，正是你的默默承受，滋營了黑心體制繼續剝削下一代社工的溫床。";
