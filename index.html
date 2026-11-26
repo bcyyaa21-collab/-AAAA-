@@ -394,15 +394,15 @@
             },
             11: {
                 speaker: "督導 🧓",
-                text: "你下午需要單獨前往訪視那名有嚴重暴力傾向、曾持刀傷人的個案。機構目前經費有限沒有配發防狼噴霧喔，而且帶防具會破壞與個案的信任關係！你自己多注意就好。",
+                text: "你下午需要單獨前往訪視那名曾有酗酒鬧事、甚至在酒後出現嚴重暴力砸屋傾向的個案。機構目前經費有限沒有配發防狼噴霧喔，而且帶防具會破壞與個案的專業信任關係！你自己多注意、機靈點就好。",
                 options: [
                     { text: "硬著頭皮自己騎車過去現場訪視 🛵", resolve: (e) => {
                         state.health -= 35;
-                        floatText("飽受驚嚇精神受創 ▼", "down", e); pushLog("訪視時個案情緒暴走摔砸物品，驚險逃出。"); nextStep();
+                        floatText("飽受驚嚇精神受創 ▼", "down", e); pushLog("訪視時個案滿身酒氣、情緒暴走摔砸玻璃瓶，驚險逃出。"); nextStep();
                     }},
                     { text: "答應前往，但堅持在 LINE 群組留下不合理防護交辦通聯 📱", resolve: (e) => {
                         state.health -= 10; state.evidence.push("職安忽視通聯紀錄");
-                        floatText("保留存證 ▲", "up", e); pushLog("在群組回覆：『因無人陪同，今日自備防具前往』，留下文字鐵證。"); nextStep();
+                        floatText("保留存證 ▲", "up", e); pushLog("在群組回覆：『因案主有酗酒暴力紀錄且無人陪同，今日自備防具前往』，留下文字鐵證。"); nextStep();
                     }}
                 ]
             },
@@ -534,7 +534,7 @@
             if (bgLayer) {
                 if (day <= 10) {
                     // 階段一：明亮但死死被制度常規壓抑、強制薪資回捐的冷色調機構辦公室
-                    bgLayer.style.backgroundImage = "url('https://unsplash.com')"; 
+                    bgLayer.style.backgroundImage = "url('bg-office.jpg')"; 
                 } else if (day <= 20) {
                     // 階段二：昏暗老舊、職安防護缺乏、有持刀精神前科個案所在的破舊斑駁大門走廊
                     bgLayer.style.backgroundImage = "url('https://unsplash.com')"; 
