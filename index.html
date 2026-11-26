@@ -4,23 +4,22 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>是人，是工具，更是工具人──社工的勞動權益之路</title>
-    <!-- 【一鍵除錯】引入真正具有實質功能檔案路徑的正確 CDN 加載連結，徹底消滅功能失效 -->
+    <!-- 【解鎖大腦】真正具有實質功能路徑的正確下載連結，徹底解鎖主程序按鈕與截圖機制 -->
     <link href="https://googleapis.com" rel="stylesheet">
     <script src="https://cloudflare.com"></script>
     <style>
         :root {
             --bg-main: #130f16; 
-            --bg-card: rgba(255, 252, 248, 0.85); /* 帶微潤杏色之高級高通透毛玻璃 */
+            --bg-card: rgba(255, 252, 248, 0.85); 
             --border-neon: rgba(217, 119, 6, 0.25); 
             --border-neon-active: rgba(217, 119, 6, 0.75); 
-            --color-text: #2c221e; /* 溫潤焙茶褐文字 */
+            --color-text: #2c221e; 
             --color-muted: #7c645e; 
             --color-danger: #ef4444; 
             --color-success: #10b981;
             --color-warning: #f59e0b;
             --shadow-game: 0 20px 50px rgba(0, 0, 0, 0.3);
         }
-
         * { box-sizing: border-box; margin: 0; padding: 0; user-select: none; }
         body {
             font-family: 'Noto Sans TC', sans-serif;
@@ -33,40 +32,28 @@
             position: relative;
             overflow-x: hidden;
         }
-
-        /* 【實質修正】建立穩定高解析度之代表性「問題場景」動態背景層 ＋ 疊加 50% 半透明磨砂暗色遮罩 */
+        /* 【終極修復】加上強制寬高，確保本地 2D 卡通圖層具備滿版面積，絕不隱形死黑 */
         .game-full-bg {
-            position: fixed; 
-            top: 0; 
-            left: 0; 
-            width: 100vw; 
-            height: 100vh; /* 【終極修復】確保背景圖層具備 100% 全螢幕寬高面積，防隱形死黑 */
-            background-size: cover; 
-            background-position: center center; 
-            background-repeat: no-repeat;
-            z-index: 1; 
-            transition: background-image 0.6s ease-in-out, filter 0.6s ease;
+            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+            background-size: cover; background-position: center center; background-repeat: no-repeat;
+            z-index: 1; transition: background-image 0.6s ease-in-out, filter 0.6s ease;
             background-image: url('bg-office.jpg');
         }
-
         .game-full-bg::after {
             content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
             background: linear-gradient(135deg, rgba(19, 15, 22, 0.52) 0%, rgba(35, 26, 24, 0.42) 100%);
             z-index: 2;
         }
-
         .game-container { 
             width: 100%; max-width: 1020px; padding: 20px; 
             display: flex; flex-direction: column; gap: 20px; position: relative; z-index: 10; 
         }
-        
         .screen-panel { 
             background: var(--bg-card); border: 2px solid var(--border-neon); border-radius: 24px; 
             padding: 36px; backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
             box-shadow: var(--shadow-game); transition: border-color 0.4s ease;
         }
         .hidden { display: none !important; }
-
         .status-bar { 
             display: grid; grid-template-columns: repeat(5, 1fr); background: var(--bg-card); 
             border: 2px solid var(--border-neon); border-radius: 16px; padding: 20px 16px; 
@@ -76,21 +63,17 @@
         .status-item { display: flex; flex-direction: column; gap: 4px; align-items: center; text-align: center; }
         .status-label { font-size: 0.78rem; color: var(--color-muted); font-weight: 700; letter-spacing: 0.8px; }
         .status-value { font-size: 1.1rem; font-weight: 700; color: #1e293b; }
-
         .pixel-health-bar {
             width: 110px; height: 14px; background: #3e322d; border: 2px solid #2c2520;
             padding: 1px; display: flex; align-items: center; margin-top: 2px; box-shadow: 0 2px 6px rgba(0,0,0,0.15);
         }
         .pixel-health-fill { height: 100%; background: var(--color-success); width: 100%; transition: width 0.4s ease, background-color 0.4s ease; }
-
         .pie-chart-box {
             width: 46px; height: 46px; border-radius: 50%; border: 2px solid #2c2520; margin-top: 2px;
             background: conic-gradient(var(--color-warning) 0% 33.3%, rgba(0,0,0,0.08) 33.3% 100%);
             box-shadow: 0 3px 8px rgba(0,0,0,0.1); transition: background 0.5s ease;
         }
-
         .main-stage { display: grid; grid-template-columns: 2.2fr 1fr; gap: 24px; align-items: stretch; }
-        /* 故事對話盒主體 */
         .dialogue-box { 
             background: rgba(255, 255, 255, 0.88); border: 2px solid var(--border-neon); border-radius: 24px; 
             padding: 40px 32px 32px 32px; position: relative; display: flex; flex-direction: column; 
@@ -101,11 +84,8 @@
             position: absolute; top: -14px; left: 28px; background: linear-gradient(135deg, #f59e0b, #d97706); 
             color: white; padding: 6px 20px; border-radius: 10px; font-size: 0.88rem; font-weight: 700; letter-spacing: 0.5px; box-shadow: 0 6px 20px rgba(217, 119, 6, 0.3); 
         }
-        /* 【核心修復】加上 padding-right: 76px 右側安全寬度留空，徹底杜絕長文字被日曆卡阻擋遮住 */
         .dialogue-text { font-size: 1.08rem; line-height: 1.9; margin-top: 20px; color: var(--color-text); padding-right: 76px; text-align: justify; }
         .options-container { display: flex; flex-direction: column; gap: 12px; margin-top: 28px; }
-        
-        /* 【體驗升級】按鈕加深邊框與陰影拉開對比，滑鼠 hover 時觸發發光與微彈跳放大（1.025倍）增強點擊快感 */
         .option-btn { 
             background: rgba(255, 255, 255, 0.95); border: 2px solid var(--border-neon); color: var(--color-text); 
             padding: 16px 22px; border-radius: 14px; cursor: pointer; text-align: left; font-size: 0.98rem; 
@@ -116,8 +96,6 @@
             background: #fff; border-color: var(--border-neon-active); 
             box-shadow: 0 8px 24px rgba(217, 119, 6, 0.18); transform: scale(1.025) translateX(2px); 
         }
-
-        /* 對話框內置嵌的「迷你翻曆卡」樣式與抖動動畫 */
         .inline-calendar-card {
             position: absolute; top: 20px; right: 24px; background: #fff; border: 2px solid #2c2520;
             border-radius: 10px; width: 56px; height: 60px; display: flex; flex-direction: column;
@@ -133,13 +111,10 @@
         .inline-calendar-body { flex: 1; display: flex; flex-direction: column; justify-content: center; align-items: center; background: #f8fafc; font-weight: 900; line-height: 1.1; }
         .inline-calendar-prefix { font-size: 0.52rem; color: var(--color-muted); text-transform: uppercase; font-weight: 700; letter-spacing: 0.5px; }
         .inline-calendar-num { font-size: 1.15rem; color: #1e293b; }
-
-        /* 經典側邊欄：加入 flex 排版與高度自動拉伸填充，根治太空曠痛點 */
         .sidebar { display: flex; flex-direction: column; gap: 16px; }
         .side-card { background: var(--bg-card); border: 2px solid var(--border-neon); border-radius: 18px; padding: 18px; display: flex; flex-direction: column; gap: 12px; flex: 1; min-height: 192px; box-shadow: var(--shadow-game); }
         .side-card-title { font-size: 0.82rem; color: var(--color-muted); border-bottom: 1px solid rgba(62,50,45,0.1); padding-bottom: 8px; font-weight: 700; letter-spacing: 0.5px; }
         .evidence-item { font-size: 0.88rem; padding: 10px 14px; background: rgba(217, 119, 6, 0.08); border: 1px solid rgba(217, 119, 6, 0.25); color: #b45309; font-weight: 700; border-radius: 8px; box-shadow: 0 2px 6px rgba(217,119,6,0.03); }
-
         body.dizzy-mode { animation: dizzyShake 3s infinite; }
         body.danger-border { border: 5px solid var(--color-danger); animation: dangerPulse 2s infinite; }
         @keyframes dangerPulse { 0%, 100% { box-shadow: inset 0 0 30px rgba(244,63,94,0.2); border-color: rgba(244,63,94,0.3); } 50% { box-shadow: inset 0 0 50px rgba(244,63,94,0.5); border-color: rgba(244,63,94,0.7); } }
@@ -151,14 +126,29 @@
         .btn-primary:hover { transform: translateY(-3px) scale(1.01); box-shadow: 0 8px 24px rgba(217,119,6,0.45); }
         .btn-secondary { background: transparent; border: 2px solid var(--color-muted); color: var(--color-muted); padding: 12px 24px; font-size: 0.95rem; font-weight: 700; border-radius: 14px; cursor: pointer; transition: all 0.2s; width: 100%; text-align: center; margin-top: 8px; }
         .btn-secondary:hover { background: rgba(0,0,0,0.03); color: var(--color-text); border-color: var(--color-text); }
+
+        /* 【二次元美編重構】專屬結算卡與 2D 卡通成就圖片框架，防下載破圖 */
+        .ending-card-wrapper { 
+            background: rgba(255, 252, 248, 0.95); border: 3px solid var(--border-neon); border-radius: 28px; 
+            padding: 40px 32px; width: 100%; max-width: 580px; margin: 0 auto; box-shadow: var(--shadow-game); color: var(--color-text); position: relative; overflow: hidden; backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+        }
+        .ending-avatar-box {
+            width: 100%; height: 200px; border-radius: 16px; margin: 16px 0 24px 0;
+            background-size: cover; background-position: center center; background-repeat: no-repeat;
+            border: 2px solid #2c2520; box-shadow: 0 8px 24px rgba(0,0,0,0.12); transition: background-image 0.5s ease;
+        }
+        .ending-title { font-size: 1.45rem; font-weight: 700; text-align: center; margin: 12px 0; letter-spacing: 0.5px; }
+        .ending-title.good { color: #047857; text-shadow: 0 0 10px rgba(16,185,129,0.15); }
+        .ending-title.bad { color: #b91c1c; text-shadow: 0 0 10px rgba(239,68,68,0.15); }
+        .ending-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; margin-bottom: 24px; background: rgba(62,50,45,0.04); border: 2px solid rgba(62,50,45,0.08); padding: 16px; border-radius: 12px; }
+        .ending-grid-item { display: flex; flex-direction: column; gap: 4px; padding: 4px 8px; }
+        .real-data-box { background: rgba(239, 68, 68, 0.05); border-left: 5px solid var(--color-danger); padding: 18px; border-radius: 4px 12px 12px 4px; font-size: 0.88rem; line-height: 1.7; color: #3e322d; margin-bottom: 24px; }
+        .final-narration { font-size: 1.02rem; line-height: 1.85; color: #332724; text-align: justify; border-top: 2px dashed rgba(62,50,45,0.12); padding-top: 18px; margin-top: 4px; letter-spacing: 0.3px; }
     </style>
 </head>
 <body id="gameBody">
-    <!-- 【玩家指定】具備問題情境代表性的半透明動態背景層 -->
     <div id="gameBgLayer" class="game-full-bg"></div>
-
     <div class="game-container">
-        <!-- 暖杏色主首頁面（融入遊戲趣味與勞權大愛風格） -->
         <div id="homeScreen" class="screen-panel">
             <h1 style="font-size: 1.6rem; text-align: center; margin-bottom: 22px; font-weight: 700; color: #b45309; line-height: 1.4;">是人，是工具，更是工具人──社工的勞動權益之路</h1>
             <p style="line-height: 1.85; color: var(--color-text); margin-bottom: 32px; text-align: justify; font-size: 1.02rem; letter-spacing: 0.5px;">
@@ -169,8 +159,6 @@
             </p>
             <button class="btn-primary" onclick="showTutorial()">進入職場</button>
         </div>
-
-        <!-- 導引說明面板（教玩家如何看見消耗、收集事證） -->
         <div id="tutorialScreen" class="screen-panel hidden">
             <h2 style="font-size: 1.25rem; margin-bottom: 18px; color: #b45309; font-weight: 700;">先學會看見消耗 👁️</h2>
             <div style="font-size: 0.92rem; line-height: 1.85; color: var(--color-text); display: flex; flex-direction: column; gap: 16px; margin-bottom: 28px;">
@@ -180,71 +168,42 @@
             </div>
             <button class="btn-primary" onclick="startGame()">我明白了，打卡上班 💼</button>
         </div>
-        <!-- 遊戲主體遊玩面板 -->
         <div id="gamePlayScreen" class="hidden" style="display: flex; flex-direction: column; gap: 20px; width: 100%;">
             <div class="status-bar">
-                <div class="status-item">
-                    <span class="status-label">⚖️ 階段</span>
-                    <span id="phaseLabel" class="status-value" style="color: #b45309; font-size: 0.95rem;">意識覺醒</span>
-                </div>
-                <div class="status-item">
-                    <span class="status-label">📅 時間天數</span>
-                    <span id="dayLabel" class="status-value" style="font-size: 0.95rem;">第 1 天 / 30</span>
-                </div>
-                <div class="status-item">
-                    <span class="status-label">❤️ 身心健康 (<span id="healthLabel">100%</span>)</span>
-                    <div class="pixel-health-bar"><div id="healthFill" class="pixel-health-fill"></div></div>
-                </div>
-                <div class="status-item">
-                    <span class="status-label">⏳ 平均工時 (<span id="hoursLabel">8.0h</span>)</span>
-                    <div id="pieChart" class="pie-chart-box"></div>
-                </div>
-                <div class="status-item">
-                    <span class="status-label">💰 實拿薪資</span>
-                    <span id="salaryLabel" class="status-value" style="font-size: 0.95rem;">$38,898</span>
-                </div>
+                <div class="status-item"><span class="status-label">⚖️ 階段</span><span id="phaseLabel" class="status-value" style="color: #b45309; font-size: 0.95rem;">意識覺醒</span></div>
+                <div class="status-item"><span class="status-label">📅 時間天數</span><span id="dayLabel" class="status-value" style="font-size: 0.95rem;">第 1 天 / 30</span></div>
+                <div class="status-item"><span class="status-label">❤️ 身心健康 (<span id="healthLabel">100%</span>)</span><div class="pixel-health-bar"><div id="healthFill" class="pixel-health-fill"></div></div></div>
+                <div class="status-item"><span class="status-label">⏳ 平均工時 (<span id="hoursLabel">8.0h</span>)</span><div id="pieChart" class="pie-chart-box"></div></div>
+                <div class="status-item"><span class="status-label">💰 實拿薪資</span><span id="salaryLabel" class="status-value" style="font-size: 0.95rem;">$38,898</span></div>
             </div>
-
             <div class="main-stage">
                 <div class="dialogue-box">
                     <div id="speakerTag" class="dialogue-speaker">系統提示</div>
                     <div id="inlineCalendar" class="inline-calendar-card">
                         <div class="inline-calendar-top"></div>
-                        <div class="inline-calendar-body">
-                            <span class="inline-calendar-prefix">Day</span>
-                            <span id="calendarDayLabel" class="inline-calendar-num">01</span>
-                        </div>
+                        <div class="inline-calendar-body"><span class="inline-calendar-prefix">Day</span><span id="calendarDayLabel" class="inline-calendar-num">01</span></div>
                     </div>
                     <div id="dialogueText" class="dialogue-text"></div>
                     <div id="optionsContainer" class="options-container"></div>
                 </div>
-
                 <div class="sidebar">
                     <div class="side-card">
                         <div class="side-card-title">🎒 自保證據背包 (<span id="bagCount">0</span>)</div>
-                        <div id="bagContent" style="color: var(--color-muted); font-size: 0.85rem; font-style: italic; line-height: 1.5;">
-                            [ 🔍 機構目前表面平靜，暗中留意並搜集主管不合理業務交辦通聯事證... ]
-                        </div>
+                        <div id="bagContent" style="color: var(--color-muted); font-size: 0.85rem; font-style: italic; line-height: 1.5;">[ 🔍 機構目前表面平靜，暗中留意並搜集主管不合理业务交辦通聯事證... ]</div>
                     </div>
                     <div class="side-card">
                         <div class="side-card-title">📝 即時行動日誌</div>
-                        <div id="logContent" style="font-size: 0.8rem; color: var(--color-muted); overflow-y: auto; line-height: 1.65; max-height: 220px;">
-                            <div style="font-style: italic; color: #a0aec0;">[ 💼 尚未打卡上班，日誌未啟動... ]</div>
-                        </div>
+                        <div id="logContent" style="font-size: 0.8rem; color: var(--color-muted); overflow-y: auto; line-height: 1.65; max-height: 220px;"><div style="font-style: italic; color: #a0aec0;">[ 💼 尚未打卡上班，日誌未啟動... ]</div></div>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- 高級毛玻璃結算成就面板 -->
         <div id="endingScreen" class="screen-panel hidden" style="background: transparent; border: none; box-shadow: none; backdrop-filter: none; -webkit-backdrop-filter: none;">
             <div id="captureArea" class="ending-card-wrapper">
                 <div style="font-size: 0.78rem; text-align: center; color: var(--color-muted); letter-spacing: 2px; margin-bottom: 4px; font-weight: 700; text-transform: uppercase;">LABOR RIGHTS SIMULATION / 結算成就卡</div>
                 <div id="endingTitle" class="ending-title"></div>
-                
-                <!-- 【正確結構】结局專屬之 2D 卡通插畫展示盒，完美擁有寬高面積，防隱形 -->
                 <div id="endingAvatar" class="ending-avatar-box"></div>
-
                 <div class="ending-grid">
                     <div class="ending-grid-item"><span style="font-size: 0.75rem; color: var(--color-muted); font-weight: 700;">最終實拿薪資</span><span id="endSalary" style="font-weight: 700; font-size: 1.2rem; color: #1e293b;"></span></div>
                     <div class="ending-grid-item"><span style="font-size: 0.75rem; color: var(--color-muted); font-weight: 700;">每日平均工時</span><span id="endHours" style="font-weight: 700; font-size: 1.2rem; color: #d97706;"></span></div>
@@ -264,14 +223,12 @@
             <button class="btn-secondary" onclick="window.location.reload()">重新打卡上班 🔄</button>
         </div>
     </div>
-    <script>    
-
+    <script>
         let state = { currentDay: 1, health: 100, avgHours: 8.0, salary: 38898, awaken: 0, evidence: [], log: [] };
         let proceedCallback = null;
         let isTyping = false;
         let typingTimer = null;
 
-        // 【趣味性優化】AVG 視覺小說打字機逐字敲擊引擎
         function typeWriter(text, targetId, callback) {
             isTyping = true;
             let currentStr = "";
@@ -279,7 +236,6 @@
             const container = document.getElementById(targetId);
             container.innerText = "";
             clearInterval(typingTimer);
-            
             typingTimer = setInterval(() => {
                 if (i < text.length) {
                     currentStr += text.charAt(i);
@@ -310,9 +266,7 @@
         function pushLog(txt) {
             state.log.unshift(`[第${state.currentDay}天] ${txt}`);
             const box = document.getElementById('logContent');
-            if (box) {
-                box.innerHTML = state.log.map(l => `<div>${l}</div>`).join('');
-            }
+            if (box) { box.innerHTML = state.log.map(l => `<div>${l}</div>`).join(''); }
         }
 
         function updateStatus() {
@@ -321,7 +275,6 @@
             document.getElementById('hoursLabel').innerText = `${state.avgHours.toFixed(1)}h`;
             document.getElementById('salaryLabel').innerText = `$${state.salary.toLocaleString()}`;
             document.getElementById('bagCount').innerText = state.evidence.length;
-            
             const healthFill = document.getElementById('healthFill');
             if (healthFill) {
                 healthFill.style.width = `${state.health < 0 ? 0 : state.health}%`;
@@ -329,7 +282,6 @@
                 else if (state.health < 65) healthFill.style.backgroundColor = 'var(--color-warning)';
                 else healthFill.style.backgroundColor = 'var(--color-success)';
             }
-
             const workPercentage = (state.avgHours / 24) * 100;
             const pieChart = document.getElementById('pieChart');
             if (pieChart) {
@@ -338,7 +290,6 @@
                 else if (state.avgHours > 8.5) pieColor = 'var(--color-warning)';
                 pieChart.style.background = `conic-gradient(${pieColor} 0% ${workPercentage}%, rgba(0,0,0,0.08) ${workPercentage}% 100%)`;
             }
-
             const bag = document.getElementById('bagContent');
             if (bag) {
                 if (state.evidence.length === 0) {
@@ -347,14 +298,12 @@
                     bag.innerHTML = state.evidence.map(item => `<div class="evidence-item">📁 ${item}</div>`).join('');
                 }
             }
-            
             const phaseLabel = document.getElementById('phaseLabel');
             if (phaseLabel) {
                 if (state.currentDay <= 10) phaseLabel.innerText = "意識覺醒";
                 else if (state.currentDay <= 20) phaseLabel.innerText = "證據蒐集";
                 else phaseLabel.innerText = "採取行動";
             }
-            
             const body = document.getElementById('gameBody');
             if (body) {
                 if (state.health < 35) {
@@ -367,12 +316,12 @@
                 if (state.health < 20) body.classList.add('danger-border');
                 else body.classList.remove('danger-border');
             }
-
             let grayscaleValue = (100 - state.health) / 100;
             if (grayscaleValue > 1) grayscaleValue = 1;
             if (grayscaleValue < 0) grayscaleValue = 0;
             document.body.style.filter = `grayscale(${grayscaleValue})`;
         }
+
         const timelineEvents = {
             1: {
                 speaker: "主管 🧑‍💼",
@@ -420,10 +369,10 @@
             },
             15: {
                 speaker: "人事 👩‍💻",
-                text: "恭喜你考到社工師證照！不過我們機構今年沒有編列社工師的職缺，所以不能給你專業加給喔。不過既然你考到了，以後法律訴訟個案的專業報告就主要交給你負責囉！",
+                text: "恭喜你考到社工師證照！不過我們機構今年沒有編列社工師的職缺，所以不能給你專業加給喔。不過既然你考到了，以後法律訴訟個案的專業報告就主要交给你負責囉！",
                 options: [
                     { text: "默默認命，安慰自己就當累積專業經驗 😮‍💨", resolve: (e) => {
-                        state.health -= 20; floatText("身心消耗 ▼", "down", e); pushLog("工作責任加重，但薪資待遇完全原地踏步。"); nextStep();
+                        state.health -= 20; floatText("身心消耗 ▼", "down", e); pushLog("工作責任加重，助人待遇完全原地踏步。"); nextStep();
                     }},
                     { text: "私底下暗中將勞動契約與相關事證傳給地方社工職業工會諮詢 ✊", resolve: (e) => {
                         state.evidence.push("工會法律支援聯盟");
@@ -436,7 +385,7 @@
                 text: "連續高強度的重案轟炸與無意義核銷讓你出現嚴重的替代性創傷，晚上失眠且上班手不停發抖。此時工作空檔正好有工會提供的外部諮商與喘息服務資源...",
                 options: [
                     { text: "硬撐不去諮商，不耽誤手頭上的公事進度 💻", resolve: (e) => {
-                        state.health -= 25; floatText("身心崩潰邊緣 ▼", "down", e); pushLog("選擇硬撐，替代性創傷持續慢性吞噬續航力.txt"); nextStep();
+                        state.health -= 25; floatText("身心崩潰邊緣 ▼", "down", e); pushLog("選擇硬撐，替代性創傷持續慢性吞噬續航力。"); nextStep();
                     }},
                     { text: "撥出工作時間請假參與諮商以照顧自己 🧘", resolve: (e) => {
                         state.health += 25; state.avgHours += 2.0;
@@ -466,6 +415,7 @@
                         state.health -= 15; floatText("尊嚴受挫 ▼", "down", e); pushLog("向機構屈服，被迫簽下虛假出勤單。"); nextStep();
                     }},
                     { text: "偷偷向勞檢員吐露實話，並私下附上真實打卡截圖 📁", resolve: (e) => {
+ve: (e) => {
                         state.health -= 20;
                         floatText("權益覺醒 ▲", "up", e); pushLog("對勞檢吐實，但隨後遭到機構內部主管的職場冷暴力與排擠。"); nextStep();
                     }}
@@ -479,7 +429,7 @@
                         state.avgHours += 1.5; state.health -= 15;
                         floatText("工時暴增 ▲", "warn", e); pushLog("犧牲休假時間，被迫在深夜進行無給職勞動。"); nextStep();
                     }},
-                    { text: "假裝沒看到已讀不回，留到週一上班再行處理 📴", resolve: (e) => {
+                    { text: "假裝沒看到已已讀不回，留到週一上班再行處理 📴", resolve: (e) => {
                         state.health -= 25; floatText("面臨巨大道德指責 ▼", "down", e); pushLog("週一上班被主管痛罵『沒有社會責任、草菅人命』。"); nextStep();
                     }}
                 ]
@@ -514,9 +464,10 @@
                 ]
             }
         };
+
         const continuousDamages = [
             "司法寒蟬效應籠罩。為了避免出事時『被推出去上銬入獄』，你今天花了 6 個小時把個案訪視紀錄，雕琢成 3000 字的防責防衛性報告。✍️",
-            "中央線上申報系統今天大當機，轉圈圈轉了兩小時後無預警自動登出，剛寫好的個案紀錄全部消失。😭",
+            "中央線上申報系統今天大當機，轉圈圈轉了兩小時後無預警自動登出，剛寫好的個案紀錄全部消失。",
             "為了應付下週的外部評鑑，督導要求全機構業務停擺，大家一起瘋狂製造精美的假日常活動成果冊。📕",
             "今天被不理性的個案家屬在電話中用三字經連續痛罵了半小時，你發現你花在防責文字的時間，遠超於真正陪伴個案。🤬"
         ];
@@ -524,8 +475,7 @@
         function showTutorial() {
             document.getElementById('homeScreen').classList.add('hidden');
             document.getElementById('tutorialScreen').classList.remove('hidden');
-            // 【終極修復】首頁進入導引時直接加載第一階段高畫質實質插畫背景，防黑色閃爍
-            document.getElementById('gameBgLayer').style.backgroundImage = "url('https://unsplash.com')";
+            document.getElementById('gameBgLayer').style.backgroundImage = "url('bg-office.jpg')";
         }
 
         function startGame() {
@@ -540,35 +490,26 @@
                 endGame("collapse");
                 return;
             }
-
-            // 【終極修復】根除之前將網址重置為無效網址的邏輯錯誤！換天時依天數進程動態換上高清晰實質場景 ID 大圖
             const bgLayer = document.getElementById('gameBgLayer');
             if (bgLayer) {
                 if (day <= 10) {
-                    // 階段一：明亮但死死被制度常規壓抑、強制薪資回捐的冷色調機構辦公室
                     bgLayer.style.backgroundImage = "url('bg-office.jpg')"; 
                 } else if (day <= 20) {
-                    // 階段二：佈滿啤酒罐，酗酒個案所在的破舊斑駁大門走廊
-                    bgLayer.style.backgroundImage = "url('image_1e505b9e.jpg')"; 
+                    bgLayer.style.backgroundImage = "url('bg-corridor.jpg')"; 
                 } else {
-                    // 階段三：深夜十一點空無一人、唯有桌上螢幕慘白死光發亮的血汗自主無薪加班地獄
-                    bgLayer.style.backgroundImage = "url('image_fc522c90.jpg')"; 
+                    bgLayer.style.backgroundImage = "url('bg-dark.jpg')"; 
                 }
             }
-
-            // 【動態翻曆】每當天數更替，自動抓取實體並驅動右上角內嵌日曆搖晃抖動特效
             const inlineCal = document.getElementById('inlineCalendar');
             if (inlineCal) {
                 inlineCal.classList.remove('flip-anim');
-                void inlineCal.offsetWidth; // 強制瀏覽器重繪
+                void inlineCal.offsetWidth;
                 inlineCal.classList.add('flip-anim');
                 document.getElementById('calendarDayLabel').innerText = day < 10 ? `0${day}` : day;
             }
-
             if (timelineEvents[day]) {
                 const ev = timelineEvents[day];
                 document.getElementById('speakerTag').innerText = ev.speaker;
-                
                 typeWriter(ev.text, 'dialogueText', () => {
                     const container = document.getElementById('optionsContainer');
                     container.innerHTML = '';
@@ -588,11 +529,9 @@
         function showOverlay() {
             const idx = Math.floor(Math.random() * continuousDamages.length);
             document.getElementById('speakerTag').innerText = "日常消耗";
-            
             typeWriter(continuousDamages[idx], 'dialogueText', () => {
                 const container = document.getElementById('optionsContainer');
                 container.innerHTML = '';
-                
                 const nextDayBtn = document.createElement('button');
                 nextDayBtn.className = 'btn-primary';
                 nextDayBtn.style.background = 'linear-gradient(135deg, #475569, #1e293b)';
@@ -615,41 +554,50 @@
             document.getElementById('gamePlayScreen').classList.add('hidden');
             document.getElementById('endingScreen').classList.remove('hidden');
             document.body.style.filter = "none";
+            document.body.style.backgroundColor = "#ede3d4";
             
-            const bgLayer = document.getElementById('gameBgLayer');
-            if (bgLayer) {
-                bgLayer.style.filter = "none";
-                bgLayer.style.backgroundImage = "none";
-            }
-            document.body.style.backgroundColor = "#f1e9db";
-
             document.getElementById('endSalary').innerText = `$${state.salary.toLocaleString()}`;
             document.getElementById('endHours').innerText = `${state.avgHours.toFixed(1)} 小時 / 天`;
             document.getElementById('endHealth').innerText = `${state.health < 0 ? 0 : state.health}%`;
-
+            
             const title = document.getElementById('endingTitle');
             const narration = document.getElementById('endingNarration');
-
+            const avatar = document.getElementById('endingAvatar');
+            
             if (endingType === 'good') {
                 title.innerText = "【TRUE GOOD ENDING ⚖️ 勞權覺醒的專業助人者】"; title.className = "ending-title good";
+                avatar.style.backgroundImage = "url('https://unsplash.com')";
                 narration.innerText = "恭喜你，你透過智慧與集體串聯，成功擺脫了這個吃人體制的詛咒！在工會的強力培力與協調下，勞工局裁定機構回捐及未給付加班費違法，機構被迫全額退還你被倒扣的薪資。同時，你利用中央平臺舉報，迫使體制正式面對剝削。你用行動證明了：勞權爭取不是個人英雄主義。唯有保障社工，才能真正守護案主！";
             } else if (endingType === 'collapse' || state.health <= 0) {
                 title.innerText = "【BAD ENDING 🚑 倒在辦公桌前的燃燒殆盡】"; title.className = "ending-title bad";
+                avatar.style.backgroundImage = "url('https://unsplash.com')";
                 narration.innerText = "你終究是被這個吃人的體制，壓得喘不過氣了。在長期高壓與過勞、且缺乏合理防護與自我照顧的惡劣環境下，你默默燃燒了自己，直到健康歸零。當你倒下送往醫院時，機構的齒輪依然冷酷地在轉動，明天就會有下一個帶著大愛熱情的新人進來填補空缺。這樣的詛咒，不該由你一個人承受。別讓大愛成為剥削的羞布。";
             } else if (endingType === 'wheel') {
                 title.innerText = "【BAD ENDING ⚙️ 體制內的溫順血汗齒輪】"; title.className = "ending-title bad";
+                avatar.style.backgroundImage = "url('https://unsplash.com')";
                 narration.innerText = "你選擇了全盤隱忍。你成為了主管眼中『有大愛、懂得共體時艱』的乖員工。薪水被強迫回捐扣除、每日被迫無薪自主加班，身體與精神逐漸變得千瘡百孔。你只能不斷催眠自己這一切都是為了個案好。然而，正是你的默默承受，滋營了黑心體制繼續剝削下一代社工的溫床。";
             } else {
                 title.innerText = "【NORMAL ENDING 💼 憤而離職，逃離地獄】"; title.className = "ending-title";
+                avatar.style.backgroundImage = "url('https://unsplash.com')";
                 narration.innerText = "月底到了，你遞出了辭呈，選擇了逃離這個無奈的詛咒，這是一個最勇敢且健全的決定。你認清了熱情不能當飯吃、大愛無法支付每月房租。在台灣，新進社工平均 3 年就會換血一次，人才的流失正是體制僵化的惡果。你不幹了，體制少了一個專業的助人者，世界多了一個身心健全的普通人。祝福你轉行順利！";
             }
         }
-
+        
         function downloadCard() {
             const card = document.getElementById('captureArea');
-            html2canvas(card, { useCORS: true, allowTaint: true, scale: 2 }).then(canvas => {
-                const link = document.createElement('a'); link.download = '社工勞權爭取模擬器_結算成就卡.png';
-                link.href = canvas.toDataURL('image/png'); link.click();
+            html2canvas(card, { 
+                useCORS: true, 
+                allowTaint: false, 
+                scale: 3,
+                backgroundColor: "#fcfaf7"
+            }).then(canvas => {
+                const link = document.createElement('a'); 
+                link.download = '社工勞權爭取模擬器_結算成就卡.png';
+                link.href = canvas.toDataURL('image/png'); 
+                link.click();
+            }).catch(err => {
+                alert("截圖生成失敗，請使用網頁內建截圖再試一次！");
+                console.error(err);
             });
         }
     </script>
