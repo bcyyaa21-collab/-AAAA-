@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>是人?還是工具？社工與大愛的距離</title>
-    <!-- 引入高質感中文字體與一鍵截圖庫 -->
+    <title>社工勞權爭取模擬器：我們與大愛的距離</title>
+    <!-- 引入正確的中文字體與一鍵截圖庫 -->
     <link href="https://googleapis.com" rel="stylesheet">
     <script src="https://cloudflare.com"></script>
     <style>
@@ -18,6 +18,29 @@
             --color-danger: #f43f5e;
             --color-success: #10b981;
             --color-warning: #f59e0b;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; user-select: none; }
+        body {
+            font-family: 'Noto Sans TC', sans-serif;
+            background-color: var(--bg-main);
+            color: var(--color-text);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: radial-gradient(circle at center, #171725 0%, #080810 100%);
+            overflow-x: hidden;
+        }
+
+        /* 眩暈與危險視覺特效 */
+        @keyframes dangerPulse {
+            0%, 100% { box-shadow: inset 0 0 20px rgba(244, 63, 94, 0.15); border-color: rgba(244, 63, 94, 0.2); }
+            50% { box-shadow: inset 0 0 40px rgba(244, 63, 94, 0.4); border-color: rgba(244, 63, 94, 0.6); }
+        }
+        @keyframes dizzyShake {
+            0%, 100% { transform: translate(0, 0); filter: blur(0px); }
+            50% { transform: translate(1px, -1px); filter: blur(0.4px); }
         }
         body.dizzy-mode { animation: dizzyShake 3s infinite; }
         body.danger-border { border: 4px solid var(--color-danger); animation: dangerPulse 2s infinite; }
@@ -36,8 +59,9 @@
             animation: floatUpAndFade 1.4s ease-out forwards;
             text-shadow: 0 2px 10px rgba(0,0,0,0.9);
             letter-spacing: 0.5px;
-        }   
-                .game-container {
+        }
+
+        .game-container {
             width: 100%;
             max-width: 960px;
             padding: 16px;
@@ -46,16 +70,16 @@
             gap: 20px;
         }
 
-        /* 主導引與對話框美編 */
+        /* 主導引介面 */
         .screen-panel { background: var(--bg-card); border: 1px solid var(--border-neon); border-radius: 16px; padding: 32px; backdrop-filter: blur(12px); box-shadow: 0 10px 40px rgba(0,0,0,0.6); }
         .hidden { display: none !important; }
 
-        /* 狀態列與主舞台 */
+        /* 狀態列 */
         .status-bar { display: grid; grid-template-columns: repeat(5, 1fr); background: var(--bg-card); border: 1px solid var(--border-neon); border-radius: 12px; padding: 16px; backdrop-filter: blur(8px); }
         .status-item { display: flex; flex-direction: column; gap: 4px; align-items: center; text-align: center; }
         .status-label { font-size: 0.75rem; color: var(--color-muted); letter-spacing: 0.5px; }
         .status-value { font-size: 1.1rem; font-weight: 700; }
-
+        /* 主舞台區 */
         .main-stage { display: grid; grid-template-columns: 2.2fr 1fr; gap: 20px; }
         .dialogue-box { background: rgba(13, 18, 30, 0.85); border: 1px solid var(--border-neon); border-radius: 16px; padding: 32px; position: relative; display: flex; flex-direction: column; justify-content: space-between; min-height: 360px; backdrop-filter: blur(16px); }
         .dialogue-speaker { position: absolute; top: -12px; left: 24px; background: linear-gradient(135deg, #0284c7, #0369a1); padding: 3px 14px; border-radius: 6px; font-size: 0.8rem; font-weight: 500; letter-spacing: 1px; box-shadow: 0 4px 12px rgba(3, 105, 161, 0.3); }
@@ -64,6 +88,7 @@
         .options-container { display: flex; flex-direction: column; gap: 10px; margin-top: 24px; }
         .option-btn { background: rgba(30, 41, 59, 0.4); border: 1px solid var(--border-neon); color: var(--color-text); padding: 12px 18px; border-radius: 8px; cursor: pointer; text-align: left; font-size: 0.9rem; transition: all 0.2s; }
         .option-btn:hover { background: rgba(56, 189, 248, 0.08); border-color: var(--border-neon-active); transform: translateX(3px); }
+
         /* 側邊背包與日誌 */
         .sidebar { display: flex; flex-direction: column; gap: 16px; }
         .side-card { background: var(--bg-card); border: 1px solid var(--border-neon); border-radius: 12px; padding: 16px; display: flex; flex-direction: column; gap: 10px; }
@@ -99,48 +124,35 @@
     </style>
 </head>
 <body id="gameBody">
-
-    <!-- 慢性消耗日常黑畫面過渡 -->
-    <div id="overlayScreen" class="overlay-screen" onclick="proceedNextDay()">
-        <div style="font-size: 0.75rem; color: var(--color-danger); margin-bottom: 24px; letter-spacing: 2px; font-weight: 500;">DAILY DAMAGE / 慢性消耗</div>
-        <div id="overlayText" class="overlay-text"></div>
-        <div class="overlay-hint">[ 點擊畫面任意處繼續... ]</div>
-    </div>
+    <!-- 慢性消耗日常黑畫面過渡與主頁面面板 -->
+    <div id="overlayScreen" class="overlay-screen" onclick="proceedNextDay()">...</div>
     <div class="game-container">
+        <div id="homeScreen" class="screen-panel">
+            <h1 style="...">《社工勞權爭取模擬器：我們與大愛的距離》</h1>
+            <p style="...">扮演基層社工在 30 天內應對職場挑戰與權益剝削，抉擇將影響薪資、工時與身心狀態。</p>
+            <button class="btn-primary" onclick="showTutorial()">進入職場</button>
+        </div>
         <!-- 導引說明面板 -->
         <div id="tutorialScreen" class="screen-panel hidden">
-            <h2 style="font-size: 1.25rem; margin-bottom: 16px; color: #38bdf8;">先學會看見消耗</h2>
-            <div style="font-size: 0.9rem; line-height: 1.75; color: #cbd5e1; display: flex; flex-direction: column; gap: 14px; margin-bottom: 24px;">
-                <p>1. <strong>看住狀態欄</strong>：身心健康度低於 35% 畫面會進入眩暈狀態，低於 20% 將面臨身心崩潰。隨時留意每日平均工時與當月實拿薪資。</p>
-                <p>2. <strong>把證據放進背包</strong>：特定核心事件中的文字紀錄、不合理通聯與連署書，是月底翻盤與開啟 Good Ending 的唯一鑰匙。</p>
-                <p>3. <strong>自我照顧也有代價</strong>：尋求工會與諮商資源能顯著回補身心健康，但因耗費了工作進度，當日的積壓會導致【每日平均工時】暴增！</p>
+            <h2 style="...">先學會看見消耗</h2>
+            <div style="...">
+                <p>1. <strong>看住狀態欄</strong>：身心健康度過低將面臨眩暈或崩潰，並留意工時與實拿薪資。</p>
+                <p>2. <strong>把證據放進背包</strong>：核心事件的紀錄與連署書是達成 Good Ending 的關鍵鑰匙。</p>
+                <p>3. <strong>自我照顧也有代價</strong>：尋求資源可回補身心，但會導致當日積壓與工時暴增。</p>
             </div>
             <button class="btn-primary" onclick="startGame()">我明白了，打卡上班</button>
         </div>
+    </div>
         <!-- 遊戲本體面板 -->
         <div id="gamePlayScreen" class="hidden" style="display: flex; flex-direction: column; gap: 20px; width: 100%;">
             <div class="status-bar">
-                <div class="status-item">
-                    <span class="status-label">階段</span>
-                    <span id="phaseLabel" class="status-value" style="color: #38bdf8;">意識覺醒</span>
-                </div>
-                <div class="status-item">
-                    <span class="status-label">時間天數</span>
-                    <span id="dayLabel" class="status-value">第 1 天 / 30</span>
-                </div>
-                <div class="status-item">
-                    <span class="status-label">身心健康</span>
-                    <span id="healthLabel" class="status-value" style="color: var(--color-success);">100%</span>
-                </div>
-                <div class="status-item">
-                    <span class="status-label">平均工時</span>
-                    <span id="hoursLabel" class="status-value">8h</span>
-                </div>
-                <div class="status-item">
-                    <span class="status-label">實拿薪資</span>
-                    <span id="salaryLabel" class="status-value">$38,898</span>
-                </div>
+                <div class="status-item"><span class="status-label">階段</span><span id="phaseLabel" class="status-value" style="color: #38bdf8;">意識覺醒</span></div>
+                <div class="status-item"><span class="status-label">時間天數</span><span id="dayLabel" class="status-value">第 1 天 / 30</span></div>
+                <div class="status-item"><span class="status-label">身心健康</span><span id="healthLabel" class="status-value" style="color: var(--color-success);">100%</span></div>
+                <div class="status-item"><span class="status-label">平均工時</span><span id="hoursLabel" class="status-value">8h</span></div>
+                <div class="status-item"><span class="status-label">實拿薪資</span><span id="salaryLabel" class="status-value">$38,898</span></div>
             </div>
+
             <div class="main-stage">
                 <div class="dialogue-box">
                     <div id="speakerTag" class="dialogue-speaker">系統提示</div>
@@ -172,12 +184,12 @@
                     <div class="ending-grid-item"><span style="font-size: 0.7rem; color: var(--color-muted);">剩餘健康續航</span><span id="endHealth" style="font-weight: 700;"></span></div>
                     <div class="ending-grid-item"><span style="font-size: 0.7rem; color: var(--color-muted);">流失補休時數</span><span id="endLostHours" style="font-weight: 700; color: var(--color-danger);">24 小時</span></div>
                 </div>
+
                 <div class="real-data-box">
                     <div style="font-weight: 700; margin-bottom: 6px; color: var(--color-danger); letter-spacing: 0.5px;">【真實台灣社工生存數據】</div>
                     <p>• 起薪與過勞數據（含起薪漲幅、過勞率與創傷比例等）</p>
                     <div style="font-size: 0.65rem; color: var(--color-muted); text-align: right; margin-top: 4px;">來源：衛福部統計與各社福人員薪資調查資料</div>
                 </div>
-
                 <div id="endingNarration" class="final-narration"></div>
             </div>
             <button class="btn-primary" onclick="downloadCard()">下載我的社工勞權結算圖</button>
@@ -188,7 +200,6 @@
         let state = { currentDay: 1, health: 100, avgHours: 8.0, salary: 38898, awaken: 0, evidence: [], log: [] };
         let proceedCallback = null;
 
-        // 數值浮空上升淡出動畫
         function floatText(text, type, e) {
             const el = document.createElement('div');
             el.className = 'floating-indicator';
@@ -196,13 +207,13 @@
             if (type === 'down') el.style.color = 'var(--color-danger)';
             if (type === 'up') el.style.color = 'var(--color-success)';
             if (type === 'warn') el.style.color = 'var(--color-warning)';
-            
             let posX = e ? e.clientX : window.innerWidth / 2;
             let posY = e ? e.clientY : window.innerHeight / 2;
             el.style.left = `${posX - 40}px`; el.style.top = `${posY - 20}px`;
             document.body.appendChild(el);
             setTimeout(() => el.remove(), 1400);
         }
+
         function pushLog(txt) {
             state.log.unshift(`[第${state.currentDay}天] ${txt}`);
             const box = document.getElementById('logContent');
@@ -215,15 +226,12 @@
             document.getElementById('hoursLabel').innerText = `${state.avgHours.toFixed(1)}h`;
             document.getElementById('salaryLabel').innerText = `$${state.salary.toLocaleString()}`;
             document.getElementById('bagCount').innerText = state.evidence.length;
-            
             const bag = document.getElementById('bagContent');
             if (state.evidence.length === 0) bag.innerText = "尚無實質證據。";
             else bag.innerHTML = state.evidence.map(item => `<div class="evidence-item">${item}</div>`).join('');
-
             if (state.currentDay <= 10) document.getElementById('phaseLabel').innerText = "意識覺醒";
             else if (state.currentDay <= 20) document.getElementById('phaseLabel').innerText = "證據蒐集";
             else document.getElementById('phaseLabel').innerText = "採取行動";
-
             const body = document.getElementById('gameBody');
             if (state.health < 35) {
                 body.classList.add('dizzy-mode');
@@ -235,20 +243,19 @@
             if (state.health < 20) body.classList.add('danger-border');
             else body.classList.remove('danger-border');
         }
-        // 核心線性覺醒進程情境事件庫
         const timelineEvents = {
             1: {
                 speaker: "主管",
                 text: "因為政府委託案方案的經費撥款通常年底才下來，為了機構永續經營，大家每個月從薪水自動回捐 3,000 元給機構做公益喔。大家都有簽，相信你也能共體時艱吧？",
                 options: [
                     { text: "含淚吞下，在樂捐同意書上簽字", resolve: (e) => {
-                        state.salary -= 3000; state.health -= 20; state.awaken -= 10;
+                        state.salary -= 3000; state.health -= 20;
                         floatText("身心健康 ▼", "down", e); floatText("薪資倒扣 ▼", "down", e);
                         pushLog("簽署了不合理的回捐同意書。"); nextStep();
                     }},
                     { text: "委婉拒絕簽署", resolve: (e) => {
-                        state.avgHours += 1.0; state.health -= 15; state.awaken += 30;
-                        floatText("平均工時 ▲", "warn", e); floatText("權益覺醒 ▲", "up", e);
+                        state.avgHours += 1.0; state.health -= 15;
+                        floatText("平均工時 ▲", "warn", e);
                         pushLog("拒絕簽署回捐，隨後被分配了更多困難業務。"); nextStep();
                     }}
                 ]
@@ -258,11 +265,11 @@
                 text: "上個月報支的交通差旅核銷被退件了。承辦要求你必須補上『你的機車車牌與個案家大門牌同框的清晰合照』。督導表示機構沒有多餘預算，要你自己想辦法。",
                 options: [
                     { text: "自吞車資差旅費，直接放棄這次核銷", resolve: (e) => {
-                        state.salary -= 500; state.health -= 10; state.awaken += 10;
+                        state.salary -= 500; state.health -= 10;
                         floatText("實拿薪資 ▼", "down", e); pushLog("放棄核銷，自行貼補公務差旅費。"); nextStep();
                     }},
                     { text: "硬著頭皮去個案家門口拍攝車牌補件", resolve: (e) => {
-                        state.health -= 20; state.awaken += 20;
+                        state.health -= 20;
                         floatText("專業尊嚴受挫 ▼", "down", e); pushLog("為了幾百塊去拍個案家門牌，嚴重損害專業信任關係。"); nextStep();
                     }}
                 ]
@@ -276,7 +283,7 @@
                         floatText("飽受驚嚇精神受創 ▼", "down", e); pushLog("訪視時個案情緒暴走摔砸物品，驚險逃出。"); nextStep();
                     }},
                     { text: "答應前往，但堅持在 LINE 群組留下不合理防護交辦通聯", resolve: (e) => {
-                        state.health -= 10; state.awaken += 25; state.evidence.push("職安忽視通聯紀錄");
+                        state.health -= 10; state.evidence.push("職安忽視通聯紀錄");
                         floatText("保留存證 ▲", "up", e); pushLog("在群組回覆：『因無人陪同，今日自備防具前往』，留下文字鐵證。"); nextStep();
                     }}
                 ]
@@ -286,10 +293,10 @@
                 text: "恭喜你考到社工師證照！不過我們機構今年沒有編列社工師的職缺，所以不能給你專業加給喔。不過既然你考到了，以後法律訴訟個案的專業報告就主要交給你負責囉！",
                 options: [
                     { text: "默默認命，安慰自己就當累積專業經驗", resolve: (e) => {
-                        state.health -= 20; floatText("身心消耗 ▼", "down", e); pushLog("工作責任加重，但薪資待遇完全原地踏步。"); nextStep();
+                        state.health -= 20; floatText("身心消耗 ▼", "down", e); pushLog("工作責任加重，但薪資待遇完全原地步。"); nextStep();
                     }},
                     { text: "私底下暗中將勞動契約與相關事證傳給地方社工職業工會諮詢", resolve: (e) => {
-                        state.awaken += 35; state.evidence.push("工會法律支援聯盟");
+                        state.evidence.push("工會法律支援聯盟");
                         floatText("權益覺醒 ▲", "up", e); pushLog("向工會尋求勞檢律師的專業保障評估。"); nextStep();
                     }}
                 ]
@@ -316,7 +323,7 @@
                         state.health -= 10; pushLog("接受補休方案（該補休將在月底因案量爆炸而流失）。"); nextStep();
                     }},
                     { text: "表面答應轉補休，但暗中落實並下載打卡紀錄與紀錄系統登入日誌", resolve: (e) => {
-                        state.health -= 5; state.awaken += 30; state.evidence.push("鋼鐵加班證據");
+                        state.health -= 5; state.evidence.push("鋼鐵加班證據");
                         floatText("鐵證入庫 ▲", "up", e); pushLog("暗中搜集扎實的出勤證明日誌。"); nextStep();
                     }}
                 ]
@@ -326,11 +333,10 @@
                 text: "勞動檢查員下週要來了！督導私下塞給你一份完美版的假出勤紀錄表，上面寫著每天 17:30 準時下班：『勞檢問的時候配合一下，就說大家都沒加班，這是為了機構聲譽！』",
                 options: [
                     { text: "配合演戲，在假的出勤紀錄表上簽名確認", resolve: (e) => {
-                        state.awaken -= 20; state.health -= 15;
-                        floatText("尊嚴受挫 ▼", "down", e); pushLog("向機構屈服，被迫簽下虛假出勤單。"); nextStep();
+                        state.health -= 15; floatText("尊嚴受挫 ▼", "down", e); pushLog("向機構屈服，被迫簽下虛假出勤單。"); nextStep();
                     }},
                     { text: "偷偷向勞檢員吐露實話，並私下附上真實打卡截圖", resolve: (e) => {
-                        state.awaken += 40; state.health -= 20;
+                        state.health -= 20;
                         floatText("權益覺醒 ▲", "up", e); pushLog("對勞檢吐實，但隨後遭到機構內部主管的職場冷暴力與排擠。"); nextStep();
                     }}
                 ]
@@ -344,20 +350,19 @@
                         floatText("工時暴增 ▲", "warn", e); pushLog("犧牲休假時間，被迫在深夜進行無給職勞動。"); nextStep();
                     }},
                     { text: "假裝沒看到已讀不回，留到週一上班再行處理", resolve: (e) => {
-                        state.health -= 25;
-                        floatText("面臨巨大道德指責 ▼", "down", e); pushLog("週一上班被主管痛罵『沒有社會責任、草菅人命』。"); nextStep();
+                        state.health -= 25; floatText("面臨巨大道德指責 ▼", "down", e); pushLog("週一上班被主管痛罵『沒有社會責任、草菅人命』。"); nextStep();
                     }}
                 ]
             },
             28: {
-                speaker: "資資深同事",
+                speaker: "資深同事",
                 text: "你試圖在機構內串聯其他夥伴集體向工會舉報不合理回捐與薪資短少。資深同事拉住你：『不要把事情鬧大，如果機構被社會局撤銷補助倒閉了，那些被安置的小孩要去哪裡？』",
                 options: [
                     { text: "內心動搖，決定退出放棄集體串聯", resolve: (e) => {
-                        state.awaken -= 30; pushLog("在道德勒索與同儕壓力下放棄集體發聲。"); nextStep();
+                        pushLog("在道德勒索與同儕壓力下放棄集體發聲。"); nextStep();
                     }},
                     { text: "頂住排擠與集體道德勒索，說服兩名夥伴一起祕密留存連署書", resolve: (e) => {
-                        state.health -= 20; state.awaken += 45; state.evidence.push("機構集體連署書");
+                        state.health -= 20; state.evidence.push("機構集體連署書");
                         floatText("集體防禦解鎖 ▲", "up", e); pushLog("成功頂住壓力，拿到了集體抵抗的關鍵連署。"); nextStep();
                     }}
                 ]
@@ -379,13 +384,13 @@
                 ]
             }
         };
-
         const continuousDamages = [
             "司法寒蟬效應籠罩。為了避免出事時『被推出去上銬入獄』，你今天花了 6 個小時把個案訪視紀錄，雕琢成 3000 字的防衛性防責完美報告。你發現你花在防責文字的時間，遠超於真正陪伴個案的時間。",
             "中央線上申報系統今天大當機，轉圈圈轉了兩小時後無預警自動登出，剛寫好的個案紀錄全部消失。你只能在辦公室崩潰大哭，留下來被迫加班重寫。",
             "為了應付下週的外部評鑑，督導要求全機構業務停擺，大家一起瘋狂製造精美的假日常活動照片與核銷成果冊。你覺得自己的專業尊嚴正在被體制無情踐踏。",
             "今天被不理性的個案家屬在電話中用三字經連續痛罵了半小時，你只能一邊發抖道歉一邊掐著大腿，而旁邊的主管只是戴著耳機冷眼旁觀。"
         ];
+
         function showTutorial() {
             document.getElementById('homeScreen').classList.add('hidden');
             document.getElementById('tutorialScreen').classList.remove('hidden');
@@ -403,12 +408,10 @@
                 endGame("collapse");
                 return;
             }
-
             if (timelineEvents[day]) {
                 const ev = timelineEvents[day];
                 document.getElementById('speakerTag').innerText = ev.speaker;
                 document.getElementById('dialogueText').innerText = ev.text;
-                
                 const container = document.getElementById('optionsContainer');
                 container.innerHTML = '';
                 ev.options.forEach(opt => {
@@ -428,10 +431,8 @@
             const idx = Math.floor(Math.random() * continuousDamages.length);
             document.getElementById('overlayText').innerText = continuousDamages[idx];
             screen.classList.add('active');
-            
             proceedCallback = () => {
-                state.health -= 5;
-                state.avgHours += 0.2;
+                state.health -= 5; state.avgHours += 0.2;
                 screen.classList.remove('active');
                 setTimeout(() => {
                     floatText("身心健康度持續慢性消耗 ▼", "down", null);
@@ -439,45 +440,33 @@
                 }, 300);
             };
         }
-        function proceedNextDay() {
-            if (proceedCallback) proceedCallback();
-        }
+
+        function proceedNextDay() { if (proceedCallback) proceedCallback(); }
 
         function nextStep() {
             state.currentDay++;
-            if (state.currentDay > 30) {
-                endGame("resign");
-            } else {
-                triggerEvent(state.currentDay);
-            }
+            if (state.currentDay > 30) { endGame("resign"); } else { triggerEvent(state.currentDay); }
         }
 
         function endGame(endingType) {
             document.getElementById('gamePlayScreen').classList.add('hidden');
             document.getElementById('endingScreen').classList.remove('hidden');
-
             document.getElementById('endSalary').innerText = `$${state.salary.toLocaleString()}`;
             document.getElementById('endHours').innerText = `${state.avgHours.toFixed(1)} 小時 / 天`;
             document.getElementById('endHealth').innerText = `${state.health < 0 ? 0 : state.health}%`;
-
             const title = document.getElementById('endingTitle');
             const narration = document.getElementById('endingNarration');
-
             if (endingType === 'good') {
-                title.innerText = "【TRUE GOOD ENDING：勞權覺醒的專業助人者】";
-                title.className = "ending-title good";
+                title.innerText = "【TRUE GOOD ENDING：勞權覺醒的專業助人者】"; title.className = "ending-title good";
                 narration.innerText = "恭喜你，你透過智慧與集體串聯，成功擺脫了這個吃人體制的詛咒！在工會的強力培力與協調下，勞工局裁定機構回捐及未給付加班費違法，機構被迫全額退還你被倒扣的薪資。同時，你利用中央平臺舉報，迫使體制正式面對剝削。你用行動證明了：勞權爭取不是個人英雄主義。唯有保障社工，才能真正守護案主！";
             } else if (endingType === 'collapse' || state.health <= 0) {
-                title.innerText = "【BAD ENDING：倒在辦公桌前的燃燒殆盡】";
-                title.className = "ending-title bad";
+                title.innerText = "【BAD ENDING：倒在辦公桌前的燃燒殆盡】"; title.className = "ending-title bad";
                 narration.innerText = "你終究是被這個吃人的體制，壓得喘不過氣了。在長期高壓與過勞、且缺乏合理防護與自我照顧的惡劣環境下，你默默燃燒了自己，直到健康歸零。當你倒下送往醫院時，機構的齒輪依然冷酷地在轉動，明天就會有下一個帶著大愛熱情的新人進來填補空缺。這樣的詛咒，不該由你一個人承受。別讓大愛成為剥削的羞布。";
             } else if (endingType === 'wheel') {
-                title.innerText = "【BAD ENDING：體制內的溫順血汗齒輪】";
-                title.className = "ending-title bad";
-                narration.innerText = "你選擇了全盤隱忍。你成為了主管眼中『有大愛、懂得共體時艱』的乖員工。薪水被強迫回捐扣除、每日被迫無薪自主加班，身體與精神逐漸變得千瘡百孔。你只能不斷催眠自己這一切都是為了個案好。然而，正是你的默默承受，滋養了黑心體制繼續剝削下一代社工的溫床。";
+                title.innerText = "【BAD ENDING：體制內的溫順血汗齒輪】"; title.className = "ending-title bad";
+                narration.innerText = "你選擇了全盤隱忍。你成為了主管眼中『有大愛、懂得共體時艱』的乖員工。薪水被強迫回捐扣除、每日被迫無薪自主加班，身體與精神逐漸變得千瘡百孔。你只能不斷催眠自己這一切都是為了個案好。然而，正是你的默默承受，滋營了黑心體制繼續剝削下一代社工的溫床。";
             } else {
-                title.innerText = "【NORMAL ENDING：憤而離職，逃離地獄】";
-                title.className = "ending-title";
+                title.innerText = "【NORMAL ENDING：憤而離職，逃離地獄】"; title.className = "ending-title";
                 narration.innerText = "月底到了，你遞出了辭呈，選擇了逃離這個無奈的詛咒，這是一個最勇敢且健全的決定。你認清了熱情不能當飯吃、大愛無法支付每月房租。在台灣，新進社工平均 3 年就會換血一次，人才的流失正是體制僵化的惡果。你不幹了，體制少了一個專業的助人者，世界多了一個身心健全的普通人。祝福你轉行順利！";
             }
         }
@@ -485,10 +474,8 @@
         function downloadCard() {
             const card = document.getElementById('captureArea');
             html2canvas(card, { useCORS: true, allowTaint: true, scale: 2 }).then(canvas => {
-                const link = document.createElement('a');
-                link.download = '社工勞權爭取模擬器_結算成就卡.png';
-                link.href = canvas.toDataURL('image/png');
-                link.click();
+                const link = document.createElement('a'); link.download = '社工勞權爭取模擬器_結算成就卡.png';
+                link.href = canvas.toDataURL('image/png'); link.click();
             });
         }
     </script>
