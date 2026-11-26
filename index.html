@@ -228,7 +228,7 @@
             <div class="status-bar">
                 <div class="status-item">
                     <span class="status-label">⚖️ 階段</span>
-                    <span id="phaseLabel" class="status-value" style="color: #b45309;">意識覺醒</span>
+                    <span id="phaseLabel" class="status-value" style="color: #b45309; font-size: 0.95rem;">意識覺醒</span>
                 </div>
                 <div class="status-item">
                     <span class="status-label">📅 時間天數</span>
@@ -372,7 +372,6 @@
             else if (state.currentDay <= 20) document.getElementById('phaseLabel').innerText = "證據蒐集";
             else document.getElementById('phaseLabel').innerText = "採取行動";
             
-            const body = document.getElementById('gameBody');
             if (state.health < 35) {
                 document.body.classList.add('dizzy-mode');
                 document.getElementById('healthLabel').style.color = 'var(--color-danger)';
@@ -457,7 +456,7 @@
                 text: "連續高強度的重案轟炸與無意義核銷讓你出現嚴重的替代性創傷，晚上失眠且上班手不停發抖。此時工作空檔正好有工會提供的外部諮商與喘息服務資源...",
                 options: [
                     { text: "硬撐不去諮商，不耽誤手頭上的公事進度 💻", resolve: (e) => {
-                        state.health -= 25; floatText("身心崩潰邊緣 ▼", "down", e); pushLog("選擇硬撐，替代性創傷持續慢性吞噬續航力。"); nextStep();
+                        state.health -= 25; floatText("身心崩潰邊緣 ▼", "down", e); pushLog("選擇硬撐，替代性創傷持續慢性吞噬續航力. "); nextStep();
                     }},
                     { text: "撥出工作時間請假參與諮商以照顧自己 🧘", resolve: (e) => {
                         state.health += 25; state.avgHours += 2.0;
