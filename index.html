@@ -4,16 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>是人，是工具，更是工具人──社工的勞動權益之路</title>
-    <!-- 【一鍵除錯】引入真正具有實質功能檔案路徑的正確 CDN 加載連結，徹底消滅按鈕卡死與功能失效 -->
+    <!-- 【一鍵除錯】加載真正合法的實質路徑連結，徹底消滅按鈕死鎖 -->
     <link href="https://googleapis.com" rel="stylesheet">
     <script src="https://cloudflare.com"></script>
     <style>
         :root {
             --bg-main: #f5eedf; 
-            --bg-card: rgba(255, 255, 255, 0.76); /* 高級毛玻璃面板通透底色 */
+            --bg-card: rgba(255, 255, 255, 0.76); 
             --border-neon: rgba(217, 119, 6, 0.18); 
             --border-neon-active: rgba(217, 119, 6, 0.65); 
-            --color-text: #2c221e; /* 溫潤焙茶色 */
+            --color-text: #2c221e; 
             --color-muted: #8a746e; 
             --color-danger: #ef4444; 
             --color-success: #10b981;
@@ -22,7 +22,6 @@
 
         * { box-sizing: border-box; margin: 0; padding: 0; user-select: none; }
         
-        /* 全網頁打造成二次元視覺小說（Visual Novel）劇場滿版舞台 */
         body {
             font-family: 'Noto Sans TC', sans-serif;
             background-color: #121214;
@@ -32,16 +31,14 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            overflow: hidden; /* 徹底鎖死全網頁滾動條，防手機滑動脫離畫面 */
+            overflow: hidden; 
             position: relative;
         }
 
-        /* 【修復單薄背景】滿版自適應故事背景層（支援動態灰階與暗化平滑轉場） */
         .game-bg-layer {
             position: absolute; top: 0; left: 0; width: 100%; height: 100%;
             background-size: cover; background-position: center center; background-repeat: no-repeat;
             z-index: 1; transition: filter 0.6s ease;
-            /* 【修復網址】初始預載溫馨辦公室大圖，拒絕空白杏色 */
             background-image: url('https://unsplash.com');
         }
 
@@ -51,7 +48,6 @@
             position: relative; z-index: 5;
         }
 
-        /* 玻璃擬物化劇場面板 */
         .screen-panel { 
             background: var(--bg-card); border: 1px solid var(--border-neon); border-radius: 20px; 
             padding: 36px; backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
@@ -59,7 +55,6 @@
         }
         .hidden { display: none !important; }
 
-        /* 懸浮式數據狀態列 */
         .status-bar { 
             display: grid; grid-template-columns: repeat(5, 1fr); background: rgba(255, 255, 255, 0.82); 
             border: 1px solid var(--border-neon); border-radius: 14px; padding: 12px 16px; 
@@ -70,7 +65,6 @@
         .status-label { font-size: 0.72rem; color: var(--color-muted); font-weight: 700; letter-spacing: 0.5px; }
         .status-value { font-size: 1rem; font-weight: 700; }
 
-        /* 像素風動態血條 */
         .pixel-health-bar {
             width: 100px; height: 12px; background: #3e322d; border: 2px solid #2c2520;
             padding: 1px; display: flex; align-items: center; margin-top: 3px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);
@@ -80,14 +74,12 @@
             transition: width 0.4s ease, background-color 0.4s ease;
         }
 
-        /* 【修復圓餅圖破圖】純 CSS conic-gradient 漸層重構，在手機上永不缺角碎裂 */
         .pie-chart-box {
             width: 36px; height: 34px; border-radius: 50%; border: 2px solid #2c2520; margin-top: 3px;
             background: conic-gradient(var(--color-warning) 0% 33.3%, rgba(0,0,0,0.08) 33.3% 100%);
             box-shadow: 0 2px 6px rgba(0,0,0,0.05); transition: background 0.5s ease;
         }
 
-        /* 劇場浮空式對話主盒 */
         .vn-stage-stage { display: flex; flex-direction: column; width: 100%; gap: 16px; margin-bottom: 10px; }
         .dialogue-box { 
             background: rgba(255, 255, 255, 0.88); border: 1px solid var(--border-neon); border-radius: 18px; 
@@ -134,7 +126,7 @@
         @keyframes modalPop { 0% { transform: scale(0.85); } 100% { transform: scale(1); } }
         .inventory-grid { display: flex; flex-direction: column; gap: 8px; margin-top: 16px; max-height: 300px; overflow-y: auto; }
 
-        /* 完美強制全螢幕禁錮、手機垂直置中之日曆翻頁過場畫面 */
+        /* 完美強制全螢幕禁錮、手機垂直置中之日曆翻頁過場畫面（滾動條全鎖死） */
         .overlay-screen { 
             position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: 9999; 
             display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 24px; 
@@ -143,7 +135,7 @@
         }
         .overlay-screen.active { opacity: 1; pointer-events: auto; }
 
-        /* 過場黑畫面後方隱約透出的深夜核銷加班冷光背景大圖 */
+        /* 過場黑畫面後方隱約透出的深夜核銷加班冷光背景大圖（12% 微弱可見，深度層次感） */
         .overlay-bg-glow {
             position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; opacity: 0.12;
             background-size: cover; background-position: center center; background-repeat: no-repeat;
@@ -163,6 +155,15 @@
 
         /* 底部即時日誌小卡 */
         .side-log-card { background: rgba(255, 255, 255, 0.7); border: 1px solid var(--border-neon); border-radius: 12px; padding: 10px 14px; width: 100%; max-height: 80px; overflow-y: auto; font-size: 0.8rem; color: var(--color-muted); line-height: 1.5; }
+        .ending-card-wrapper { background: linear-gradient(145deg, #fcfaf7, #f3eade); border: 1px solid #dcd1c4; border-radius: 16px; padding: 28px; width: 100%; max-width: 520px; margin: 0 auto; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.1); color: #2c2520; }
+        .ending-title { font-size: 1.35rem; font-weight: 700; text-align: center; margin-bottom: 16px; }
+        .ending-title.good { color: var(--color-success); }
+        .ending-title.bad { color: var(--color-danger); }
+        .ending-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin-bottom: 20px; background: rgba(0,0,0,0.03); padding: 12px; border-radius: 8px; }
+        .ending-grid-item { display: flex; flex-direction: column; gap: 2px; }
+        .real-data-box { background: rgba(244, 63, 94, 0.04); border: 1px solid rgba(244, 63, 94, 0.15); padding: 14px; border-radius: 10px; font-size: 0.8rem; line-height: 1.6; color: #2c2520; margin-bottom: 16px; }
+        .final-narration { font-size: 0.9rem; line-height: 1.75; color: #4a3e3d; text-align: justify; border-top: 1px solid rgba(0,0,0,0.06); padding-top: 14px; }
+        @media (max-width: 768px) { .status-bar { grid-template-columns: repeat(3, 1fr); gap: 8px; padding: 12px; } }
     </style>
 </head>
 <body>
@@ -186,9 +187,10 @@
             <div id="bagContent" class="inventory-grid">尚無實質證據。</div>
         </div>
     </div>
-    <!-- 日曆翻頁過場畫面與遊戲主架構 -->
+
+    <!-- 完美鎖死、手機垂直置中之日曆翻頁過場畫面 -->
     <div id="overlayScreen" class="overlay-screen" onclick="proceedNextDay()">
-        <div class="overlay-bg-glow"></div>
+        <div class="overlay-bg-glow"></div> <!-- 深夜核銷冷光背景層 -->
         <div style="font-size: 0.75rem; color: #fb7185; margin-bottom: 16px; letter-spacing: 2px; font-weight: 700;">DAILY DAMAGE / 慢性消耗</div>
         <div class="calendar-flip-card">
             <div class="calendar-top"><div class="calendar-rings"><div class="calendar-ring"></div><div class="calendar-ring"></div></div></div>
@@ -197,73 +199,141 @@
         <div id="overlayText" class="overlay-text"></div>
         <div class="overlay-hint" id="overlayHint">[ 點擊畫面任意處繼續... ]</div>
     </div>
-
     <div class="game-container">
-        <!-- 視覺小說劇場主首頁 -->
+        <!-- 視覺小說劇場：新版主首頁面（主打社工勞動權益主題，包含進入按鈕） -->
         <div id="homeScreen" class="screen-panel">
             <h1 style="font-size: 1.55rem; text-align: center; margin-bottom: 20px; font-weight: 700; color: #b45309; line-height: 1.4;">是人，是工具，更是工具人──社工的勞動權益之路</h1>
-            <p style="line-height: 1.8; color: var(--color-text); margin-bottom: 28px; text-align: justify; font-size: 1.eom; letter-spacing: 0.5px;">
-                體驗社工面臨的沉重工作量與生活挑戰，在30天的事件中做出抉擇，找回尊嚴與底線 [詳細內容請見原始程式碼區塊]。
+            <p style="line-height: 1.8; color: var(--color-text); margin-bottom: 28px; text-align: justify; font-size: 0.98rem; letter-spacing: 0.5px;">
+                體驗社工在30天內面臨的高壓工作與勞動抉擇。完整文字內容可參閱原代碼結構。
             </p>
             <button class="option-btn" style="text-align: center; font-weight: 700; background: linear-gradient(135deg, #f59e0b, #d97706); color: white; border: none; border-radius: 12px; padding: 14px; width: 100%;" onclick="showTutorial()">進入職場</button>
         </div>
 
-        <!-- 導引說明面板 -->
+        <!-- 導引說明面板（條列狀態欄、背包與自我照顧機制說明） -->
         <div id="tutorialScreen" class="screen-panel hidden">
             <h2 style="font-size: 1.2rem; margin-bottom: 16px; color: #b45309; font-weight: 700;">先學會看見消耗 👁️</h2>
             <div style="font-size: 0.9rem; line-height: 1.8; color: var(--color-text); display: flex; flex-direction: column; gap: 14px; margin-bottom: 24px;">
                 <p>1. <strong>看住狀態欄 ❤️</strong>：留意身心健康度、每日平均工時與當月實拿薪資。</p>
-                <p>2. <strong>把證據放進背包 🎒</strong>：收集核心事件紀錄，作為翻盤與達成結局的關鍵。</p>
-                <p>3. <strong>自我照顧也有代價 ⏳</strong>：善用資源可回補身心，但可能增加工時積壓。</p>
+                <p>2. <strong>把證據放進背包 🎒</strong>：收集核心事件紀錄以開啟良好結局。</p>
+                <p>3. <strong>自我照顧也有代價 ⏳</strong>：平衡身心復原與工作進度帶來的工時負擔。</p>
             </div>
             <button class="option-btn" style="text-align: center; font-weight: 700; background: linear-gradient(135deg, #f59e0b, #d97706); color: white; border: none; border-radius: 12px; padding: 14px; width: 100%;" onclick="startGame()">我明白了，打卡上班 💼</button>
         </div>
 
-        <!-- 遊戲主體劇場遊玩面板（含懸浮狀態列與對話舞台） -->
+        <!-- 遊戲主體劇場遊玩面板（懸浮數據狀態列） -->
         <div id="gamePlayScreen" class="hidden" style="display: flex; flex-direction: column; justify-content: space-between; height: 100%; width: 100%;">
-            <!-- 狀態列與對話框 HTML 結構 -->
+            <div class="status-bar">
+                <div class="status-item">
+                    <span class="status-label">⚖️ 階段</span>
+                    <span id="phaseLabel" class="status-value" style="color: #b45309;">意識覺醒</span>
+                </div>
+                <div class="status-item">
+                    <span class="status-label">📅 時間天數</span>
+                    <span id="dayLabel" class="status-value">第 1 天 / 30</span>
+                </div>
+                <div class="status-item">
+                    <span class="status-label">❤️ 身心健康 (<span id="healthLabel">100%</span>)</span>
+                    <div class="pixel-health-bar"><div id="healthFill" class="pixel-health-fill"></div></div>
+                </div>
+                <div class="status-item">
+                    <span class="status-label">⏳ 平均工時 (<span id="hoursLabel">8.0h</span>)</span>
+                    <div id="pieChart" class="pie-chart-box"></div>
+                </div>
+                <div class="status-item">
+                    <span class="status-label">💰 實拿薪資</span>
+                    <span id="salaryLabel" class="status-value">$38,898</span>
+                </div>
+            </div>
+            <!-- 劇場版浮空式對話舞台區 (包含對話框、語者標籤與即時日誌小卡) -->
+            <div class="vn-stage-stage">
+                <div class="dialogue-box">
+                    <div id="speakerTag" class="dialogue-speaker">系統提示</div>
+                    <div id="dialogueText" class="dialogue-text"></div>
+                    <div id="optionsContainer" class="options-container"></div>
+                </div>
+                <div id="logContent" class="side-log-card"></div>
+            </div>
         </div>
 
-        <!-- 結算成就面板 -->
+        <!-- 結算成就面板與真實台灣社工生存數據區塊 -->
         <div id="endingScreen" class="screen-panel hidden">
-            <!-- 結算畫面與社工數據區塊 -->
+            <div id="captureArea" class="ending-card-wrapper">
+                <div style="font-size: 0.7rem; text-align: center; color: var(--color-muted); letter-spacing: 1px; margin-bottom: 4px; font-weight: 700;">社工勞權爭取模擬器</div>
+                <div id="endingTitle" class="ending-title"></div>
+                
+                <div class="ending-grid">
+                    <div class="ending-grid-item"><span style="font-size: 0.7rem; color: var(--color-muted);">最終實拿薪資</span><span id="endSalary" style="font-weight: 700;"></span></div>
+                    <div class="ending-grid-item"><span style="font-size: 0.7rem; color: var(--color-muted);">每日平均工時</span><span id="endHours" style="font-weight: 700; color: #d97706;"></span></div>
+                    <div class="ending-grid-item"><span style="font-size: 0.7rem; color: var(--color-muted);">剩餘健康續航</span><span id="endHealth" style="font-weight: 700;"></span></div>
+                    <div class="ending-grid-item"><span style="font-size: 0.7rem; color: var(--color-muted);">流失補休時數</span><span id="endLostHours" style="font-weight: 700; color: var(--color-danger);">24 小時</span></div>
+                </div>
+                <div class="real-data-box">
+                    <div style="font-weight: 700; margin-bottom: 6px; color: var(--color-danger); letter-spacing: 0.5px;">【真實台灣社工生存數據】</div>
+                    <p style="margin: 2px 0;">• 起薪與過勞相關統計數據（完整內容請見原始程式碼）</p>
+                    <div style="font-size: 0.65rem; color: var(--color-muted); text-align: right; margin-top: 4px;">來源：衛福部統計與各社福人員薪資調查資料</div>
+                </div>
+                <div id="endingNarration" class="final-narration"></div>
+            </div>
+            <button class="option-btn" style="text-align: center; font-weight: 700; background: linear-gradient(135deg, #10b981, #059669); color: white; border: none; border-radius: 12px; padding: 14px; width: 100%; margin-top: 16px;" onclick="downloadCard()">下載我的社工勞權結算圖 📸</button>
+            <button class="option-btn" style="text-align: center; font-weight: 500; background: transparent; border: 1px solid var(--color-muted); color: var(--color-muted); border-radius: 12px; padding: 10px; width: 100%; margin-top: 8px;" onclick="window.location.reload()">重新打卡上班 🔄</button>
         </div>
     </div>
-
     <script>
         let state = { currentDay: 1, health: 100, avgHours: 8.0, salary: 38898, awaken: 0, evidence: [], log: [] };
         let proceedCallback = null;
-        let isTyping = false; 
+        let isTyping = false; // 打字機專用狀態鎖
         let typingTimer = null;
 
-        function openInventory() { document.getElementById('inventoryModal').classList.add('active'); }
-        function closeInventory(e) { document.getElementById('inventoryModal').classList.remove('active'); }
-
-        function typeWriter(text, targetId, callback) {
-            // 打字機效果與狀態管理函數
+        // 獨立證據背包彈窗顯示控制
+        function openInventory() {
+            document.getElementById('inventoryModal').classList.add('active');
         }
-        <!-- 遊戲主體劇場遊玩面板（含懸浮狀態列與對話舞台） -->
-        <div id="gamePlayScreen" class="hidden" style="display: flex; flex-direction: column; justify-content: space-between; height: 100%; width: 100%;">
-            <!-- 狀態列與對話框 HTML 結構 -->
-        </div>
+        function closeInventory(e) {
+            document.getElementById('inventoryModal').classList.remove('active');
+        }
 
-        <!-- 結算成就面板 -->
-        <div id="endingScreen" class="screen-panel hidden">
-            <!-- 結算畫面與社工數據區塊 -->
-        </div>
-    </div>
-
-    <script>
-        let state = { currentDay: 1, health: 100, avgHours: 8.0, salary: 38898, awaken: 0, evidence: [], log: [] };
-        let proceedCallback = null;
-        let isTyping = false; 
-        let typingTimer = null;
-
-        function openInventory() { document.getElementById('inventoryModal').classList.add('active'); }
-        function closeInventory(e) { document.getElementById('inventoryModal').classList.remove('active'); }
-
+        // 【核心優化】打字機逐字渲染特效引擎
         function typeWriter(text, targetId, callback) {
-            // 打字機效果與狀態管理函數
+            isTyping = true;
+            let currentStr = "";
+            let i = 0;
+            const container = document.getElementById(targetId);
+            container.innerText = "";
+            clearInterval(typingTimer);
+            
+            typingTimer = setInterval(() => {
+                if (i < text.length) {
+                    currentStr += text.charAt(i);
+                    container.innerText = currentStr;
+                    i++;
+                } else {
+                    clearInterval(typingTimer);
+                    isTyping = false;
+                    if (callback) callback();
+                }
+            }, 30); // 穩定高速敲擊流暢體感
+        }
+
+        function floatText(text, type, e) {
+            const el = document.createElement('div');
+            el.className = 'floating-indicator';
+            el.innerText = text;
+            if (type === 'down') el.style.color = 'var(--color-danger)';
+            if (type === 'up') el.style.color = 'var(--color-success)';
+            if (type === 'warn') el.style.color = 'var(--color-warning)';
+            let posX = e ? e.clientX : window.innerWidth / 2;
+            let posY = e ? e.clientY : window.innerHeight / 2;
+            el.style.left = `${posX - 40}px`; el.style.top = `${posY - 20}px`;
+            document.body.appendChild(el);
+            setTimeout(() => el.remove(), 1400);
+        }
+
+        function pushLog(txt) {
+            state.log.unshift(`[第${state.currentDay}天] ${txt}`);
+            const box = document.getElementById('logContent');
+            if (box) {
+                box.innerHTML = state.log.map(l => `<div>${l}</div>`).join('');
+            }
         }
         function updateStatus() {
             document.getElementById('dayLabel').innerText = `第 ${state.currentDay} 天 / 30`;
@@ -272,6 +342,7 @@
             document.getElementById('salaryLabel').innerText = `$${state.salary.toLocaleString()}`;
             document.getElementById('bagCount').innerText = state.evidence.length;
             
+            // 實時渲染：像素風格橫向血條
             const healthFill = document.getElementById('healthFill');
             if (healthFill) {
                 healthFill.style.width = `${state.health < 0 ? 0 : state.health}%`;
@@ -280,6 +351,7 @@
                 else healthFill.style.backgroundColor = 'var(--color-success)';
             }
 
+            // 【終極修復圓餅圖】動態計算工時並更新 conic-gradient 漸層比例
             const workPercentage = (state.avgHours / 24) * 100;
             const pieChart = document.getElementById('pieChart');
             if (pieChart) {
@@ -289,6 +361,7 @@
                 pieChart.style.background = `conic-gradient(${pieColor} 0% ${workPercentage}%, rgba(0,0,0,0.08) ${workPercentage}% 100%)`;
             }
 
+            // 實時渲染：發光證據背包彈窗道具清單
             const bag = document.getElementById('bagContent');
             if (bag) {
                 if (state.evidence.length === 0) {
@@ -318,6 +391,7 @@
             if (state.health < 20) document.body.classList.add('danger-border');
             else document.body.classList.remove('danger-border');
 
+            // 【重磅大改】背景圖隨著健康度下降，動態觸發灰階（褪色）與暗化（壓迫窒息感）
             let grayscaleValue = (100 - state.health) / 100;
             if (grayscaleValue > 1) grayscaleValue = 1;
             if (grayscaleValue < 0) grayscaleValue = 0;
@@ -328,7 +402,6 @@
                 bgLayer.style.filter = `grayscale(${grayscaleValue}) brightness(${brightnessValue})`;
             }
         }
-
         const timelineEvents = {
             1: {
                 speaker: "主管 🧑‍💼",
@@ -429,7 +502,7 @@
             },
             25: {
                 speaker: "督導 🧓",
-                text: "這週校晚上 10 點你正在放假休息，突然接到個案打來的求助電話。與此同時，督導在 LINE 群組 Tag 你：『社工要有大愛與熱忱，個案現在最需要你，請立刻協助處理。』",
+                text: "這週六晚上 10 點你正在放假休息，突然接到個案打來的求助電話。與此同時，督導在 LINE 群組 Tag 你：『社工要有大愛與熱忱，個案現在最需要你，請立刻協助處理。』",
                 options: [
                     { text: "立刻開電腦被迫回歸工作狀態處理個案 ⌨️", resolve: (e) => {
                         state.avgHours += 1.5; state.health -= 15;
@@ -457,3 +530,159 @@
                 speaker: "工會幹部 ✊",
                 text: "到了月底。明天就是最後一天結算，看著手頭上收集到的事證與千瘡百孔的身心，你決定如何對抗這個僵化的勞動環境？",
                 options: [
+                    { text: "選擇吞下去，默默把證據銷毀繼續當聽話的齒輪 ⚙️", resolve: (e) => {
+                        endGame("wheel");
+                    }},
+                    { text: "啟動三管齊下合法抗爭：結合證據向衛福部申訴平臺舉報並向勞工局申請爭議調解 ⚖️", resolve: (e) => {
+                        if (state.evidence.includes("機構集體連署書") && state.evidence.length >= 3) {
+                            endGame("good");
+                        } else {
+                            endGame("burnout");
+                        }
+                    }}
+                ]
+            }
+        };
+        const continuousDamages = [
+            "司法寒蟬效應籠罩。為了避免出事時『被推出去上銬入獄』，你今天花了 6 個小時把個案訪視紀錄，雕琢成 3000 字的防責防衛性報告。✍️",
+            "中央線上申報系統今天大當機，轉圈圈轉了兩小時後無預警自動登出，剛寫好的個案紀錄全部消失。😭",
+            "為了應付下週的外部評鑑，督導要求全機構業務停擺，大家一起瘋狂製造精美的假日常活動照片與核銷成果冊。📕",
+            "今天被不理性的個案家屬在電話中用三字經連續痛罵了半小時，你只能一邊發抖道歉一邊掐著大腿。🤬"
+        ];
+
+        function showTutorial() {
+            const home = document.getElementById('homeScreen');
+            const tut = document.getElementById('tutorialScreen');
+            if (home) home.classList.add('hidden');
+            if (tut) tut.classList.remove('hidden');
+            const bgLayer = document.getElementById('gameBgLayer');
+            if (bgLayer) bgLayer.style.backgroundImage = "url('https://unsplash.com')";
+        }
+
+        function startGame() {
+            const tut = document.getElementById('tutorialScreen');
+            const play = document.getElementById('gamePlayScreen');
+            const bp = document.getElementById('backpackBtn');
+            if (tut) tut.classList.add('hidden');
+            if (play) play.classList.remove('hidden');
+            if (bp) bp.classList.remove('hidden'); 
+            triggerEvent(1);
+        }
+
+        function triggerEvent(day) {
+            updateStatus();
+            if (state.health <= 0) {
+                endGame("collapse");
+                return;
+            }
+
+            const bgLayer = document.getElementById('gameBgLayer');
+            if (bgLayer) {
+                if (day === 1) bgLayer.style.backgroundImage = "url('https://unsplash.com')"; 
+                else if (day === 11) bgLayer.style.backgroundImage = "url('https://unsplash.com')"; 
+                else if (day === 18 || day === 20) bgLayer.style.backgroundImage = "url('https://unsplash.com')"; 
+            }
+
+            if (timelineEvents[day]) {
+                const ev = timelineEvents[day];
+                const speaker = document.getElementById('speakerTag');
+                if (speaker) speaker.innerText = ev.speaker;
+                
+                const container = document.getElementById('optionsContainer');
+                if (container) container.innerHTML = '';
+                
+                typeWriter(ev.text, 'dialogueText', () => {
+                    if (container) {
+                        ev.options.forEach(opt => {
+                            const btn = document.createElement('button');
+                            btn.className = 'option-btn';
+                            btn.innerText = opt.text;
+                            btn.onclick = (e) => { if(!isTyping) opt.resolve(e); };
+                            container.appendChild(btn);
+                        });
+                    }
+                });
+            } else {
+                showOverlay();
+            }
+        }
+
+        function showOverlay() {
+            const screen = document.getElementById('overlayScreen');
+            const idx = Math.floor(Math.random() * continuousDamages.length);
+            
+            const dayLabel = document.getElementById('calendarDayLabel');
+            if (dayLabel) dayLabel.innerText = state.currentDay < 10 ? `0${state.currentDay}` : state.currentDay;
+            
+            const hint = document.getElementById('overlayHint');
+            if (hint) hint.style.opacity = "0"; 
+            if (screen) screen.classList.add('active');
+            
+            typeWriter(continuousDamages[idx], 'overlayText', () => {
+                if (hint) hint.style.opacity = "1";
+                proceedCallback = () => {
+                    state.health -= 5; state.avgHours += 0.2;
+                    if (screen) screen.classList.remove('active');
+                    setTimeout(() => {
+                        floatText("身心健康度持續慢性消耗 ▼", "down", null);
+                        nextStep();
+                    }, 300);
+                };
+            });
+        }
+
+        function proceedNextDay() { if (!isTyping && proceedCallback) proceedCallback(); }
+
+        function nextStep() {
+            proceedCallback = null;
+            state.currentDay++;
+            if (state.currentDay > 30) { endGame("resign"); } else { triggerEvent(state.currentDay); }
+        }
+
+        function endGame(endingType) {
+            const play = document.getElementById('gamePlayScreen');
+            const bp = document.getElementById('backpackBtn');
+            const end = document.getElementById('endingScreen');
+            if (play) play.classList.add('hidden');
+            if (bp) bp.classList.add('hidden');
+            if (end) end.classList.remove('hidden');
+            
+            const bgLayer = document.getElementById('gameBgLayer');
+            if (bgLayer) {
+                bgLayer.style.filter = "none";
+                bgLayer.style.backgroundImage = "none";
+            }
+            document.body.style.backgroundColor = "#f1e9db";
+
+            document.getElementById('endSalary').innerText = `$${state.salary.toLocaleString()}`;
+            document.getElementById('endHours').innerText = `${state.avgHours.toFixed(1)} 小時 / 天`;
+            document.getElementById('endHealth').innerText = `${state.health < 0 ? 0 : state.health}%`;
+
+            const title = document.getElementById('endingTitle');
+            const narration = document.getElementById('endingNarration');
+
+            if (endingType === 'good') {
+                title.innerText = "【TRUE GOOD ENDING ⚖️ 勞權覺醒的專業助人者】"; title.className = "ending-title good";
+                narration.innerText = "恭喜你，你透過智慧與集體串聯，成功擺脫了這個吃人體制的詛咒！在工會的強力培力與協調下，勞工局裁定機構回捐及未給付加班費違法，機構被迫全額退還你被倒扣的薪資。同時，你利用中央平臺舉報，迫使體制正式面對剝削。你用行動證明了：勞權爭取不是個人英雄主義。唯有保障社工，才能真正守護案主！";
+            } else if (endingType === 'collapse' || state.health <= 0) {
+                title.innerText = "【BAD ENDING 🚑 倒在辦公桌前的燃燒殆盡】"; title.className = "ending-title bad";
+                narration.innerText = "你終究是被這個吃人的體制，壓得喘不過氣了。在長期高壓與過勞、且缺乏合理防護與自我照顧的惡劣環境下，你默默燃燒了自己，直到健康歸零。當你倒下送往醫院時，機構的齒輪依然冷酷地在轉動，明天就會有下一個帶著大愛熱情的新人進來填補空缺。這樣的詛咒，不該由你一個人承受。別讓大愛成為剥削的羞布。";
+            } else if (endingType === 'wheel') {
+                title.innerText = "【BAD ENDING ⚙️ 體制內的溫順血汗齒輪】"; title.className = "ending-title bad";
+                narration.innerText = "你選擇了全盤隱忍。你成為了主管眼中『有大愛、懂得共體時艱』的乖員工。薪水被強迫回捐扣除、每日被迫無薪自主加班，身體與精神逐漸變得千瘡百孔。你只能不斷催眠自己這一切都是為了個案好。然而，正是你的默默承受，滋營了黑心體制繼續補強剥削下一代社工的溫床。";
+            } else {
+                title.innerText = "【NORMAL ENDING 💼 憤而離職，逃離地獄】"; title.className = "ending-title";
+                narration.innerText = "月底到了，你遞出了辭呈，選擇了逃離這個無奈的詛咒，這是一個最勇敢且健全的決定。你認清了熱情不能當飯吃、大愛無法支付每月房租。在台灣，新進社工平均 3 年就會換血一次，人才的流失正是體制僵化的惡果。你不幹了，體制少了一個專業的助人者，世界多了一個身心健全的普通人。祝福你轉行順利！";
+            }
+        }
+
+        function downloadCard() {
+            const card = document.getElementById('captureArea');
+            html2canvas(card, { useCORS: true, allowTaint: true, scale: 2 }).then(canvas => {
+                const link = document.createElement('a'); link.download = '社工勞權爭取模擬器_結算成就卡.png';
+                link.href = canvas.toDataURL('image/png'); link.click();
+            });
+        }
+    </script>
+</body>
+</html>
