@@ -100,7 +100,6 @@
             color: white; padding: 4px 16px; border-radius: 6px; font-size: 0.85rem; font-weight: 700; box-shadow: 0 4px 12px rgba(217, 119, 6, 0.25); 
         }
         .dialogue-text { font-size: 1.05rem; line-height: 1.8; color: var(--color-text); min-height: 60px; }
-
         .options-container { display: flex; flex-direction: column; gap: 8px; margin-top: 16px; }
         .option-btn { 
             background: rgba(255, 255, 255, 0.7); border: 1px solid var(--border-neon); color: var(--color-text); 
@@ -143,6 +142,7 @@
             background-color: rgba(13, 10, 15, 0.94); /* 完美禁錮黑色遮罩 */
         }
         .overlay-screen.active { opacity: 1; pointer-events: auto; }
+
         /* 【玩家指定】過場黑畫面後方隱約透出的深夜核銷加班冷光背景大圖（12% 微弱可見，深度層次感） */
         .overlay-bg-glow {
             position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; opacity: 0.12;
@@ -169,7 +169,7 @@
     <!-- 滿版二次元自適應情境場景背景圖層 -->
     <div id="gameBgLayer" class="game-layer game-bg-layer"></div>
 
-    <!-- 【玩家指定】實體像素風發光背包按鈕 -->
+    <!-- 【玩家指定】實體像素風發光背包大按鈕 -->
     <div id="backpackBtn" class="backpack-trigger-btn hidden" onclick="openInventory()">
         <img src="https://googleusercontent.com" style="width: 44px; height: 44px; object-fit: contain;" alt="自保背包">
     </div>
@@ -200,12 +200,12 @@
     </div>
 
     <div class="game-container">
-        <!-- 視覺小說劇場：大愛溫馨新版首頁面 -->
+        <!-- 視覺小說劇場：大改版全新主首頁面 -->
         <div id="homeScreen" class="screen-panel">
             <h1 style="font-size: 1.55rem; text-align: center; margin-bottom: 20px; font-weight: 700; color: #b45309; line-height: 1.4;">是人，是工具，更是工具人──社工的勞動權益之路</h1>
             <p style="line-height: 1.8; color: var(--color-text); margin-bottom: 28px; text-align: justify; font-size: 1rem; letter-spacing: 0.5px;">
                 哇！你是社工ㄟ，你一定很有愛心齁💖(*´∀｀)<br>
-                only你知道，不成正比的工作量與待遇早就讓你失去了尊嚴與生活品質。<br><br>
+                只有你知道，不成正比的工作量與待遇早就讓你失去了尊嚴與生活品質。<br><br>
                 這30天內，你會遇到各樣的事件🎲，請做出自己的判斷！<br>
                 你會選擇妥協，淪為換完就丟的低成本工具，還是一位有尊嚴有底線的「人」呢？
             </p>
@@ -222,18 +222,17 @@
             </div>
             <button class="option-btn" style="text-align: center; font-weight: 700; background: linear-gradient(135deg, #f59e0b, #d97706); color: white; border: none; border-radius: 12px; padding: 14px; width: 100%;" onclick="startGame()">我明白了，打卡上班 💼</button>
         </div>
-
         <!-- 遊戲主體劇場遊玩面板 -->
         <div id="gamePlayScreen" class="hidden" style="display: flex; flex-direction: column; justify-content: space-between; height: 100%; width: 100%;">
             <!-- 懸浮式數據狀態列 -->
             <div class="status-bar">
                 <div class="status-item">
                     <span class="status-label">⚖️ 階段</span>
-                    <span id="phaseLabel" class="status-value" style="color: #b45309; font-size: 0.95rem;">意識覺醒</span>
+                    <span id="phaseLabel" class="status-value" style="color: #b45309;">意識覺醒</span>
                 </div>
                 <div class="status-item">
                     <span class="status-label">📅 時間天數</span>
-                    <span id="dayLabel" class="status-value" style="font-size: 0.95rem;">第 1 天 / 30</span>
+                    <span id="dayLabel" class="status-value">第 1 天 / 30</span>
                 </div>
                 <div class="status-item">
                     <span class="status-label">❤️ 身心健康 (<span id="healthLabel">100%</span>)</span>
@@ -245,9 +244,10 @@
                 </div>
                 <div class="status-item">
                     <span class="status-label">💰 實拿薪資</span>
-                    <span id="salaryLabel" class="status-value" style="font-size: 0.95rem;">$38,898</span>
+                    <span id="salaryLabel" class="status-value">$38,898</span>
                 </div>
             </div>
+
             <!-- 劇場版浮空式對話舞台區 -->
             <div class="vn-stage-stage">
                 <div class="dialogue-box">
@@ -317,7 +317,7 @@
                     isTyping = false;
                     if (callback) callback();
                 }
-            }, 30);
+            }, 30); // 穩定高速 30ms 敲擊速度
         }
 
         function floatText(text, type, e) {
@@ -339,4 +339,190 @@
             const box = document.getElementById('logContent');
             box.innerHTML = state.log.map(l => `<div>${l}</div>`).join('');
         }
-{ text: "啟動三管齊下合法抗爭：結合證據向衛福部申訴平臺舉報並向勞工局申請爭議調解 ⚖️", resolve: (e) => {
+        function updateStatus() {
+            document.getElementById('dayLabel').innerText = `第 ${state.currentDay} 天 / 30`;
+            document.getElementById('healthLabel').innerText = `${state.health}%`;
+            document.getElementById('hoursLabel').innerText = `${state.avgHours.toFixed(1)}h`;
+            document.getElementById('salaryLabel').innerText = `$${state.salary.toLocaleString()}`;
+            document.getElementById('bagCount').innerText = state.evidence.length;
+            
+            const healthFill = document.getElementById('healthFill');
+            healthFill.style.width = `${state.health < 0 ? 0 : state.health}%`;
+            if (state.health < 35) healthFill.style.backgroundColor = 'var(--color-danger)';
+            else if (state.health < 65) healthFill.style.backgroundColor = 'var(--color-warning)';
+            else healthFill.style.backgroundColor = 'var(--color-success)';
+
+            const workPercentage = (state.avgHours / 24) * 100;
+            const pieChart = document.getElementById('pieChart');
+            let pieColor = 'var(--color-warning)';
+            if (state.avgHours > 10) pieColor = 'var(--color-danger)';
+            else if (state.avgHours > 8.5) pieColor = 'var(--color-warning)';
+            pieChart.style.background = `conic-gradient(${pieColor} 0% ${workPercentage}%, rgba(0,0,0,0.08) ${workPercentage}% 100%)`;
+
+            const bag = document.getElementById('bagContent');
+            if (state.evidence.length === 0) {
+                bag.innerText = "尚無實質證據。";
+                bag.style.color = "var(--color-muted)";
+            } else {
+                bag.style.color = "var(--color-text)";
+                bag.innerHTML = state.evidence.map(item => `<div class="evidence-item">📁 ${item}</div>`).join('');
+            }
+            
+            if (state.currentDay <= 10) document.getElementById('phaseLabel').innerText = "意識覺醒";
+            else if (state.currentDay <= 20) document.getElementById('phaseLabel').innerText = "證據蒐集";
+            else document.getElementById('phaseLabel').innerText = "採取行動";
+            
+            const body = document.getElementById('gameBody');
+            if (state.health < 35) {
+                document.body.classList.add('dizzy-mode');
+                document.getElementById('healthLabel').style.color = 'var(--color-danger)';
+            } else {
+                document.body.classList.remove('dizzy-mode');
+                document.getElementById('healthLabel').style.color = 'var(--color-success)';
+            }
+            if (state.health < 20) document.body.classList.add('danger-border');
+            else document.body.classList.remove('danger-border');
+
+            let grayscaleValue = (100 - state.health) / 100;
+            if (grayscaleValue > 1) grayscaleValue = 1;
+            if (grayscaleValue < 0) grayscaleValue = 0;
+            
+            let brightnessValue = 1 - (grayscaleValue * 0.5); 
+            const bgLayer = document.getElementById('gameBgLayer');
+            if (bgLayer) {
+                bgLayer.style.filter = `grayscale(${grayscaleValue}) brightness(${brightnessValue})`;
+            }
+        }
+
+        const timelineEvents = {
+            1: {
+                speaker: "主管 🧑‍💼",
+                text: "因為政府委託案方案的經費撥款通常年底才下來，為了機構永續經營，大家每個月從薪水自動回捐 3,000 元給機構做公益喔。大家都有簽，相信你也能共體時艱吧？",
+                options: [
+                    { text: "含淚吞下，在樂捐同意書上簽字 ✍️", resolve: (e) => {
+                        state.salary -= 3000; state.health -= 20;
+                        floatText("身心健康 ▼", "down", e); floatText("薪資倒扣 ▼", "down", e);
+                        pushLog("簽署了不合理的回捐同意書。"); nextStep();
+                    }},
+                    { text: "委婉拒絕簽署 ❌", resolve: (e) => {
+                        state.avgHours += 1.0; state.health -= 15;
+                        floatText("平均工時 ▲", "warn", e);
+                        pushLog("拒絕簽署回捐，隨後被分配了更多困難業務。"); nextStep();
+                    }}
+                ]
+            },
+            5: {
+                speaker: "社會局方案承辦 📋",
+                text: "上個月報支的交通差旅核銷被退件了。承辦要求你必須補上『你的機車車牌與個案家大門牌同框的清晰合照』。督導表示機構沒有多餘預算，要你自己想辦法。",
+                options: [
+                    { text: "自吞車資差旅費，直接放棄這次核銷 💸", resolve: (e) => {
+                        state.salary -= 500; state.health -= 10;
+                        floatText("實拿薪資 ▼", "down", e); pushLog("放棄核銷，自行貼補公務差旅費。"); nextStep();
+                    }},
+                    { text: "硬著頭皮去個案家門口拍攝車牌補件 📸", resolve: (e) => {
+                        state.health -= 20;
+                        floatText("專業尊嚴受挫 ▼", "down", e); pushLog("為了幾百塊去拍個案家門牌，嚴重損害專業信任關係。"); nextStep();
+                    }}
+                ]
+            },
+            11: {
+                speaker: "督導 🧓",
+                text: "你下午需要單獨前往訪視那名有嚴重暴力傾向、曾持刀傷人的個案。機構目前經費有限沒有配發防狼噴霧喔，而且帶防具會破壞與個案的信任關係！你自己多注意就好。",
+                options: [
+                    { text: "硬著頭皮自己騎車過去現場訪視 🛵", resolve: (e) => {
+                        state.health -= 35;
+                        floatText("飽受驚嚇精神受創 ▼", "down", e); pushLog("訪視時個案情緒暴走摔砸物品，驚險逃出。"); nextStep();
+                    }},
+                    { text: "答應前往，但堅持在 LINE 群組留下不合理防護交辦通聯 📱", resolve: (e) => {
+                        state.health -= 10; state.evidence.push("職安忽視通聯紀錄");
+                        floatText("保留存證 ▲", "up", e); pushLog("在群組回覆：『因無人陪同，今日自備防具前往』，留下文字鐵證。"); nextStep();
+                    }}
+                ]
+            },
+            15: {
+                speaker: "人事 👩‍💻",
+                text: "恭喜你考到社工師證照！不過我們機構今年沒有編列社工師的職缺，所以不能給你專業加給喔。不過既然你考到了，以後法律訴訟個案的專業報告就主要交給你負責囉！",
+                options: [
+                    { text: "默默認命，安慰自己就當累積專業經驗 😮‍💨", resolve: (e) => {
+                        state.health -= 20; floatText("身心消耗 ▼", "down", e); pushLog("工作責任加重，但薪資待遇完全原地踏步。"); nextStep();
+                    }},
+                    { text: "私底下暗中將勞動契約與相關事證傳給地方社工職業工會諮詢 ✊", resolve: (e) => {
+                        state.evidence.push("工會法律支援聯盟");
+                        floatText("權益覺醒 ▲", "up", e); pushLog("向工會尋求勞檢律師的專業保障評估。"); nextStep();
+                    }}
+                ]
+            },
+            18: {
+                speaker: "內心獨白 🧠",
+                text: "連續高強度的重案轟炸與無意義核銷讓你出現嚴重的替代性創傷，晚上失眠且上班手不停發抖。此時工作空檔正好有工會提供的外部諮商與喘息服務資源...",
+                options: [
+                    { text: "硬撐不去諮商，不耽誤手頭上的公事進度 💻", resolve: (e) => {
+                        state.health -= 25; floatText("身心崩潰邊緣 ▼", "down", e); pushLog("選擇硬撐，替代性創傷持續慢性吞噬續航力。"); nextStep();
+                    }},
+                    { text: "撥出工作時間請假參與諮商以照顧自己 🧘", resolve: (e) => {
+                        state.health += 25; state.avgHours += 2.0;
+                        floatText("身心回補 ▲", "up", e); floatText("積壓進度工時飆升 ▲", "warn", e);
+                        pushLog("花時間照顧自己，心靈得到修補，但積壓的工作被迫半夜瘋狂加班補回。"); nextStep();
+                    }}
+                ]
+            },
+            20: {
+                speaker: "督導 🧓",
+                text: "這個月你為了趕核銷報告天天自主加班到深夜。督導走過來說：『我們機構沒有加班費這種東西喔，一律轉補休。共體時艱啦！』",
+                options: [
+                    { text: "默默接受，心裡知道這 20 小時補休根本沒空請 😮‍💨", resolve: (e) => {
+                        state.health -= 10; pushLog("接受補休方案（該補休將在月底因案量爆炸而流失）。"); nextStep();
+                    }},
+                    { text: "表面答應轉補休，但暗中落實並下載打卡紀錄與紀錄系統登入日誌 💾", resolve: (e) => {
+                        state.health -= 5; state.evidence.push("鋼鐵加班證據");
+                        floatText("鐵證入庫 ▲", "up", e); pushLog("暗中搜集扎實的出勤證明日誌。"); nextStep();
+                    }}
+                ]
+            },
+            22: {
+                speaker: "督導 🧓",
+                text: "勞動檢查員下週要來了！督導私下塞給你一份完美版的假出勤紀錄表，上面寫著每天 17:30 準時下班：『勞檢問的時候配合一下，就說大家都沒加班，這是為了機構聲譽！』",
+                options: [
+                    { text: "配合演戲，在假的出勤紀錄表上簽名確認 🤥", resolve: (e) => {
+                        state.health -= 15; floatText("尊嚴受挫 ▼", "down", e); pushLog("向機構屈服，被迫簽下虛假出勤單。"); nextStep();
+                    }},
+                    { text: "偷偷向勞檢員吐露實話，並私下附上真實打卡截圖 📁", resolve: (e) => {
+                        state.health -= 20;
+                        floatText("權益覺醒 ▲", "up", e); pushLog("對勞檢吐實，但隨後遭到機構內部主管的職場冷暴力與排擠。"); nextStep();
+                    }}
+                ]
+            },
+            25: {
+                speaker: "督導 🧓",
+                text: "這週六晚上 10 點你正在放假休息，突然接到個案打來的求助電話。與此同時，督導在 LINE 群組 Tag 你：『社工要有大愛與熱忱，個案現在最需要你，請立刻協助處理。』",
+                options: [
+                    { text: "立刻開電腦被迫回歸工作狀態處理個案 ⌨️", resolve: (e) => {
+                        state.avgHours += 1.5; state.health -= 15;
+                        floatText("工時暴增 ▲", "warn", e); pushLog("犧牲休假時間，被迫在深夜進行無給職勞動。"); nextStep();
+                    }},
+                    { text: "假裝沒看到已讀不回，留到週一上班再行處理 📴", resolve: (e) => {
+                        state.health -= 25; floatText("面臨巨大道德指責 ▼", "down", e); pushLog("週一上班被主管痛罵『沒有社會責任、草菅人命』。"); nextStep();
+                    }}
+                ]
+            },
+            28: {
+                speaker: "資深同事 🧑‍🦳",
+                text: "你試圖在機構內串聯其他夥伴集體向工會舉報不合理回捐與薪資短少。資深同事拉住你：『不要把事情鬧大，如果機構被社會局撤銷補助倒閉了，那些被安置的小孩要去哪裡？』",
+                options: [
+                    { text: "內心動搖，決定退出放棄集體串聯 🛑", resolve: (e) => {
+                        pushLog("在道德勒索與同儕壓力下放棄集體發聲。"); nextStep();
+                    }},
+                    { text: "頂住排擠與集體道德勒索，說服夥伴一起祕密留存連署書 📜", resolve: (e) => {
+                        state.health -= 20; state.evidence.push("機構集體連署書");
+                        floatText("集體防禦解鎖 ▲", "up", e); pushLog("成功頂住壓力，拿到了集體抵抗的關鍵連署。"); nextStep();
+                    }}
+                ]
+            },
+            29: {
+                speaker: "工會幹部 ✊",
+                text: "到了月底。明天就是最後一天結算，看著手頭上收集到的事證與千瘡百孔的身心，你決定如何對抗這個僵化的勞動環境？",
+                options: [
+                    { text: "選擇吞下去，默默把證據銷毀繼續當聽話的齒輪 ⚙️", resolve: (e) => {
+                        endGame("wheel");
+                    }},
+                    { text: "啟動三管齊下合法抗爭：結合證據向衛福部申訴平臺舉報並向勞工局申請爭議調解 ⚖️", resolve: (e) => {
