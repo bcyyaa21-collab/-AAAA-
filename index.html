@@ -166,9 +166,59 @@
     </style>
 </head>
 <body>
-    <!-- 遊戲主體與教學介面已大幅精簡，請至主程式原始碼取得完整 HTML 結構 -->
-    <!-- 背景、背包系統、日曆過場與主介面標題：是人，是工具，更是工具人──社工的勞動權益之路 -->
-</body>
+    <!-- 滿版二次元自適應情境場景背景圖層 -->
+    <div id="gameBgLayer" class="game-layer game-bg-layer"></div>
+
+    <!-- 【玩家指定】實體像素風發光背包大按鈕 -->
+    <div id="backpackBtn" class="backpack-trigger-btn hidden" onclick="openInventory()">
+        <img src="https://googleusercontent.com" style="width: 44px; height: 44px; object-fit: contain;" alt="自保背包">
+    </div>
+
+    <!-- 【玩家指定】全螢幕毛玻璃自保證據背包清單大彈窗 (Inventory Modal) -->
+    <div id="inventoryModal" class="inventory-modal" onclick="closeInventory(event)">
+        <div class="inventory-content" onclick="event.stopPropagation()">
+            <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid var(--border-neon-active); padding-bottom: 8px;">
+                <h3 style="font-size: 1.1rem; font-weight: 700; color: #b45309; display: flex; align-items: center; gap: 6px;">
+                    <img src="https://googleusercontent.com" style="width: 22px; height: 24px; object-fit: contain;"> 搜集事證清單 (<span id="bagCount">0</span>)
+                </h3>
+                <span style="cursor: pointer; font-weight: 700; color: var(--color-muted);" onclick="closeInventory(null)">✕ 關閉</span>
+            </div>
+            <div id="bagContent" class="inventory-grid">尚無實質證據。</div>
+        </div>
+    </div>
+    <!-- 日曆翻頁過場畫面與遊戲主架構 -->
+    <div id="overlayScreen" class="overlay-screen" onclick="proceedNextDay()">
+        <div class="overlay-bg-glow"></div>
+        <div style="font-size: 0.75rem; color: #fb7185; margin-bottom: 16px; letter-spacing: 2px; font-weight: 700;">DAILY DAMAGE / 慢性消耗</div>
+        <div class="calendar-flip-card">
+            <div class="calendar-top"><div class="calendar-rings"><div class="calendar-ring"></div><div class="calendar-ring"></div></div></div>
+            <div id="calendarDayLabel" class="calendar-body">01</div>
+        </div>
+        <div id="overlayText" class="overlay-text"></div>
+        <div class="overlay-hint" id="overlayHint">[ 點擊畫面任意處繼續... ]</div>
+    </div>
+
+    <div class="game-container">
+        <!-- 視覺小說劇場主首頁 -->
+        <div id="homeScreen" class="screen-panel">
+            <h1 style="font-size: 1.55rem; text-align: center; margin-bottom: 20px; font-weight: 700; color: #b45309; line-height: 1.4;">是人，是工具，更是工具人──社工的勞動權益之路</h1>
+            <p style="line-height: 1.8; color: var(--color-text); margin-bottom: 28px; text-align: justify; font-size: 1.eom; letter-spacing: 0.5px;">
+                體驗社工面臨的沉重工作量與生活挑戰，在30天的事件中做出抉擇，找回尊嚴與底線 [詳細內容請見原始程式碼區塊]。
+            </p>
+            <button class="option-btn" style="text-align: center; font-weight: 700; background: linear-gradient(135deg, #f59e0b, #d97706); color: white; border: none; border-radius: 12px; padding: 14px; width: 100%;" onclick="showTutorial()">進入職場</button>
+        </div>
+
+        <!-- 導引說明面板 -->
+        <div id="tutorialScreen" class="screen-panel hidden">
+            <h2 style="font-size: 1.2rem; margin-bottom: 16px; color: #b45309; font-weight: 700;">先學會看見消耗 👁️</h2>
+            <div style="font-size: 0.9rem; line-height: 1.8; color: var(--color-text); display: flex; flex-direction: column; gap: 14px; margin-bottom: 24px;">
+                <p>1. <strong>看住狀態欄 ❤️</strong>：留意身心健康度、每日平均工時與當月實拿薪資。</p>
+                <p>2. <strong>把證據放進背包 🎒</strong>：收集核心事件紀錄，作為翻盤與達成結局的關鍵。</p>
+                <p>3. <strong>自我照顧也有代價 ⏳</strong>：善用資源可回補身心，但可能增加工時積壓。</p>
+            </div>
+            <button class="option-btn" style="text-align: center; font-weight: 700; background: linear-gradient(135deg, #f59e0b, #d97706); color: white; border: none; border-radius: 12px; padding: 14px; width: 100%;" onclick="startGame()">我明白了，打卡上班 💼</button>
+        </div>
+
         <!-- 遊戲主體劇場遊玩面板（含懸浮狀態列與對話舞台） -->
         <div id="gamePlayScreen" class="hidden" style="display: flex; flex-direction: column; justify-content: space-between; height: 100%; width: 100%;">
             <!-- 狀態列與對話框 HTML 結構 -->
