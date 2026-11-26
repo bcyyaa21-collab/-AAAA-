@@ -9,16 +9,17 @@
 <script src="https://cloudflare.com"></script>
     <style>
         :root {
-            --bg-main: #0b0f19;
-            --bg-card: rgba(22, 30, 49, 0.75);
-            --border-neon: rgba(56, 189, 248, 0.25);
-            --border-neon-active: rgba(56, 189, 248, 0.6);
-            --color-text: #f8fafc;
-            --color-muted: #64748b;
-            --color-danger: #f43f5e;
+            --bg-main: #fcf8f2; /* 一開始是溫馨的溫暖米杏色背景 */
+            --bg-card: rgba(255, 255, 255, 0.85); /* 帶有溫潤毛玻璃感的白色面板 */
+            --border-neon: rgba(220, 150, 110, 0.3); /* 溫暖的陽光橘粉色微光邊框 */
+            --border-neon-active: rgba(245, 158, 11, 0.8); /* 亮橘色高亮 */
+            --color-text: #2c2520; /* 深深淺淺的焙茶色文字，比死黑更溫柔 */
+            --color-muted: #8c7e74; /* 沉穩的焙茶灰 */
+            --color-danger: #ef4444; 
             --color-success: #10b981;
             --color-warning: #f59e0b;
         }
+
         * { box-sizing: border-box; margin: 0; padding: 0; user-select: none; }
         body {
             font-family: 'Noto Sans TC', sans-serif;
@@ -28,8 +29,13 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            background: radial-gradient(circle at center, #171725 0%, #080810 100%);
+            /* 預留背景圖片擺放位置：滿版、居中、不重複 */
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
             overflow-x: hidden;
+            transition: filter 0.5s ease, background-color 0.5s ease, background-image 0.5s ease; /* 讓褪色與換背景時有平滑漸變 */
         }
         /* 眩暈與危險紅光呼吸特效 */
         body.dizzy-mode { animation: dizzyShake 3s infinite; }
@@ -125,7 +131,7 @@
         <div id="homeScreen" class="screen-panel">
             <h1 style="font-size: 1.6rem; text-align: center; margin-bottom: 16px; font-weight: 700; color: #38bdf8;">《是人，是工具，更是工具人。社工的勞動權益之路》</h1>
             <p style="line-height: 1.8; color: #cbd5e1; margin-bottom: 24px; text-align: justify; font-size: 0.95rem;">
-                哇！你是社工ㄟ，你一定很有愛心齁💖(*´∀｀)<br></h1>
+                <h哇！你是社工ㄟ，你一定很有愛心齁💖(*´∀｀)<br></h3>
                 只有你知道，不成正比的工作量與待遇早就讓你失去了尊嚴與生活品質。<br>
                 這30天內，你會遇到各樣的事件🎲，請做出自己的判斷！<br>
                 你會選擇妥協，倫為換完就丟的低成本工具，還是一位有尊嚴有底線的「人」呢？
@@ -259,6 +265,23 @@
             }
             if (state.health < 20) body.classList.add('danger-border');
             else body.classList.remove('danger-border');
+                    // 計算灰階比例：健康 100% 時灰階為 0，健康 0% 時灰階為 1 (100%灰白)
+            let grayscaleValue = (100 - state.health) / 100;
+            // 如果健康度降到 0 以下，強制卡在 1
+            if (grayscaleValue > 1) grayscaleValue = 1;
+            if (grayscaleValue < 0) grayscaleValue = 0;
+            
+            // 動態把濾鏡注入到全網頁 body 上
+            document.body.style.filter = `grayscale(${grayscaleValue})`;
+            
+            // 當健康度低於 40% 時，順便把溫馨的米杏色背景慢慢轉為陰沉的死灰
+            if (state.health < 40) {
+                document.body.style.backgroundColor = "#2a2d34";
+                document.body.style.color = "#e2e8f0";
+            } else {
+                document.body.style.backgroundColor = "var(--bg-main)";
+                document.body.style.color = "var(--color-text)";
+            }
         }
         const timelineEvents = {
             1: {
@@ -425,21 +448,18 @@
                 endGame("collapse");
                 return;
             }
-            if (timelineEvents[day]) {
-                const ev = timelineEvents[day];
-                document.getElementById('speakerTag').innerText = ev.speaker;
-                document.getElementById('dialogueText').innerText = ev.text;
-                const container = document.getElementById('optionsContainer');
-                container.innerHTML = '';
-                ev.options.forEach(opt => {
-                    const btn = document.createElement('button');
-                    btn.className = 'option-btn';
-                    btn.innerText = opt.text;
-                    btn.onclick = (e) => opt.resolve(e);
-                    container.appendChild(btn);
-                });
-            } else {
-                showOverlay();
+
+            // 【動態場景背景圖片切換控制】
+            // 這裡已為您預留好位置，您可以直接把生成或找好的圖片網址放進雙引號內
+            if (day === 1) {
+                // 階段一：剛進入職場（溫馨舒適的社工辦公室背景）
+                document.body.style.backgroundImage = "url('https://picsum.photos')"; 
+            } else if (day === 11) {
+                // 階段二：高風險現場訪視（陰沉、充滿壓迫感的個案家門口背景）
+                document.body.style.backgroundImage = "url('https://picsum.photos')"; 
+            } else if (day === 18 || day === 20) {
+                // 階段三：深夜核銷地獄或無薪加班（只有筆電冷光、空無一人的深夜辦公室背景）
+                document.body.style.backgroundImage = "url('https://picsum.photos')"; 
             }
         }
 
