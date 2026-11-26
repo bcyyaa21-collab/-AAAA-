@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>是人，是工具，更是工具人──社工的勞動權益之路</title>
+    <!-- 【一鍵除錯】引入真正具有實質功能檔案路徑的正確 CDN 加載連結，徹底消滅功能失效 -->
     <link href="https://googleapis.com" rel="stylesheet">
     <script src="https://cloudflare.com"></script>
     <style>
@@ -38,9 +39,9 @@
             position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
             background-size: cover; background-position: center center; background-repeat: no-repeat;
             z-index: 1; transition: background-image 0.6s ease-in-out, filter 0.6s ease;
- background-image: url('https://unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=1920&q=80');
+            /* 預載初始背景：明亮但壓抑的制度化社工辦公室 */
+            background-image: url('https://unsplash.com');
         }
-
         .game-full-bg::after {
             content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
             background: linear-gradient(135deg, rgba(19, 15, 22, 0.52) 0%, rgba(35, 26, 24, 0.42) 100%);
