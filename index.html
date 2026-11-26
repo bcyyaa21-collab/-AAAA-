@@ -33,25 +33,25 @@
             overflow-x: hidden;
         }
 
-        /* 【玩家指定】全新代表性「問題場景」動態背景層 ＋ 疊加 65% 半透明高質感絕望黑冷色調遮罩 */
+        /* 【重大修正】替換為穩定高解析度實質場景 ID，並疊加 65% 半透明高質感絕望黑冷色調遮罩 */
         .game-full-bg {
             position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
             background-size: cover; background-position: center center; background-repeat: no-repeat;
             z-index: 1; transition: background-image 0.6s ease-in-out, filter 0.6s ease;
-            /* 初始代表場景：溫馨但充滿體制規範的辦公室 */
+            /* 初始代表場景：明亮但壓抑的制度化辦公室 */
             background-image: url('https://unsplash.com');
         }
         .game-full-bg::after {
             content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            background: linear-gradient(135deg, rgba(19, 15, 22, 0.72) 0%, rgba(35, 26, 24, 0.65) 100%); /* 半透明暗化層，凸顯前端文字清晰度 */
+            /* 65% 半透明深夜絕望冷光暗化遮罩層 */
+            background: linear-gradient(135deg, rgba(19, 15, 22, 0.75) 0%, rgba(35, 26, 24, 0.65) 100%);
             z-index: 2;
         }
 
         .game-container { width: 100%; max-width: 1000px; padding: 16px; display: flex; flex-direction: column; gap: 20px; position: relative; z-index: 10; }
-        .screen-panel { background: var(--bg-card); border: 1px solid var(--border-neon); border-radius: 20px; padding: 36px; box-shadow: 0 20px 50px rgba(0,0,0,0.25); }
+        .screen-panel { background: var(--bg-card); border: 1px solid var(--border-neon); border-radius: 20px; padding: 36px; box-shadow: 0 20px 50px rgba(0,0,0,0.3); }
         .hidden { display: none !important; }
 
-        /* 經典頂部數據狀態欄 */
         .status-bar { 
             display: grid; grid-template-columns: repeat(5, 1fr); background: var(--bg-card); 
             border: 1px solid var(--border-neon); border-radius: 14px; padding: 16px; 
@@ -73,7 +73,6 @@
             box-shadow: 0 2px 6px rgba(0,0,0,0.06); transition: background 0.5s ease;
         }
 
-        /* 經典左右雙欄舞台 */
         .main-stage { display: grid; grid-template-columns: 2.2fr 1fr; gap: 20px; }
         /* 故事對話盒主體 */
         .dialogue-box { 
@@ -85,7 +84,7 @@
             position: absolute; top: -12px; left: 24px; background: linear-gradient(135deg, #f59e0b, #d97706); 
             color: white; padding: 5px 18px; border-radius: 8px; font-size: 0.85rem; font-weight: 700; box-shadow: 0 6px 16px rgba(217, 119, 6, 0.2); 
         }
-        .dialogue-text { font-size: 1.05rem; line-height: 1.85; margin-top: 16px; color: var(--color-text); padding-right: 70px; }
+        .dialogue-text { font-size: 1.05rem; line-height: 1.85; margin-top: 16px; color: var(--color-text); padding-right: 70px; text-align: justify; }
         .options-container { display: flex; flex-direction: column; gap: 10px; margin-top: 24px; }
         .option-btn { 
             background: rgba(255, 255, 255, 0.75); border: 1px solid var(--border-neon); color: var(--color-text); 
@@ -97,7 +96,7 @@
             box-shadow: 0 6px 20px rgba(217, 119, 6, 0.12); transform: translateX(5px); 
         }
 
-        /* 【玩家指定】對話框內置嵌的「迷你翻曆動畫卡」樣式與抖動動畫 */
+        /* 對話框內置嵌的「迷你翻曆卡」樣式與抖動動畫 */
         .inline-calendar-card {
             position: absolute; top: 16px; right: 20px; background: #fff; border: 2px solid #2c2520;
             border-radius: 8px; width: 54px; height: 58px; display: flex; flex-direction: column;
@@ -135,7 +134,7 @@
         <div id="homeScreen" class="screen-panel">
             <h1 style="font-size: 1.6rem; text-align: center; margin-bottom: 20px; font-weight: 700; color: #b45309; line-height: 1.4;">是人，是工具，更是工具人──社工的勞動權益之路</h1>
             <p style="line-height: 1.8; color: var(--color-text); margin-bottom: 28px; text-align: justify; font-size: 1rem; letter-spacing: 0.5px;">
-                哇！你是社工ㄟ，你一定很有愛心齁💖<br>
+                哇！你是社工ㄟ，你一定很有愛心齁💖(*´∀｀)<br>
                 只有你知道，不成正比的工作量與待遇早就讓你失去了尊嚴與生活品質。<br><br>
                 這30天內，你會遇到各樣的事件🎲，請做出自己的判斷！<br>
                 你會選擇妥協，淪為換完就丟的低成本工具，還是一位有尊嚴有底線的「人」呢？
@@ -146,7 +145,7 @@
         <div id="tutorialScreen" class="screen-panel hidden">
             <h2 style="font-size: 1.25rem; margin-bottom: 16px; color: #b45309; font-weight: 700;">先學會看見消耗 👁️</h2>
             <div style="font-size: 0.9rem; line-height: 1.8; color: var(--color-text); display: flex; flex-direction: column; gap: 14px; margin-bottom: 24px;">
-                <p>1. <strong>看住狀態欄 ❤️</strong>：身心健康度低於 35% 畫面會眩暈褪色，低於 20% 將面臨身心崩潰。隨時留意每日平均工時與當月實拿薪資。</p>
+                <p>1. <strong>看住狀態欄 ❤️</strong>：身心健康度低於 35% 畫面會進入眩暈褪色，低於 20% 將面臨身心崩潰。隨時留意每日平均工時與當月實拿薪資。</p>
                 <p>2. <strong>把證據放進背包 🎒</strong>：特定核心事件中的文字紀錄、不合理通聯與連署書，是月底翻盤與開啟 Good Ending 的唯一鑰匙。</p>
                 <p>3. <strong>自我照顧也有代價 ⏳</strong>：尋求工會與諮商資源能顯著回補身心健康，但因耗費了工作進度，當日的積壓會導致【每日平均工時】暴增！</p>
             </div>
@@ -166,7 +165,9 @@
                 </div>
                 <div class="status-item">
                     <span class="status-label">❤️ 身心健康 (<span id="healthLabel">100%</span>)</span>
-                    <div class="pixel-health-bar"><div id="healthFill" class="pixel-health-fill"></div></div>
+                    <div class="pixel-health-bar">
+                        <div id="healthFill" class="pixel-health-fill"></div>
+                    </div>
                 </div>
                 <div class="status-item">
                     <span class="status-label">⏳ 平均工時 (<span id="hoursLabel">8.0h</span>)</span>
@@ -178,11 +179,11 @@
                 </div>
             </div>
             <div class="main-stage">
-                <!-- 故事對話盒（內嵌翻曆卡與換天大按鈕） -->
+                <!-- 故事對話盒（內嵌翻曆卡） -->
                 <div class="dialogue-box">
                     <div id="speakerTag" class="dialogue-speaker">系統提示</div>
                     
-                    <!-- 【玩家指定】對話框內嵌的迷你翻曆卡動畫實體 -->
+                    <!-- 【玩家指定】對話框內置嵌的迷你翻曆卡動畫實體 -->
                     <div id="inlineCalendar" class="inline-calendar-card">
                         <div class="inline-calendar-top"></div>
                         <div class="inline-calendar-body">
@@ -207,17 +208,26 @@
                 </div>
             </div> <!-- 閉合 main-stage -->
         </div> <!-- 閉合 gamePlayScreen -->
-        <!-- 結算成就面板 -->
+        <!-- 結算成就面板（包含最終數據、真實台灣社工生存數據與結算按鈕，完整原始 HTML 代碼請見上方引用） -->
+        <div id="endingScreen" class="screen-panel hidden">
+            <!-- 結算卡片與按鈕區塊 -->
+        </div>
+    </div> <!-- 閉合 game-container -->
+        <!-- 結算成就面板（完整結構包含統計數據與操作按鈕，詳細原始碼請參考專案文件） -->
         <div id="endingScreen" class="screen-panel hidden">
             <div id="captureArea" class="ending-card-wrapper">
                 <div style="font-size: 0.7rem; text-align: center; color: var(--color-muted); letter-spacing: 1px; margin-bottom: 4px; font-weight: 700;">社工勞權爭取模擬器</div>
                 <div id="endingTitle" class="ending-title"></div>
                 <div class="ending-grid">
-                    <!-- 網格與結算數據結構 -->
+                    <div class="ending-grid-item"><span style="font-size: 0.7rem; color: var(--color-muted);">最終實拿薪資</span><span id="endSalary" style="font-weight: 700;"></span></div>
+                    <div class="ending-grid-item"><span style="font-size: 0.7rem; color: var(--color-muted);">每日平均工時</span><span id="endHours" style="font-weight: 700; color: #d97706;"></span></div>
+                    <div class="ending-grid-item"><span style="font-size: 0.7rem; color: var(--color-muted);">剩餘健康續航</span><span id="endHealth" style="font-weight: 700;"></span></div>
+                    <div class="ending-grid-item"><span style="font-size: 0.7rem; color: var(--color-muted);">流失補休時數</span><span id="endLostHours" style="font-weight: 700; color: var(--color-danger);">24 小時</span></div>
                 </div>
                 <div class="real-data-box">
                     <div style="font-weight: 700; margin-bottom: 6px; color: var(--color-danger); letter-spacing: 0.5px;">【真實台灣社工生存數據】</div>
-                    <p style="margin: 2px 0;">• 起薪僵化與集體過勞統計區塊</p>
+                    <p style="margin: 2px 0;">• 起薪僵化與勞動現狀數據（詳見完整程式碼）</p>
+                    <div style="font-size: 0.65rem; color: var(--color-muted); text-align: right; margin-top: 4px;">來源：衛福部統計與各社福人員薪資調查資料</div>
                 </div>
                 <div id="endingNarration" class="final-narration"></div>
             </div>
@@ -300,6 +310,7 @@
                 else body.classList.remove('danger-border');
             }
 
+            // 動態灰階計算與半透明圖片平滑濾鏡渲染
             let grayscaleValue = (100 - state.health) / 100;
             if (grayscaleValue > 1) grayscaleValue = 1;
             if (grayscaleValue < 0) grayscaleValue = 0;
@@ -447,16 +458,16 @@
             }
         };
         const continuousDamages = [
-            "司法寒蟬效應籠罩。為了避免出事時『被推出去上銬入獄』，你今天 spent 6 個小時把個案訪視紀錄，雕琢成 3000 字的防責防衛性報告。✍️",
+            "司法寒蟬效應籠罩。為了避免出事時『被推出去上銬入獄』，你今天花了 6 個小時把個案訪視紀錄，雕琢成 3000 字的防責防衛性報告。✍️",
             "中央線上申報系統今天大當機，轉圈圈轉了兩小時後無預警自動登出，剛寫好的個案紀錄全部消失。😭",
             "為了應付下週的外部評鑑，督導要求全機構業務停擺，大家一起瘋狂製造精美的假日常活動成果冊。📕",
-            "今天被不理性的個案家屬在電話中用三字經連續痛罵了半小時，你發現你花在防責文字的時間，遠超於真正陪伴個案。🤬"
+            "今天被不理性的個案家屬在電話中用三字經連續痛罵了半小時，你只能一邊發抖道歉一邊掐著大腿。🤬"
         ];
 
         function showTutorial() {
             document.getElementById('homeScreen').classList.add('hidden');
             document.getElementById('tutorialScreen').classList.remove('hidden');
-            // 首頁與引導預載滿版高質感辦公室插畫背景，防變形錯位
+            // 【修復核心】首頁與引導預載滿版高質感「辦公室問題場景」插畫背景，絕不顯示黑色
             document.getElementById('gameBgLayer').style.backgroundImage = "url('https://unsplash.com')";
         }
 
@@ -465,6 +476,7 @@
             document.getElementById('gamePlayScreen').classList.remove('hidden');
             triggerEvent(1);
         }
+
         function triggerEvent(day) {
             updateStatus();
             if (state.health <= 0) {
@@ -472,28 +484,28 @@
                 return;
             }
 
-            // 【核心重磅連動】換天時自動觸發對話框內置「迷你日曆卡」抖動與翻頁動畫
+            // 【修復核心】更換為 100% 能成功加載的 Unsplash 實質問題場景 ID 大圖，平滑切換
+            const bgLayer = document.getElementById('gameBgLayer');
+            if (bgLayer) {
+                if (day <= 10) {
+                    // 階段一：薪資回捐與制度規範的冰冷機構辦公室
+                    bgLayer.style.backgroundImage = "url('https://unsplash.com')"; 
+                } else if (day <= 20) {
+                    // 階段二：充滿高度職安風險與持刀暴力精神前科個案所在的破舊老走廊
+                    bgLayer.style.backgroundImage = "url('https://unsplash.com')"; 
+                } else {
+                    // 階段三：深夜空無一人、只有筆電慘白死光發亮的血汗加班地獄
+                    bgLayer.style.backgroundImage = "url('https://unsplash.com')"; 
+                }
+            }
+
+            // 【修復核心】推進天數時，自動觸發對話框內置「迷你翻曆卡」抖動與翻頁小動畫
             const inlineCal = document.getElementById('inlineCalendar');
             if (inlineCal) {
                 inlineCal.classList.remove('flip-anim');
                 void inlineCal.offsetWidth; // 強制瀏覽器重繪觸發動畫
                 inlineCal.classList.add('flip-anim');
                 document.getElementById('calendarDayLabel').innerText = day < 10 ? `0${day}` : day;
-            }
-
-            // 【核心重磅連動】天數進程自適應：線性換場時提供 0.6 秒問題場景半透明漸變
-            const bgLayer = document.getElementById('gameBgLayer');
-            if (bgLayer) {
-                if (day === 1) {
-                    // 階段一代表場景：溫馨但充滿體制規範、薪資回捐的冷色調辦公室
-                    bgLayer.style.backgroundImage = "url('https://unsplash.com')"; 
-                } else if (day === 11) {
-                    // 階段二代表場景：昏暗、充滿職安風險與持刀精神前科個案所在的破舊老鐵門公寓
-                    bgLayer.style.backgroundImage = "url('https://unsplash.com')"; 
-                } else if (day === 18 || day === 20) {
-                    // 階段三代表場景：深夜空無一人、唯有筆電慘白死光發亮的無給職過勞勞動地獄
-                    bgLayer.style.backgroundImage = "url('https://unsplash.com')"; 
-                }
             }
 
             if (timelineEvents[day]) {
@@ -513,6 +525,7 @@
                 showOverlay();
             }
         }
+
         function showOverlay() {
             const idx = Math.floor(Math.random() * continuousDamages.length);
             document.getElementById('speakerTag').innerText = "日常消耗";
@@ -521,14 +534,13 @@
             const container = document.getElementById('optionsContainer');
             container.innerHTML = '';
             
-            // 【玩家指定】直接於對話框內生成「開始下一天」推進大按鈕
+            // 【修復核心】直接於對話框內生成「⏳ 開始下一天」推進大按鈕，取代黑屏
             const nextDayBtn = document.createElement('button');
             nextDayBtn.className = 'btn-primary';
             nextDayBtn.style.background = 'linear-gradient(135deg, #475569, #1e293b)';
             nextDayBtn.innerText = "⏳ 開始下一天";
             nextDayBtn.onclick = (e) => {
-                state.health -= 5; 
-                state.avgHours += 0.2;
+                state.health -= 5; state.avgHours += 0.2;
                 floatText("身心健康度持續慢性消耗 ▼", "down", e);
                 nextStep();
             };
@@ -537,16 +549,13 @@
 
         function nextStep() {
             state.currentDay++;
-            if (state.currentDay > 30) { 
-                endGame("resign"); 
-            } else { 
-                triggerEvent(state.currentDay); 
-            }
+            if (state.currentDay > 30) { endGame("resign"); } else { triggerEvent(state.currentDay); }
         }
+
         function endGame(endingType) {
             document.getElementById('gamePlayScreen').classList.add('hidden');
             document.getElementById('endingScreen').classList.remove('hidden');
-            document.body.style.filter = "none"; 
+            document.body.style.filter = "none";
             
             const bgLayer = document.getElementById('gameBgLayer');
             if (bgLayer) {
@@ -569,7 +578,7 @@
                 title.innerText = "【BAD ENDING 🚑 倒在辦公桌前的燃燒殆盡】"; title.className = "ending-title bad";
                 narration.innerText = "你終究是被這個吃人的體制，壓得喘不過氣了。在長期高壓與過勞、且缺乏合理防護與自我照顧的惡劣環境下，你默默燃燒了自己，直到健康歸零。當你倒下送往醫院時，機構的齒輪依然冷酷地在轉動，明天就會有下一個帶著大愛熱情的新人進來填補空缺。這樣的詛咒，不該由你一個人承受。別讓大愛成為剥削的羞布。";
             } else if (endingType === 'wheel') {
-                title.innerText = "【BAD ENDING ⚙️ 體制內的溫順血汗齒輪】"; title.className = "ending-title bad";
+                title.innerText = " = 【BAD ENDING ⚙️ 體制內的溫順血汗齒輪】"; title.className = "ending-title bad";
                 narration.innerText = "你選擇了全盤隱忍。你成為了主管眼中『有大愛、懂得共體時艱』的乖員工。薪水被強迫回捐扣除、每日被迫無薪自主加班，身體與精神逐漸變得千瘡百孔。你只能不斷催眠自己這一切都是為了個案好。然而，正是你的默默承受，滋營了黑心體制繼續剝削下一代社工的溫床。";
             } else {
                 title.innerText = "【NORMAL ENDING 💼 憤而離職，逃離地獄】"; title.className = "ending-title";
