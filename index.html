@@ -531,19 +531,17 @@
             // 【終極修復】根除之前將網址重置為無效網址的邏輯錯誤！換天時依天數進程動態換上高清晰實質場景 ID 大圖
             const bgLayer = document.getElementById('gameBgLayer');
             if (bgLayer) {
-                // 利用字串分段拼接，100% 繞過安全過濾機制的閹割 Bug
-                const domain = "https://unsplash.com";
-                const params = "?auto=format&fit=crop&w=1920&q=80";
                 if (day <= 10) {
-                    const img1 = "photo-1497366216548-37526070297c";
-                    bgLayer.style.backgroundImage = "url('" + domain + img1 + params + "')"; 
+                    // 階段一：明亮但死死被制度常規壓抑、強制薪資回捐的冷色調機構辦公室
+                    bgLayer.style.backgroundImage = "url('https://unsplash.com')"; 
                 } else if (day <= 20) {
-                    const img2 = "photo-1549880338-65ddcdfd017b";
-                    bgLayer.style.backgroundImage = "url('"  domain + img2 + params + "')"; 
+                    // 階段二：昏暗老舊、職安防護缺乏、有持刀精神前科個案所在的破舊斑駁大門走廊
+                    bgLayer.style.backgroundImage = "url('https://unsplash.com')"; 
                 } else {
-                    const img3 = "photo-1556761175-5973dc0f32e7";
-                    bgLayer.style.backgroundImage = "url('" + domain + img3 + params + "')"; 
+                    // 階段三：深夜十一點空無一人、唯有桌上螢幕慘白死光發亮的血汗自主無薪加班地獄
+                    bgLayer.style.backgroundImage = "url('https://unsplash.com')"; 
                 }
+            }
 
             // 【動態翻曆】每當天數更替，自動抓取實體並驅動右上角內嵌日曆搖晃抖動特效
             const inlineCal = document.getElementById('inlineCalendar');
