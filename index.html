@@ -4,17 +4,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>是人，是工具，更是工具人──社工的勞動權益之路</title>
-    <!-- 引入正確的繁體中文字體與一鍵截圖庫，徹底修復原本卡死的無效外部連結 -->
+    <!-- 引入中文字體與一鍵截圖庫 -->
     <link href="https://googleapis.com" rel="stylesheet">
     <script src="https://cloudflare.com"></script>
     <style>
         :root {
-            --bg-main: #fcf8f2; /* 一開始是溫馨的溫暖米杏色背景 */
-            --bg-card: rgba(255, 255, 255, 0.85); /* 帶有溫潤毛玻璃感的白色面板 */
-            --border-neon: rgba(220, 150, 110, 0.25); /* 溫暖的陽光橘粉色微光邊框 */
-            --border-neon-active: rgba(245, 158, 11, 0.7); /* 亮橘色高亮 */
-            --color-text: #2c2520; /* 深深淺淺的焙茶色文字，比死黑更溫柔 */
-            --color-muted: #8c7e74; /* 沉穩的焙茶灰 */
+            --bg-main: #fcf8f2; /* 溫馨暖杏色 */
+            --bg-card: rgba(255, 255, 255, 0.88); /* 毛玻璃面板 */
+            --border-neon: rgba(220, 150, 110, 0.25); 
+            --border-neon-active: rgba(245, 158, 11, 0.7); 
+            --color-text: #2c2520; 
+            --color-muted: #8c7e74; 
             --color-danger: #ef4444; 
             --color-success: #10b981;
             --color-warning: #f59e0b;
@@ -29,17 +29,15 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            /* 滿版裁切防變形核心機制：自動適應手機直橫、電腦寬幅比例 */
             background-size: cover;
             background-position: center center;
             background-repeat: no-repeat;
             background-attachment: fixed;
             overflow-x: hidden;
-            /* 滑順淡入淡出：當健康度下降觸發灰階、或切換事件換背景時，畫面才不會閃爍，會有精美的毛玻璃轉場效果 */
             transition: filter 0.5s ease, background-color 0.5s ease, background-image 0.5s ease;
         }
 
-        /* 眩暈與危險紅光呼吸特效 */
+        /* 眩暈與危險視覺特效 */
         body.dizzy-mode { animation: dizzyShake 3s infinite; }
         body.danger-border { border: 4px solid var(--color-danger); animation: dangerPulse 2s infinite; }
         @keyframes dangerPulse {
@@ -51,150 +49,114 @@
             50% { transform: translate(1px, -1px); filter: blur(0.4px); }
         }
 
-        /* 數值浮空上升淡出動畫 */
+        /* 數值浮空上升動畫 */
         @keyframes floatUpAndFade {
             0% { transform: translateY(0); opacity: 1; scale: 1; }
             100% { transform: translateY(-70px); opacity: 0; scale: 0.9; }
         }
         .floating-indicator {
-            position: fixed;
-            font-weight: 700;
-            font-size: 1.15rem;
-            pointer-events: none;
-            z-index: 9999;
-            animation: floatUpAndFade 1.4s ease-out forwards;
-            text-shadow: 0 2px 10px rgba(0,0,0,0.3);
-            letter-spacing: 0.5px;
+            position: fixed; font-weight: 700; font-size: 1.15rem; pointer-events: none; z-index: 9999;
+            animation: floatUpAndFade 1.4s ease-out forwards; text-shadow: 0 2px 10px rgba(0,0,0,0.2);
         }
 
-        .game-container {
-            width: 100%;
-            max-width: 960px;
-            padding: 16px;
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-        }
-        /* 主導引介面與玻璃擬物化面板 */
-        .screen-panel { 
-            background: var(--bg-card); 
-            border: 1px solid var(--border-neon); 
-            border-radius: 16px; 
-            padding: 32px; 
-            backdrop-filter: blur(16px); 
-            box-shadow: 0 10px 40px rgba(44,37,32,0.15); 
-        }
+        .game-container { width: 100%; max-width: 1000px; padding: 16px; display: flex; flex-direction: column; gap: 20px; }
+        .screen-panel { background: var(--bg-card); border: 1px solid var(--border-neon); border-radius: 16px; padding: 32px; backdrop-filter: blur(16px); box-shadow: 0 10px 40px rgba(44,37,32,0.12); }
         .hidden { display: none !important; }
 
-        /* 狀態列 */
-        .status-bar { 
-            display: grid; 
-            grid-template-columns: repeat(5, 1fr); 
-            background: var(--bg-card); 
-            border: 1px solid var(--border-neon); 
-            border-radius: 12px; 
-            padding: 16px; 
-            backdrop-filter: blur(12px); 
-            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+        /* 像素血條外框樣式 */
+        .pixel-health-bar {
+            width: 100px; height: 14px; background: #334155; border: 2px solid #1e293b;
+            padding: 1px; display: flex; align-items: center; margin-top: 4px; box-shadow: 0 2px 4px rgba(0,0,0,0.15);
         }
-        .status-item { display: flex; flex-direction: column; gap: 4px; align-items: center; text-align: center; }
-        .status-label { font-size: 0.75rem; color: var(--color-muted); letter-spacing: 0.5px; }
-        .status-value { font-size: 1.1rem; font-weight: 700; }
+        .pixel-health-fill {
+            height: 100%; background: var(--color-success); width: 100%;
+            transition: width 0.4s ease, background-color 0.4s ease;
+        }
+
+        /* 時間分配圓餅圖容器 */
+        .pie-container { width: 44px; height: 44px; margin-top: 4px; transform: rotate(-90deg); filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1)); }
+        .pie-circle { fill: #e2e8f0; stroke: #f59e0b; stroke-width: 32; stroke-dasharray: 0 100; transition: stroke-dasharray 0.5s ease, stroke 0.5s ease; }
+        /* 狀態列排版調校 */
+        .status-bar { 
+            display: grid; grid-template-columns: repeat(5, 1fr); background: var(--bg-card); 
+            border: 1px solid var(--border-neon); border-radius: 12px; padding: 16px; 
+            backdrop-filter: blur(12px); box-shadow: 0 4px 20px rgba(0,0,0,0.04);
+        }
+        .status-item { display: flex; flex-direction: column; gap: 2px; align-items: center; text-align: center; }
+        .status-label { font-size: 0.75rem; color: var(--color-muted); font-weight: 700; letter-spacing: 0.5px; }
+        .status-value { font-size: 1.05rem; font-weight: 700; margin-top: 2px; }
 
         /* 主舞台區 */
         .main-stage { display: grid; grid-template-columns: 2.2fr 1fr; gap: 20px; }
         .dialogue-box { 
-            background: rgba(255, 255, 255, 0.9); 
-            border: 1px solid var(--border-neon); 
-            border-radius: 16px; 
-            padding: 36px 32px 32px 32px; 
-            position: relative; 
-            display: flex; 
-            flex-direction: column; 
-            justify-content: space-between; 
-            min-height: 360px; 
-            backdrop-filter: blur(16px); 
-            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            background: rgba(255, 255, 255, 0.92); border: 1px solid var(--border-neon); border-radius: 16px; 
+            padding: 36px 32px 32px 32px; position: relative; display: flex; flex-direction: column; 
+            justify-content: space-between; min-height: 360px; backdrop-filter: blur(16px); box-shadow: 0 10px 30px rgba(0,0,0,0.03);
         }
         .dialogue-speaker { 
-            position: absolute; 
-            top: -12px; 
-            left: 24px; 
-            background: linear-gradient(135deg, #d97706, #b45309); 
-            color: white;
-            padding: 4px 16px; 
-            border-radius: 6px; 
-            font-size: 0.85rem; 
-            font-weight: 700; 
-            letter-spacing: 1px; 
-            box-shadow: 0 4px 12px rgba(180, 83, 9, 0.25); 
+            position: absolute; top: -12px; left: 24px; background: linear-gradient(135deg, #d97706, #b45309); 
+            color: white; padding: 4px 16px; border-radius: 6px; font-size: 0.85rem; font-weight: 700; box-shadow: 0 4px 12px rgba(180, 83, 9, 0.2); 
         }
-        .dialogue-text { font-size: 1.1rem; line-height: 1.8; margin-top: 12px; color: var(--color-text); }
+        .dialogue-text { font-size: 1.05rem; line-height: 1.8; margin-top: 12px; color: var(--color-text); }
 
         .options-container { display: flex; flex-direction: column; gap: 10px; margin-top: 24px; }
         .option-btn { 
-            background: rgba(255, 255, 255, 0.6); 
-            border: 1px solid var(--border-neon); 
-            color: var(--color-text); 
-            padding: 14px 20px; 
-            border-radius: 10px; 
-            cursor: pointer; 
-            text-align: left; 
-            font-size: 0.95rem; 
-            font-weight: 500;
-            transition: all 0.25s ease; 
-            box-shadow: 0 2px 6px rgba(0,0,0,0.02);
+            background: rgba(255, 255, 255, 0.65); border: 1px solid var(--border-neon); color: var(--color-text); 
+            padding: 14px 20px; border-radius: 10px; cursor: pointer; text-align: left; font-size: 0.95rem; 
+            font-weight: 500; transition: all 0.25s ease; box-shadow: 0 2px 6px rgba(0,0,0,0.01);
         }
         .option-btn:hover { 
-            background: var(--bg-card); 
-            border-color: var(--border-neon-active); 
-            box-shadow: 0 4px 15px rgba(245, 158, 11, 0.15);
-            transform: translateX(4px); 
+            background: var(--bg-card); border-color: var(--border-neon-active); 
+            box-shadow: 0 4px 15px rgba(245, 158, 11, 0.12); transform: translateX(4px); 
         }
+
         /* 側邊背包與日誌 */
         .sidebar { display: flex; flex-direction: column; gap: 16px; }
-        .side-card { 
-            background: var(--bg-card); 
-            border: 1px solid var(--border-neon); 
-            border-radius: 12px; 
-            padding: 16px; 
-            display: flex; 
-            flex-direction: column; 
-            gap: 10px; 
-            box-shadow: 0 4px 15px rgba(0,0,0,0.02);
-        }
-        .side-card-title { font-size: 0.8rem; color: var(--color-muted); border-bottom: 1px solid rgba(0,0,0,0.06); padding-bottom: 6px; font-weight: 700; letter-spacing: 0.5px; }
-        .evidence-item { font-size: 0.85rem; padding: 8px 12px; background: rgba(217, 119, 6, 0.08); border: 1px solid rgba(217, 119, 6, 0.2); color: #b45309; font-weight: 500; border-radius: 6px; margin-bottom: 4px; }
+        .side-card { background: var(--bg-card); border: 1px solid var(--border-neon); border-radius: 12px; padding: 16px; display: flex; flex-direction: column; gap: 10px; }
+        .side-card-title { font-size: 0.8rem; color: var(--color-muted); border-bottom: 1px solid rgba(0,0,0,0.06); padding-bottom: 6px; font-weight: 700; }
+        .evidence-item { font-size: 0.85rem; padding: 8px 12px; background: rgba(217, 119, 6, 0.08); border: 1px solid rgba(217, 119, 6, 0.2); color: #b45309; font-weight: 500; border-radius: 6px; }
 
-        /* 經典日常過渡黑畫面（內建流動光暈） */
-        .overlay-screen { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: radial-gradient(circle at center, #231c26 0%, #0d0a0f 100%); z-index: 9999; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 32px; cursor: pointer; opacity: 0; pointer-events: none; transition: opacity 0.4s ease; color: #f8fafc; }
+        /* 日曆翻頁轉場過場動畫樣式 */
+        .overlay-screen { 
+            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: radial-gradient(circle at center, #231c26 0%, #0d0a0f 100%); 
+            z-index: 9999; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 32px; cursor: pointer; 
+            opacity: 0; pointer-events: none; transition: opacity 0.4s ease; color: #f8fafc; 
+        }
         .overlay-screen.active { opacity: 1; pointer-events: auto; }
-        .overlay-text { font-size: 1.2rem; line-height: 1.85; max-width: 640px; text-align: center; letter-spacing: 0.5px; color: #cbd5e1; }
+        .calendar-flip-card {
+            background: #fff; color: #2c2520; border-radius: 12px; width: 140px; height: 150px; 
+            display: flex; flex-direction: column; overflow: hidden; box-shadow: 0 15px 35px rgba(0,0,0,0.6); 
+            margin-bottom: 24px; border: 4px solid #fff; transform: scale(0.9); animation: flipPop 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+        }
+        @keyframes flipPop { 0% { transform: scale(0.5); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
+        .calendar-top { background: #ef4444; height: 35px; display: flex; justify-content: center; align-items: center; }
+        .calendar-rings { display: flex; gap: 24px; position: absolute; top: -10px; }
+        .calendar-ring { width: 10px; height: 20px; background: #64748b; border-radius: 4px; }
+        .calendar-body { flex: 1; display: flex; justify-content: center; align-items: center; font-size: 2.2rem; font-weight: 900; background: #f8fafc; }
+        .overlay-text { font-size: 1.15rem; line-height: 1.85; max-width: 640px; text-align: center; color: #cbd5e1; margin-bottom: 16px; }
         .overlay-hint { position: absolute; bottom: 40px; color: #64748b; font-size: 0.8rem; animation: blink 2.5s infinite; }
         @keyframes blink { 0%, 100% { opacity: 0.3; } 50% { opacity: 0.7; } }
 
-        /* 結算成就卡片設計 */
+        /* 結算卡片與自適應 */
         .ending-card-wrapper { background: linear-gradient(145deg, #fcfaf7, #f3eade); border: 1px solid #dcd1c4; border-radius: 16px; padding: 28px; width: 100%; max-width: 520px; margin: 0 auto; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.1); color: #2c2520; }
-        .ending-title { font-size: 1.35rem; font-weight: 700; text-align: center; margin-bottom: 16px; line-height: 1.4; }
-        .ending-title.good { color: var(--color-success); text-shadow: 0 0 10px rgba(16,185,129,0.1); }
-        .ending-title.bad { color: var(--color-danger); text-shadow: 0 0 10px rgba(244,63,94,0.1); }
+        .ending-title { font-size: 1.35rem; font-weight: 700; text-align: center; margin-bottom: 16px; }
+        .ending-title.good { color: var(--color-success); }
+        .ending-title.bad { color: var(--color-danger); }
         .ending-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin-bottom: 20px; background: rgba(0,0,0,0.03); padding: 12px; border-radius: 8px; }
         .ending-grid-item { display: flex; flex-direction: column; gap: 2px; }
+        .real-data-box { background: rgba(244, 63, 94, 0.04); border: 1px solid rgba(244, 63, 94, 0.15); padding: 14px; border-radius: 10px; font-size: 0.8rem; line-height: 1.6; color: #2c2520; margin-bottom: 16px; }
         .final-narration { font-size: 0.9rem; line-height: 1.75; color: #4a3e3d; text-align: justify; border-top: 1px solid rgba(0,0,0,0.06); padding-top: 14px; }
-
-        /* 手機自適應剪裁 */
-        @media (max-width: 768px) {
-            .main-stage { grid-template-columns: 1fr; }
-            .status-bar { grid-template-columns: repeat(3, 1fr); gap: 8px; padding: 12px; }
-            .status-item:nth-child(4), .status-item:nth-child(5) { grid-column: span 1; }
-            .screen-panel { padding: 20px; }
-        }
+        @media (max-width: 768px) { .main-stage { grid-template-columns: 1fr; } .status-bar { grid-template-columns: repeat(3, 1fr); gap: 8px; padding: 12px; } .status-item:nth-child(4), .status-item:nth-child(5) { grid-column: span 1; } }
     </style>
 </head>
 <body id="gameBody">
-    <!-- 慢性消耗日常黑畫面過渡 -->
+    <!-- 慢性消耗過渡黑畫面（內建動態翻頁日曆結構） -->
     <div id="overlayScreen" class="overlay-screen" onclick="proceedNextDay()">
-        <div style="font-size: 0.75rem; color: #fb7185; margin-bottom: 24px; letter-spacing: 2px; font-weight: 700;">DAILY DAMAGE / 慢性消耗</div>
+        <div style="font-size: 0.75rem; color: #fb7185; margin-bottom: 16px; letter-spacing: 2px; font-weight: 700;">DAILY DAMAGE / 慢性消耗</div>
+        <div class="calendar-flip-card">
+            <div class="calendar-top"><div class="calendar-rings"><div class="calendar-ring"></div><div class="calendar-ring"></div></div></div>
+            <div id="calendarDayLabel" class="calendar-body">02</div>
+        </div>
         <div id="overlayText" class="overlay-text"></div>
         <div class="overlay-hint">[ 點擊畫面任意處繼續... ]</div>
     </div>
@@ -211,7 +173,7 @@
             </p>
             <button class="btn-primary" onclick="showTutorial()">進入職場</button>
         </div>
-        <!-- 新手操作指引面板（加入精美圖示美化） -->
+        <!-- 導引說明面板 -->
         <div id="tutorialScreen" class="screen-panel hidden">
             <h2 style="font-size: 1.25rem; margin-bottom: 16px; color: #b45309; font-weight: 700;">先學會看見消耗 👁️</h2>
             <div style="font-size: 0.9rem; line-height: 1.8; color: var(--color-text); display: flex; flex-direction: column; gap: 14px; margin-bottom: 24px;">
@@ -224,27 +186,31 @@
 
         <!-- 遊戲主體遊玩面板 -->
         <div id="gamePlayScreen" class="hidden" style="display: flex; flex-direction: column; gap: 20px; width: 100%;">
-            <!-- 整合現代獨立遊戲質感圖示的核心數據面板 -->
+            <!-- 整合像素血條與時間圓餅圖的全新狀態欄 -->
             <div class="status-bar">
                 <div class="status-item">
                     <span class="status-label">⚖️ 階段</span>
-                    <span id="phaseLabel" class="status-value" style="color: #b45309;">意識覺醒</span>
+                    <span id="phaseLabel" class="status-value" style="color: #b45309; font-size: 0.95rem;">意識覺醒</span>
                 </div>
                 <div class="status-item">
                     <span class="status-label">📅 時間天數</span>
-                    <span id="dayLabel" class="status-value">第 1 天 / 30</span>
+                    <span id="dayLabel" class="status-value" style="font-size: 0.95rem;">第 1 天 / 30</span>
                 </div>
                 <div class="status-item">
-                    <span class="status-label">❤️ 身心健康</span>
-                    <span id="healthLabel" class="status-value" style="color: var(--color-success);">100%</span>
+                    <span class="status-label">❤️ 身心健康 (<span id="healthLabel">100%</span>)</span>
+                    <div class="pixel-health-bar">
+                        <div id="healthFill" class="pixel-health-fill"></div>
+                    </div>
                 </div>
                 <div class="status-item">
-                    <span class="status-label">⏳ 平均工時</span>
-                    <span id="hoursLabel" class="status-value">8h</span>
+                    <span class="status-label">⏳ 平均工時 (<span id="hoursLabel">8.0h</span>)</span>
+                    <svg class="pie-container" viewBox="0 0 32 32">
+                        <circle id="pieFill" class="pie-circle" cx="16" cy="16" r="16"></circle>
+                    </svg>
                 </div>
                 <div class="status-item">
                     <span class="status-label">💰 實拿薪資</span>
-                    <span id="salaryLabel" class="status-value">$38,898</span>
+                    <span id="salaryLabel" class="status-value" style="font-size: 0.95rem;">$38,898</span>
                 </div>
             </div>
 
@@ -255,11 +221,13 @@
                     <div id="dialogueText" class="dialogue-text"></div>
                     <div id="optionsContainer" class="options-container"></div>
                 </div>
-
                 <!-- 側邊欄背包與日誌 -->
                 <div class="sidebar">
                     <div class="side-card">
-                        <div class="side-card-title">🎒 自保證據背包 (<span id="bagCount">0</span>)</div>
+                        <div class="side-card-title" style="display: flex; align-items: center; gap: 8px;">
+                            <img src="https://unsplash.com" style="width: 20px; height: 20px; object-fit: contain; border-radius: 4px;" alt="背包">
+                            <span>自保證據背包 (<span id="bagCount">0</span>)</span>
+                        </div>
                         <div id="bagContent" style="color: var(--color-muted); font-size: 0.85rem;">尚無實質證據。</div>
                     </div>
                     <div class="side-card">
@@ -269,6 +237,7 @@
                 </div>
             </div>
         </div>
+
         <!-- 結算成就面板 -->
         <div id="endingScreen" class="screen-panel hidden">
             <div id="captureArea" class="ending-card-wrapper">
@@ -318,13 +287,37 @@
             const box = document.getElementById('logContent');
             box.innerHTML = state.log.map(l => `<div>${l}</div>`).join('');
         }
-
         function updateStatus() {
             document.getElementById('dayLabel').innerText = `第 ${state.currentDay} 天 / 30`;
             document.getElementById('healthLabel').innerText = `${state.health}%`;
             document.getElementById('hoursLabel').innerText = `${state.avgHours.toFixed(1)}h`;
             document.getElementById('salaryLabel').innerText = `$${state.salary.toLocaleString()}`;
             document.getElementById('bagCount').innerText = state.evidence.length;
+            
+            // 渲染橫向像素血條
+            const healthFill = document.getElementById('healthFill');
+            healthFill.style.width = `${state.health < 0 ? 0 : state.health}%`;
+            if (state.health < 35) {
+                healthFill.style.backgroundColor = 'var(--color-danger)';
+            } else if (state.health < 65) {
+                healthFill.style.backgroundColor = 'var(--color-warning)';
+            } else {
+                healthFill.style.backgroundColor = 'var(--color-success)';
+            }
+
+            // 動態計算工時與睡眠佔比圓餅圖 (一天 24 小時)
+            // 根據研究，勞動工時每拉長 1 小時，直接壓縮睡眠時長與休閒品質
+            const workPercentage = (state.avgHours / 24) * 100;
+            const pieFill = document.getElementById('pieFill');
+            pieFill.style.strokeDasharray = `${workPercentage} 100`;
+            if (state.avgHours > 10) {
+                pieFill.style.stroke = 'var(--color-danger)'; // 超過 10 小時高度過勞警示
+            } else if (state.avgHours > 8.5) {
+                pieFill.style.stroke = 'var(--color-warning)';
+            } else {
+                pieFill.style.stroke = 'var(--color-warning)';
+            }
+
             const bag = document.getElementById('bagContent');
             if (state.evidence.length === 0) bag.innerText = "尚無實質證據。";
             else bag.innerHTML = state.evidence.map(item => `<div class="evidence-item">${item}</div>`).join('');
@@ -344,13 +337,12 @@
             if (state.health < 20) body.classList.add('danger-border');
             else body.classList.remove('danger-border');
 
-            // 【核心美編】計算並動態套用灰階褪色比例
+            // 計算灰階比例
             let grayscaleValue = (100 - state.health) / 100;
             if (grayscaleValue > 1) grayscaleValue = 1;
             if (grayscaleValue < 0) grayscaleValue = 0;
             document.body.style.filter = `grayscale(${grayscaleValue})`;
             
-            // 當健康度低於 40% 時，溫馨杏色背景會慢慢變成陰沉黑化
             if (state.health < 40) {
                 document.body.style.backgroundColor = "#1e2124";
                 document.body.style.color = "#f1f5f9";
@@ -465,7 +457,7 @@
                         state.avgHours += 1.5; state.health -= 15;
                         floatText("工時暴增 ▲", "warn", e); pushLog("犧牲休假時間，被迫在深夜進行無給職勞動。"); nextStep();
                     }},
-                    { text: "假裝沒看到已讀不回，留到週一上班再行處理 📴", resolve: (e) => {
+                    { text: "假裝沒看到已逐不回，留到週一上班再行處理 📴", resolve: (e) => {
                         state.health -= 25; floatText("面臨巨大道德指責 ▼", "down", e); pushLog("週一上班被主管痛罵『沒有社會責任、草菅人命』。"); nextStep();
                     }}
                 ]
@@ -511,7 +503,7 @@
         function showTutorial() {
             document.getElementById('homeScreen').classList.add('hidden');
             document.getElementById('tutorialScreen').classList.remove('hidden');
-            // 【核心美編】首頁預載滿版高質感辦公室插畫背景
+            // 階段一背景：和煦陽光灑入的溫馨社工辦公室
             document.body.style.backgroundImage = "url('https://unsplash.com')";
         }
 
@@ -528,12 +520,14 @@
                 return;
             }
 
-            // 【核心美編】響應式滿版場景大背景自動換場與滑順淡入轉場
+            // 【核心美編】依據天數與情境，流暢替換高質感滿版背景大圖
             if (day === 1) {
                 document.body.style.backgroundImage = "url('https://unsplash.com')"; 
             } else if (day === 11) {
+                // 階段二背景：老舊公寓與冰冷鐵門，暗示高風險訪視的職安壓迫
                 document.body.style.backgroundImage = "url('https://unsplash.com')"; 
             } else if (day === 18 || day === 20) {
+                // 階段三背景：深夜空無一人、僅剩筆電殘白冷光發亮的核銷加班地獄
                 document.body.style.backgroundImage = "url('https://unsplash.com')"; 
             }
 
@@ -558,8 +552,12 @@
         function showOverlay() {
             const screen = document.getElementById('overlayScreen');
             const idx = Math.floor(Math.random() * continuousDamages.length);
+            
+            // 【核心美編】動態同步翻頁日曆上的清楚日期標籤
+            document.getElementById('calendarDayLabel').innerText = state.currentDay < 10 ? `0${state.currentDay}` : state.currentDay;
             document.getElementById('overlayText').innerText = continuousDamages[idx];
             screen.classList.add('active');
+            
             proceedCallback = () => {
                 state.health -= 5; state.avgHours += 0.2;
                 screen.classList.remove('active');
@@ -580,7 +578,7 @@
         function endGame(endingType) {
             document.getElementById('gamePlayScreen').classList.add('hidden');
             document.getElementById('endingScreen').classList.remove('hidden');
-            document.body.style.filter = "none"; // 結算卡片恢復全彩便於觀看與截圖
+            document.body.style.filter = "none"; 
             document.body.style.backgroundImage = "none";
             document.body.style.backgroundColor = "#f1e9db";
 
@@ -614,3 +612,5 @@
             });
         }
     </script>
+</body>
+</html>
