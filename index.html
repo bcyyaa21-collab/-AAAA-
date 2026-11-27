@@ -685,23 +685,23 @@
                 const container = document.getElementById('optionsContainer'); container.innerHTML = '';
                 
                 const opt1 = document.createElement('button'); opt1.className = 'option-btn';
-                opt1.innerText = "🚗 密集個案家訪並瘋狂補齊『防衛性處遇紀錄』以防出事被告（平均工時 ▼ 0.4h / 健康度 ▼ 3%）";
+                opt1.innerText = "🚗 密集個案家訪並狂補『防衛性處遇紀錄』以防出事（平均工時 ▼ 0.4h / 健康度 ▼ 3%）";
                 opt1.onclick = (e) => {
                     if (isTyping) return; state.avgHours -= 0.4; state.health -= 3;
                     if (state.avgHours < 8.0) state.avgHours = 8.0; floatText("防責文書進度推進 ▲", "up", e); floatText("肉體勞累消耗 ▼", "down", e); nextStep();
                 };
                 
                 const opt2 = document.createElement('button'); opt2.className = 'option-btn';
-                opt2.innerText = "📝 參與外部專業進修學習，改善個案處遇與方案品質（每月實拿薪資 ▲ \$450 / 健康度 ▼ 3%）";
+                opt2.innerText = "📝 參與專業進修學習，改善個案處遇與方案品質（每月實拿薪資 ▲ \$450 / 健康度 ▼ 2%）";
                 opt2.onclick = (e) => {
-                    if (isTyping) return; state.salary += 450; state.health -= 3;
+                    if (isTyping) return; state.salary += 450; state.health -= 2;
                     floatText("專業知能與方案品質 ▲", "up", e); floatText("研習精神內耗 ▼", "down", e); nextStep();
                 };
                 
                 const opt3 = document.createElement('button'); opt3.className = 'option-btn';
-                opt3.innerText = "🧘 使用工會喘息資源請假看心理諮商（身心健康度 ▲ 8% / 代理同事負擔與積壓工時 ▲ 0.8h）";
+                opt3.innerText = "🧘 用工會喘息資源請假看心理諮商（身心健康度 ▲ 8% / 工時 ▲ 0.5h）";
                 opt3.onclick = (e) => {
-                    if (isTyping) return; state.health += 8; state.avgHours += 0.8;
+                    if (isTyping) return; state.health += 8; state.avgHours += 0.5;
                     if (state.health > 100) state.health = 100; floatText("替代性創傷得到修補 ▲", "up", e); floatText("積壓公文與連帶罪惡感 ▼", "warn", e); nextStep();
                 };
                 
