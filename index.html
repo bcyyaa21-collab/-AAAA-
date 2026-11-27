@@ -155,8 +155,7 @@
         body.dizzy-mode { animation: dizzyShake 3s infinite; }
         body.danger-border { border: 5px solid var(--color-danger); animation: dangerPulse 2s infinite; }
         @keyframes dangerPulse { 0%, 100% { box-shadow: inset 0 0 30px rgba(244,63,94,0.2); border-color: rgba(244,63,94,0.3); } 50% { box-shadow: inset 0 0 50px rgba(244,63,94,0.5); border-color: rgba(244,63,94,0.7); } }
-            0%, 100% { box-shadow: inset 0 0 30px rgba(244,63,94,0.2); border-color: rgba(244,63,94,0.3); }
-            50% { box-shadow: inset 0 0 50px rgba(244,63,94,0.5); border-color: rgba(244,63,94,0.7); }
+ 
         }
         @keyframes dizzyShake { 
             0%, 100% { transform: translate(0,0); filter: blur(0px); } 
@@ -191,51 +190,71 @@
            📱 【自適應排版優化】手機直式與橫式劇場版面補丁
            ========================================================================== */
         @media (max-width: 768px) {
+        @media (max-width: 768px) {
             /* 【核心修正】舞台由左右並排改為上下單列並排 */
             .main-stage {
                 grid-template-columns: 1fr !important; display: flex; flex-direction: column; gap: 16px;
             }
-
-            /* 【防跑版優化】鎖定最低防震高度，預留充足空間給長文本打字，防止對話框動態長高 */
+            /* 【穩定防跑版】改用固定高度配合滾動，徹底根除打字時高度抖動與爆框問題 */
             .dialogue-box { 
-                min-height: 460px !important; 
-                padding: 32px 18px 24px 18px !important; 
+                height: 480px !important; 
+                min-height: 480px !important;
+                padding: 36px 18px 20px 18px !important; 
                 border-radius: 24px 12px 28px 14px !important;
-                display: flex; flex-direction: column; justify-content: flex-start; gap: 12px;
+                display: flex !important; 
+                flex-direction: column !important; 
+                justify-content: space-between !important;
                 position: relative !important;
+                transform: none !important; /* 手機端取消旋轉防止鋸齒與邊界溢出 */
             }
             
-            /* 【文字排版舒展】拉開行高與字距，取消右側擠壓，預留呼吸保留區 */
+            /* 【文字排版舒展】外層固定高度，內層允許溢出滾動（防斷字爆框） */
             .dialogue-text { 
-                font-size: 1.05rem !important; line-height: 1.95 !important; 
-                padding-right: 0px !important; margin-top: 14px !important;
-                letter-spacing: 0.6px !important; min-height: 180px; 
+                font-size: 1.02rem !important; 
+                line-height: 1.85 !important; 
+                padding-right: 0px !important; 
+                margin-top: 14px !important;
+                letter-spacing: 0.6px !important; 
+                flex: 1 !important;
+                overflow-y: auto !important; /* 確保超長文本可以順暢在對話框內滾動 */
+                text-align: justify !important;
             }
-
-            /* 【行事曆絕對防禦】強行鎖定日曆章在對話框右上角，絕對不參與文字打字時的擠壓變形 */
+            /* 【行事曆絕對防禦】適度調整 top 避免過度溢出手機螢幕上緣 */
             .inline-calendar-card { 
-                position: absolute !important; top: -14px !important; right: 14px !important; 
-                width: 44px !important; height: 48px !important; z-index: 50 !important;
+                position: absolute !important; 
+                top: 8px !important; 
+                right: 14px !important; 
+                width: 42px !important; 
+                height: 46px !important; 
+                z-index: 50 !important;
                 transform: rotate(2deg) !important;
             }
-            .inline-calendar-top { height: 12px !important; }
-            .inline-calendar-prefix { font-size: 0.45rem !important; }
-            .inline-calendar-num { font-size: 0.88rem !important; }
-
-            /* 確保喇叭發言標籤在手機端高度抖動時，依然鋼鐵定格 */
+            .inline-calendar-top { height: 10px !important; }
+            .inline-calendar-prefix { font-size: 0.4rem !important; }
+            .inline-calendar-num { font-size: 0.8rem !important; }
+            
+            /* 確保喇叭發言標籤不會壓到日曆 */
             .dialogue-speaker {
-                position: absolute !important; top: -16px !important; left: 20px !important;
-                font-size: 0.82rem !important; padding: 5px 16px !important; z-index: 60 !important;
+                position: absolute !important; 
+                top: -14px !important; 
+                left: 16px !important;
+                font-size: 0.82rem !important; 
+                padding: 4px 14px !important; 
+                z-index: 60 !important;
             }
             
             /* 讓手機端的選項按鈕容器與打字區塊保持穩定間距 */
             .options-container {
-                margin-top: auto !important; width: 100% !important; padding-top: 12px;
+                margin-top: 12px !important; 
+                width: 100% !important; 
+                padding-top: 0px !important;
+                flex-shrink: 0 !important;
             }
-
             /* 按鈕精細化縮小，防爆框 */
             .option-btn {
-                padding: 14px 18px; font-size: 0.92rem; margin-bottom: 8px;
+                padding: 12px 16px !important; 
+                font-size: 0.9rem !important; 
+                margin-bottom: 8px !important;
             }
             
             /* 背包與日誌在手機直式下自動單列堆疊 */
@@ -248,6 +267,8 @@
             .bag-grid-container {
                 grid-template-columns: repeat(4, 1fr) !important; max-height: 140px;
             }
+        }
+
 
 
         @media (max-height: 500px) and (orientation: landscape) {
