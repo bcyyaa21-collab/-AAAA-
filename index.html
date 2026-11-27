@@ -191,34 +191,25 @@
            📱 【自適應排版優化】手機直式與橫式劇場版面補丁
            ========================================================================== */
         @media (max-width: 768px) {
-            /* 【完全體手機防跑版補丁】釘死最低防震高度，預留充足空間給長文本打字，防止對話框動態長高 */
-            .dialogue-box { 
-                min-height: 480px !important; 
-                padding: 36px 16px 20px 16px !important; 
-                border-radius: 24px 12px 28px 14px !important; 
-                display: flex !important; 
-                flex-direction: column !important; 
-                justify-content: flex-start !important; 
-                position: relative !important;
-                gap: 10px;
+            /* 【核心修正】舞台由左右並排改為上下單列並排 */
+            .main-stage {
+                grid-template-columns: 1fr !important; display: flex; flex-direction: column; gap: 16px;
             }
-            .dialogue-text { 
-                font-size: 1.02rem !important; 
-                line-height: 1.9 !important; 
-                padding-right: 0px !important; 
-                margin-top: 14px !important; 
-                letter-spacing: 0.5px !important; 
-                min-height: 220px !important; 
+
+            /* 【防跑版優化】鎖定最低防震高度，預留充足空間給長文本打字，防止對話框動態長高 */
+            .dialogue-box { 
+                min-height: 460px !important; 
+                padding: 32px 18px 24px 18px !important; 
+                border-radius: 24px 12px 28px 14px !important;
+                display: flex; flex-direction: column; justify-content: flex-start; gap: 12px;
+                position: relative !important;
             }
             
-            /* 【環境圖標絕對定格】脫離排版推擠，絕對不參與文字打字時的上下抽搐 */
-            .inline-calendar-card { position: absolute !important; top: -14px !important; right: 14px !important; width: 44px !important; height: 48px !important; transform: rotate(2deg) !important; }
-            .inline-calendar-top { height: 11px !important; }
-            .inline-calendar-prefix { font-size: 0.4rem !important; }
-            .inline-calendar-num { font-size: 0.85rem !important; }
-            .dialogue-speaker { position: absolute !important; top: -16px !important; left: 16px !important; font-size: 0.82rem !important; padding: 5px 14px !important; }
-            .options-container { margin-top: auto !important; width: 100% !important; padding-top: 10px; }
-
+            /* 【文字排版舒展】拉開行高與字距，取消右側擠壓，預留呼吸保留區 */
+            .dialogue-text { 
+                font-size: 1.05rem !important; line-height: 1.95 !important; 
+                padding-right: 0px !important; margin-top: 14px !important;
+                letter-spacing: 0.6px !important; min-height: 180px; 
             }
 
             /* 【行事曆絕對防禦】強行鎖定日曆章在對話框右上角，絕對不參與文字打字時的擠壓變形 */
