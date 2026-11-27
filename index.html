@@ -191,24 +191,64 @@
            📱 【自適應排版優化】手機直式與橫式劇場版面補丁
            ========================================================================== */
         @media (max-width: 768px) {
-            .game-container { padding: 10px; gap: 12px; max-width: 100vw; }
-            .status-bar { grid-template-columns: repeat(3, 1fr) !important; gap: 12px 8px; padding: 14px 12px; border-radius: 16px; }
-            .status-item { font-size: 0.85rem; }
-            .status-label { font-size: 0.72rem; }
-            .status-value { font-size: 0.95rem; }
-            .pixel-health-bar { width: 90px; height: 12px; }
-            .pie-chart-box { width: 36px; height: 36px; }
-            .main-stage { grid-template-columns: 1fr !important; display: flex; flex-direction: column; gap: 16px; }
-            .dialogue-box { min-height: 340px; padding: 36px 20px 24px 20px; border-radius: 28px 12px 32px 16px; }
-            .dialogue-text { font-size: 1.05rem; line-height: 1.8; padding-right: 0px; }
-            .dialogue-speaker { left: 16px; font-size: 0.85rem; padding: 4px 16px; }
-            .inline-calendar-card { top: -12px; right: 16px; width: 46px; height: 50px; }
-            .inline-calendar-num { font-size: 0.95rem; }
-            .option-btn { padding: 14px 18px; font-size: 0.92rem; margin-bottom: 8px; }
-            .sidebar { display: grid; grid-template-columns: 1fr; gap: 16px; }
-            .side-card { min-height: 160px; padding: 14px; }
-            .bag-grid-container { grid-template-columns: repeat(4, 1fr) !important; max-height: 140px; }
-        }
+            /* 【核心修正】舞台由左右並排改為上下單列並排 */
+            .main-stage {
+                grid-template-columns: 1fr !important; display: flex; flex-direction: column; gap: 16px;
+            }
+
+            /* 【防跑版優化】鎖定最低防震高度，預留充足空間給長文本打字，防止對話框動態長高 */
+            .dialogue-box { 
+                min-height: 460px !important; 
+                padding: 32px 18px 24px 18px !important; 
+                border-radius: 24px 12px 28px 14px !important;
+                display: flex; flex-direction: column; justify-content: flex-start; gap: 12px;
+                position: relative !important;
+            }
+            
+            /* 【文字排版舒展】拉開行高與字距，取消右側擠壓，預留呼吸保留區 */
+            .dialogue-text { 
+                font-size: 1.05rem !important; line-height: 1.95 !important; 
+                padding-right: 0px !important; margin-top: 14px !important;
+                letter-spacing: 0.6px !important; min-height: 180px; 
+            }
+
+            /* 【行事曆絕對防禦】強行鎖定日曆章在對話框右上角，絕對不參與文字打字時的擠壓變形 */
+            .inline-calendar-card { 
+                position: absolute !important; top: -14px !important; right: 14px !important; 
+                width: 44px !important; height: 48px !important; z-index: 50 !important;
+                transform: rotate(2deg) !important;
+            }
+            .inline-calendar-top { height: 12px !important; }
+            .inline-calendar-prefix { font-size: 0.45rem !important; }
+            .inline-calendar-num { font-size: 0.88rem !important; }
+
+            /* 確保喇叭發言標籤在手機端高度抖動時，依然鋼鐵定格 */
+            .dialogue-speaker {
+                position: absolute !important; top: -16px !important; left: 20px !important;
+                font-size: 0.82rem !important; padding: 5px 16px !important; z-index: 60 !important;
+            }
+            
+            /* 讓手機端的選項按鈕容器與打字區塊保持穩定間距 */
+            .options-container {
+                margin-top: auto !important; width: 100% !important; padding-top: 12px;
+            }
+
+            /* 按鈕精細化縮小，防爆框 */
+            .option-btn {
+                padding: 14px 18px; font-size: 0.92rem; margin-bottom: 8px;
+            }
+            
+            /* 背包與日誌在手機直式下自動單列堆疊 */
+            .sidebar {
+                display: grid; grid-template-columns: 1fr; gap: 16px;
+            }
+            .side-card {
+                min-height: 160px; padding: 14px;
+            }
+            .bag-grid-container {
+                grid-template-columns: repeat(4, 1fr) !important; max-height: 140px;
+            }
+
 
         @media (max-height: 500px) and (orientation: landscape) {
             body { align-items: flex-start; padding: 10px 0; overflow-y: auto; }
